@@ -6,6 +6,12 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    };
     // onCollisionCourse;
 
     applyGravity() {
@@ -46,15 +52,21 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(obj) {
-        return this.x + this.width > obj.x &&
-            this.y + this.height > obj.y &&
-            this.x < obj.x &&
-            this.y < obj.y + obj.height;
+        // return this.x + this.width > obj.x &&
+        //     this.x < obj.x &&
+        //     this.y + this.height > obj.y &&
+        //     this.y < obj.y + obj.height;
         // Bessere Formel zur Kollisionsberechnung (Genauer)
-        // return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
+        // return (this.x + this.width) >= obj.x && 
+        //     this.x <= (obj.x + obj.width) &&
         //     (this.y + this.offsetY + this.height) >= obj.y &&
         //     (this.y + this.offsetY) <= (obj.y + obj.height) &&
         //     obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        // Formel von Mihail:
+        return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
+            this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
+            this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+            this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
     hit() {
