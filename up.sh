@@ -1,10 +1,7 @@
 #!/bin/bash
-git branch
-echo The current branch that you worked on and want to commit ?
-read branch
 echo commit msg ?
 read commitmsg
-read -p "merge main ? [Y/n/M] " prompt
+
 
 
 # ----------------------------------
@@ -27,53 +24,16 @@ LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
 
-if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]; then
-    echo yes
-    echo -e ${BLUE}git switch $branch ${NOCOLOR}
-    git switch $branch
-    echo -e ${BLUE}git pull ${NOCOLOR}
-    git pull 
-    echo -e ${BLUE}git add . ${NOCOLOR}
-    git add .
-    echo -e ${BLUE}git commit -m "$commitmsg" ${NOCOLOR}
-    git commit -m "$commitmsg" 
-    echo -e ${BLUE}git push ${NOCOLOR}
-    git push
-    echo -e ${BLUE}git switch main ${NOCOLOR}
-    git switch main
-    echo -e ${BLUE}git pull ${NOCOLOR}
-    git pull
-    echo -e ${BLUE}git push ${NOCOLOR}
-    git push
-    echo -e ${BLUE}git merge $branch ${NOCOLOR}
-    git merge $branch 
-    echo -e ${BLUE}git push ${NOCOLOR}
-    git push
-    echo -e ${BLUE}git ftp push ${NOCOLOR}
-    git ftp push
-    echo -e ${BLUE}git switch $branch ${NOCOLOR}
-    git switch $branch 
-    echo -e ${BLUE}git merge main ${NOCOLOR}
-    git merge main 
-    echo -e ${BLUE}git push ${NOCOLOR}
-    git push
-    echo fertig
-    sleep 120
-else
-    if [[ $prompt == "M" || $prompt == "m" ]]; then
-        echo merge 
-        git switch $branch
-        git pull 
-        echo the branch you want $branch to merge to
-        read $tobranch
-        git merge $tobranch 
-        git push
-    else
-        echo no
-        git switch $branch
-        git pull
-        git add .
-        git commit -m "$commitmsg" 
-        git push
-    fi
-fi
+
+echo -e ${BLUE}git pull ${NOCOLOR}
+git pull 
+echo -e ${BLUE}git add . ${NOCOLOR}
+git add .
+echo -e ${BLUE}git commit -m "$commitmsg" ${NOCOLOR}
+git commit -m "$commitmsg" 
+echo -e ${BLUE}git push ${NOCOLOR}
+git push
+echo -e ${BLUE}git ftp push ${NOCOLOR}
+git ftp push
+echo fertig
+sleep 120
