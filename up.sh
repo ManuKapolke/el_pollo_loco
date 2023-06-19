@@ -36,4 +36,4 @@ git push
 echo -e ${BLUE}git ftp push ${NOCOLOR}
 git ftp push
 echo fertig
-sleep 120
+# sleep 120

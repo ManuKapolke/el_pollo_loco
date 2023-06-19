@@ -36,9 +36,9 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         setInterval(() => {
             this.x += sgn * 10;
-            if (this.y < 800) {
-                console.log(this.x, otherDirection);
-            }
+            // if (this.y < 800) {
+            //     console.log(this.x, otherDirection);
+            // }
         }, 25);
         this.throw_sound.play();
     }

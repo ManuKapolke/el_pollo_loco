@@ -3,6 +3,7 @@ class Level {
     clouds;
     backgroundObjects;
     throwableObjects;
+    collectableObjects;
     level_start_x = WORLD_START;
     level_end_x = WORLD_END;
 

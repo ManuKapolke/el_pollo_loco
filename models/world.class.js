@@ -29,16 +29,33 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBarHealth.setPercentage(this.character.energy);
             }
         });
+
+        this.level.collectableObjects.forEach(obj => {
+            if (this.character.isColliding(obj)) {
+                this.character.collect(obj);
+            }
+        });
+
+        this.updateStatusBars();
+    }
+
+    updateStatusBars() {
+        this.statusBarHealth.setPercentage(this.character.energy);
     }
 
     checkThrows() {
         if (this.keyboard.D) {
+            if (this.character.bottles === 0) {
+                this.character.nothingToThrow_sound.play();
+                // todo: statusBarBottles blink?
+                return;
+            }
             let bottle = new ThrowableObject(this.character.x + 0.6 * this.character.width, this.character.y + 0.4 * this.character.height);
             this.level.throwableObjects.push(bottle);
             bottle.throw(this.character.otherDirection);
+            this.character.bottles--;
         }
     }
 

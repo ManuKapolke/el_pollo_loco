@@ -18,11 +18,11 @@ function initLevel() {
     level1.throwableObjects = [];
 
     level1.collectableObjects = [
-        new CollectableObject(),
-        new CollectableObject(),
-        new CollectableObject(),
-        new CollectableObject(),
-        new CollectableObject()
+        new CollectableBottle(),
+        new CollectableBottle(),
+        new CollectableBottle(),
+        new CollectableBottle(),
+        new CollectableBottle()
     ];
 
     level1.backgroundObjects = [];

@@ -37,15 +37,20 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-56.png',
         'img/2_character_pepe/5_dead/D-57.png'
     ];
-    world;
-    walking_sound = new Audio('audio/running.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
     offset = {
         top: 0.5 * this.height,
         right: 0.3 * this.width,
         bottom: 0.1 * this.height,
         left: 0.2 * this.width
     };
+    coins = 0;
+    bottles = 5;
+    world;
+    walking_sound = new Audio('audio/running.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
+
+    nothingToThrow_sound = new Audio('audio/jump.mp3');
+
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -62,6 +67,16 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => this.moveCharacter(), 1000 / 60);
         setInterval(() => this.playCharacterAnimations(), 50);
+    }
+
+    collect(obj) {
+        let objIndex = this.world.level.collectableObjects.indexOf(obj);
+        obj.collect_sound.play();
+
+        this.bottles++;
+        // this.coins++;
+
+        this.world.level.collectableObjects.splice(objIndex, 1);
     }
 
     moveCharacter() {
