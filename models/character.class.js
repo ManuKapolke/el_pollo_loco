@@ -43,11 +43,11 @@ class Character extends MovableObject {
         bottom: 0.1 * this.height,
         left: 0.2 * this.width
     };
-    coins = 0;
-    bottles = 5;
+    numberOfCoins = 0;
+    numberOfBottles = 5;
     world;
     walking_sound = new Audio('audio/running.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
+    jump_sound = new Audio('audio/jump_voice.mp3');
 
     nothingToThrow_sound = new Audio('audio/jump.mp3');
 
@@ -70,13 +70,18 @@ class Character extends MovableObject {
     }
 
     collect(obj) {
-        let objIndex = this.world.level.collectableObjects.indexOf(obj);
-        obj.collect_sound.play();
-
-        this.bottles++;
-        // this.coins++;
-
-        this.world.level.collectableObjects.splice(objIndex, 1);
+        if (obj instanceof CollectableBottle) {
+            let objIndex = this.world.level.bottles.indexOf(obj);
+            obj.collect_sound.play();
+            this.numberOfBottles++;
+            this.world.level.bottles.splice(objIndex, 1);
+        }
+        else if (obj instanceof CollectableCoin) {
+            let objIndex = this.world.level.coins.indexOf(obj);
+            obj.collect_sound.play();
+            this.numberOfCoins++;
+            this.world.level.coins.splice(objIndex, 1);
+        }
     }
 
     moveCharacter() {

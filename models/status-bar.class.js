@@ -6,13 +6,6 @@ class StatusBar extends DrawableObject {
     IMAGES = [];
     percentage;
 
-    // constructor() {
-    //     super();
-    //     this.pushImages(this.dirName, this.color);
-    //     this.loadImages(this.IMAGES);
-    //     this.setPercentage(this.percentage);
-    // }
-
     pushImages(dirName, color) {
         [0, 20, 40, 60, 80, 100].forEach(status => {
             let path = `img/7_statusbars/1_statusbar/${dirName}/${color}/${status}.png`;
@@ -27,6 +20,7 @@ class StatusBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        return Math.ceil(this.percentage / 20);
+        let index = Math.ceil(this.percentage / 20);
+        return Math.min(index, 5);
     }
 }

@@ -1,4 +1,4 @@
-class ThrowableObject extends MovableObject {
+class ThrownObject extends MovableObject {
     width = 400 / 5;
     height = 400 / 5;
     speedY = 0;

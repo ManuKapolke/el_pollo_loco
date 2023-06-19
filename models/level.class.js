@@ -2,8 +2,10 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
-    throwableObjects;
-    collectableObjects;
+    thrownObjects;// todo: in world definieren?
+    // collectableObjects;
+    bottles;
+    coins;
     level_start_x = WORLD_START;
     level_end_x = WORLD_END;
 
@@ -12,4 +14,8 @@ class Level {
     //     this.clouds = clouds;
     //     this.backgroundObjects = backgroundObjects;
     // }
+
+    getCollectableObjects() {
+        return this.bottles.concat(this.coins);
+    }
 }

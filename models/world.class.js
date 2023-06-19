@@ -32,9 +32,15 @@ class World {
             }
         });
 
-        this.level.collectableObjects.forEach(obj => {
-            if (this.character.isColliding(obj)) {
-                this.character.collect(obj);
+        this.level.bottles.forEach(bottle => {
+            if (this.character.isColliding(bottle)) {
+                this.character.collect(bottle);
+            }
+        });
+
+        this.level.coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                this.character.collect(coin);
             }
         });
 
@@ -43,19 +49,21 @@ class World {
 
     updateStatusBars() {
         this.statusBarHealth.setPercentage(this.character.energy);
+        this.statusBarBottles.setPercentage(10 * this.character.numberOfBottles);
+        this.statusBarCoins.setPercentage(10 * this.character.numberOfCoins);
     }
 
     checkThrows() {
         if (this.keyboard.D) {
-            if (this.character.bottles === 0) {
+            if (this.character.numberOfBottles === 0) {
                 this.character.nothingToThrow_sound.play();
                 // todo: statusBarBottles blink?
                 return;
             }
-            let bottle = new ThrowableObject(this.character.x + 0.6 * this.character.width, this.character.y + 0.4 * this.character.height);
-            this.level.throwableObjects.push(bottle);
+            let bottle = new ThrownObject(this.character.x + 0.6 * this.character.width, this.character.y + 0.4 * this.character.height);
+            this.level.thrownObjects.push(bottle);
             bottle.throw(this.character.otherDirection);
-            this.character.bottles--;
+            this.character.numberOfBottles--;
         }
     }
 
@@ -70,8 +78,9 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.throwableObjects);
-        this.addObjectsToMap(this.level.collectableObjects);
+        this.addObjectsToMap(this.level.thrownObjects);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
 
         // Add fixed objects:
         this.ctx.translate(-this.camera_x, 0);
@@ -100,14 +109,21 @@ class World {
     }
 
     addToMap(object) {
-        if (object.otherDirection) {
+        if (object instanceof MovableObject && object.otherDirection) {
             this.flipImage(object);
         }
 
-        object.draw(this.ctx);
-        object.drawFrame(this.ctx);
+        try {
+            object.draw(this.ctx);
+            // object.drawFrame(this.ctx);
+        } catch (error) {
+            debugger;
+            console.warn(error);
+            console.log(object);
+        }
 
-        if (object.otherDirection) {
+
+        if (object instanceof MovableObject && object.otherDirection) {
             this.flipImageBack(object);
         }
     }

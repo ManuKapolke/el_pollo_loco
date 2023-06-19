@@ -1,4 +1,6 @@
 let level1;
+let numberOfBottles = 10;
+let numberOfCoins = 10;
 
 
 function initLevel() {
@@ -15,15 +17,11 @@ function initLevel() {
         new Cloud()
     ];
 
-    level1.throwableObjects = [];
+    level1.thrownObjects = [];
 
-    level1.collectableObjects = [
-        new CollectableBottle(),
-        new CollectableBottle(),
-        new CollectableBottle(),
-        new CollectableBottle(),
-        new CollectableBottle()
-    ];
+    level1.bottles = Array(numberOfBottles).fill().map(() => new CollectableBottle());
+
+    level1.coins = Array(numberOfCoins).fill().map(() => new CollectableCoin());
 
     level1.backgroundObjects = [];
 
