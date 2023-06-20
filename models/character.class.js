@@ -4,6 +4,30 @@ class Character extends MovableObject {
     width = 610 / 4;
     height = 1200 / 4;
     speed = 10;
+    IMAGES_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png',
+    ];
+    IMAGES_LONGIDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -34,8 +58,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-53.png',
         'img/2_character_pepe/5_dead/D-54.png',
         'img/2_character_pepe/5_dead/D-55.png',
-        'img/2_character_pepe/5_dead/D-56.png',
-        'img/2_character_pepe/5_dead/D-57.png'
+        'img/2_character_pepe/5_dead/D-56.png'//, 'img/2_character_pepe/5_dead/D-57.png'
     ];
     offset = {
         top: 0.5 * this.height,
@@ -51,13 +74,14 @@ class Character extends MovableObject {
     nothingToThrow_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     death_sound = new Audio('audio/dead.mp3');
-    gameOver_sound = new Audio('audio/game-over.mp3');
     deathSoundHasBeenPlayed = false;
     hurtSoundHasBeenPlayed = false;
 
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super().loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONGIDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -70,7 +94,7 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => this.moveCharacter(), 1000 / 60);
-        setInterval(() => this.playCharacterAnimations(), 50);
+        setInterval(() => this.playCharacterAnimations(), 100);
     }
 
     collect(obj) {
@@ -130,7 +154,12 @@ class Character extends MovableObject {
 
     playCharacterAnimations() {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
+            if (!this.lastImageIsShown(this.IMAGES_DEAD)) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
+            this.y += 30;
+            // this.deathAnimationHasBeenPlayed = true;
+            console.log(this.img.src);
         }
         else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -138,19 +167,27 @@ class Character extends MovableObject {
         else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMPING);
         }
+        else if (this.isWalking()) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
         else {
-            if (this.isWalking()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
+            this.playAnimation(this.IMAGES_IDLE);
+            // setTimeout(() => {
+            //     this.playAnimation(this.IMAGES_LONGIDLE);
+            // }, 5000);
         }
     }
 
     playSoundEffects() {
         setInterval(() => {
+            if (this.isDead()) {
+                this.playSoundIfCharacterIsDead();
+                return;
+            }
             this.playSoundIfCharacterIsWalking();
             this.playSoundIfCharacterIsJumping();
             this.playSoundIfCharacterIsHurt();
-            this.playSoundIfCharacterIsDead();
+
         }, 1000 / 60);
     }
 

@@ -69,4 +69,8 @@ class MovableObject extends DrawableObject {
     timePassedSinceLastHit() {
         return new Date().getTime() - this.lastHit; // Difference in milliseconds
     }
+
+    lastImageIsShown(images) {
+        return this.img.src.endsWith(images.at(-1));
+    }
 }

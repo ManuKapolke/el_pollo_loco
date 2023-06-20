@@ -8,6 +8,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    gameOver_sound = new Audio('audio/game-over.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
@@ -22,7 +23,21 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrows();
+            this.checkGameOver();
         }, 200);
+    }
+
+    checkGameOver() {
+        if (this.character.isDead()) {
+            setTimeout(() => {
+                this.gameOver();
+            }, 1000);
+        }
+    }
+
+    gameOver() {
+        this.gameOver_sound.play();
+        clearAllIntervals();
     }
 
     checkCollisions() {
