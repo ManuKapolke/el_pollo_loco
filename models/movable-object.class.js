@@ -6,15 +6,30 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    world;
+    gravityInterval;
+    deathSoundHasBeenPlayed = false;
+    hurtSoundHasBeenPlayed = false;
     // onCollisionCourse;
 
     applyGravity() {
-        setInterval(() => {
+        this.gravityInterval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+    }
+
+    stopGravity() {
+        clearInterval(this.gravityInterval);
+    }
+
+    isColliding(obj) {
+        return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
+            this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
+            this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+            this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
     isAboveGround() {
@@ -43,13 +58,6 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-    }
-
-    isColliding(obj) {
-        return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
-            this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
-            this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
-            this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
     hit() {

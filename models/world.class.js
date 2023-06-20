@@ -3,6 +3,7 @@ class World {
     statusBarHealth = new StatusBarHealth();
     statusBarCoins = new StatusBarCoins();
     statusBarBottles = new StatusBarBottles();
+    thrownObjects = [];
     level = level1;
     canvas;
     ctx;
@@ -23,8 +24,23 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrows();
+            this.checkChickenKills();
             this.checkGameOver();
         }, 200);
+    }
+
+    checkChickenKills() {
+        this.level.enemies.forEach(chicken => {
+            if (chicken instanceof Endboss) return;
+            if (this.character.isJumpingOn(chicken)) {
+                this.character.killByJump(chicken);
+            }
+            this.thrownObjects.forEach(bottle => {
+                if (bottle.isColliding(chicken)) {
+                    this.character.killByThrow(bottle, chicken);
+                }
+            });
+        });
     }
 
     checkGameOver() {
@@ -75,8 +91,10 @@ class World {
                 // todo: statusBarBottles blink?
                 return;
             }
-            let bottle = new ThrownObject(this.character.x + 0.6 * this.character.width, this.character.y + 0.4 * this.character.height);
-            this.level.thrownObjects.push(bottle);
+            let bottle_x = this.character.x + 0.6 * this.character.width;
+            let bottle_y = this.character.y + 0.4 * this.character.height;
+            let bottle = new ThrownObject(bottle_x, bottle_y, this);
+            this.thrownObjects.push(bottle);
             bottle.throw(this.character.otherDirection);
             this.character.numberOfBottles--;
         }
@@ -84,6 +102,9 @@ class World {
 
     setWorld() {
         this.character.world = this; // damit im character auf keyboard zugegeriffen werden kann
+        this.level.enemies.forEach((enemy) => {
+            enemy.world = this;
+        });
     }
 
     draw() {
@@ -93,9 +114,9 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.thrownObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.thrownObjects);
 
         // Add fixed objects:
         this.ctx.translate(-this.camera_x, 0);
@@ -130,7 +151,7 @@ class World {
 
         try {
             object.draw(this.ctx);
-            // object.drawFrame(this.ctx);
+            object.drawFrame(this.ctx);
         } catch (error) {
             debugger;
             console.warn(error);

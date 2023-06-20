@@ -63,19 +63,17 @@ class Character extends MovableObject {
     offset = {
         top: 0.5 * this.height,
         right: 0.3 * this.width,
-        bottom: 0.1 * this.height,
+        bottom: 0.05 * this.height,
         left: 0.2 * this.width
     };
     numberOfCoins = 0;
     numberOfBottles = 5;
-    world;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_voice.mp3');
     nothingToThrow_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     death_sound = new Audio('audio/dead.mp3');
-    deathSoundHasBeenPlayed = false;
-    hurtSoundHasBeenPlayed = false;
+
 
 
     constructor() {
@@ -110,6 +108,36 @@ class Character extends MovableObject {
             this.numberOfCoins++;
             this.world.level.coins.splice(objIndex, 1);
         }
+    }
+
+    isJumpingOn(obj) {
+        // return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
+        //     this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
+        //     this.y + this.height - this.offset.bottom <= obj.y + obj.offset.top && this.y + this.height > obj.y - 20 &&
+        //     this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
+        return this.isColliding(obj) && this.isAboveGround();
+    }
+
+    killByJump(enemy) {
+        let enemyIndex = this.world.level.enemies.indexOf(enemy);
+        enemy.die();
+        setTimeout(() => {
+            this.world.level.enemies.splice(enemyIndex, 1);
+        }, 1000);
+
+        this.jump();
+    }
+
+    killByThrow(bottle, enemy) {
+        let bottleIndex = this.world.thrownObjects.indexOf(bottle);
+        let enemyIndex = this.world.level.enemies.indexOf(enemy);
+        enemy.die();
+        setTimeout(() => {
+            this.world.thrownObjects.splice(bottleIndex, 1);
+        }, 300);
+        setTimeout(() => {
+            this.world.level.enemies.splice(enemyIndex, 1);
+        }, 1000);
     }
 
     moveCharacter() {
@@ -170,16 +198,11 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }
         else {
-            if (this.world.timePassedSinceLastKeyPress() < 3000) {
+            if (this.world.timePassedSinceLastKeyPress() < 5000) {
                 this.playAnimation(this.IMAGES_IDLE);
             } else {
                 this.playAnimation(this.IMAGES_LONGIDLE);
             }
-
-            console.log(this.img.src);
-            // setTimeout(() => {
-            //     this.playAnimation(this.IMAGES_LONGIDLE);
-            // }, 5000);
         }
     }
 

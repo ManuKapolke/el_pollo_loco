@@ -2,7 +2,6 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
-    thrownObjects;// todo: in world definieren?
     // collectableObjects;
     bottles;
     coins;

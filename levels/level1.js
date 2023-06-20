@@ -17,8 +17,6 @@ function initLevel() {
         new Cloud()
     ];
 
-    level1.thrownObjects = [];
-
     level1.bottles = Array(numberOfBottles).fill().map(() => new CollectableBottle());
 
     level1.coins = Array(numberOfCoins).fill().map(() => new CollectableCoin());
