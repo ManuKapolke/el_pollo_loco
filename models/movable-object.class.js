@@ -46,17 +46,6 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(obj) {
-        // return this.x + this.width > obj.x &&
-        //     this.x < obj.x &&
-        //     this.y + this.height > obj.y &&
-        //     this.y < obj.y + obj.height;
-        // Bessere Formel zur Kollisionsberechnung (Genauer)
-        // return (this.x + this.width) >= obj.x && 
-        //     this.x <= (obj.x + obj.width) &&
-        //     (this.y + this.offsetY + this.height) >= obj.y &&
-        //     (this.y + this.offsetY) <= (obj.y + obj.height) &&
-        //     obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-        // Formel von Mihail:
         return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
             this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
             this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
@@ -64,17 +53,20 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
+        if (this.isHurt()) return;
         this.energy = Math.max(this.energy - 5, 0);
         this.lastHit = new Date().getTime();
     }
 
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // Difference in milliseconds
-        timePassed /= 1000; // Difference in seconds
-        return timePassed <= 1;
+        return this.timePassedSinceLastHit() <= 500;
     }
 
     isDead() {
         return this.energy === 0;
+    }
+
+    timePassedSinceLastHit() {
+        return new Date().getTime() - this.lastHit; // Difference in milliseconds
     }
 }

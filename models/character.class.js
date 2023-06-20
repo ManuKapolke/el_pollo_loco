@@ -48,8 +48,12 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_voice.mp3');
-
     nothingToThrow_sound = new Audio('audio/jump.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
+    death_sound = new Audio('audio/dead.mp3');
+    gameOver_sound = new Audio('audio/game-over.mp3');
+    deathSoundHasBeenPlayed = false;
+    hurtSoundHasBeenPlayed = false;
 
 
     constructor() {
@@ -145,6 +149,8 @@ class Character extends MovableObject {
         setInterval(() => {
             this.playSoundIfCharacterIsWalking();
             this.playSoundIfCharacterIsJumping();
+            this.playSoundIfCharacterIsHurt();
+            this.playSoundIfCharacterIsDead();
         }, 1000 / 60);
     }
 
@@ -160,6 +166,31 @@ class Character extends MovableObject {
     playSoundIfCharacterIsJumping() {
         if (this.shallJump()) {
             this.jump_sound.play();
+        }
+    }
+
+    playSoundIfCharacterIsHurt() {
+        if (this.isHurt()) {
+            if (this.hurtSoundHasBeenPlayed) return;
+            this.hurt_sound.play();
+            // this.hurt_sound.addEventListener('ended', () => {
+            //     this.hurt_sound.pause();
+            // }, false);
+            this.hurtSoundHasBeenPlayed = true;
+        }
+        else {
+            this.hurtSoundHasBeenPlayed = false;
+        }
+    }
+
+    playSoundIfCharacterIsDead() {
+        if (this.isDead()) {
+            if (this.deathSoundHasBeenPlayed) return;
+            this.death_sound.play();
+            // this.death_sound.addEventListener('ended', () => {
+            //     this.death_sound.pause();
+            // }, false);
+            this.deathSoundHasBeenPlayed = true;
         }
     }
 }
