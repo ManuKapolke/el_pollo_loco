@@ -159,7 +159,6 @@ class Character extends MovableObject {
             }
             this.y += 30;
             // this.deathAnimationHasBeenPlayed = true;
-            console.log(this.img.src);
         }
         else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -171,7 +170,13 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }
         else {
-            this.playAnimation(this.IMAGES_IDLE);
+            if (this.world.timePassedSinceLastKeyPress() < 3000) {
+                this.playAnimation(this.IMAGES_IDLE);
+            } else {
+                this.playAnimation(this.IMAGES_LONGIDLE);
+            }
+
+            console.log(this.img.src);
             // setTimeout(() => {
             //     this.playAnimation(this.IMAGES_LONGIDLE);
             // }, 5000);

@@ -154,4 +154,8 @@ class World {
         object.x *= -1;
         this.ctx.restore(); // stellt gespeicherte ctx-Einstellungen wieder her
     }
+
+    timePassedSinceLastKeyPress() {
+        return new Date().getTime() - this.keyboard.lastKeyPress; // Difference in milliseconds
+    }
 }

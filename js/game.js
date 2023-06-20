@@ -52,6 +52,8 @@ window.addEventListener('keyup', (e) => {
             keyboard.D = false;
             break;
     }
+
+    keyboard.lastKeyPress = new Date().getTime();
 });
 
 
