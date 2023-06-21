@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     x = 100;
-    y = 140;
+    y = 135;
     width = 610 / 4;
     height = 1200 / 4;
     speed = 10;
@@ -68,6 +68,7 @@ class Character extends MovableObject {
     };
     numberOfCoins = 0;
     numberOfBottles = 5;
+    lastThrow = 0;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_voice.mp3');
     nothingToThrow_sound = new Audio('audio/jump.mp3');
@@ -110,6 +111,12 @@ class Character extends MovableObject {
         }
     }
 
+    throwBottle(bottle) {
+        bottle.throw(this.otherDirection);
+        this.numberOfBottles--;
+        this.lastThrow = new Date().getTime();
+    }
+
     isJumpingOn(obj) {
         // return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
         //     this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
@@ -123,7 +130,7 @@ class Character extends MovableObject {
         enemy.die();
         setTimeout(() => {
             this.world.level.enemies.splice(enemyIndex, 1);
-        }, 1000);
+        }, 500);
 
         this.jump();
     }
@@ -137,7 +144,7 @@ class Character extends MovableObject {
         }, 300);
         setTimeout(() => {
             this.world.level.enemies.splice(enemyIndex, 1);
-        }, 1000);
+        }, 500);
     }
 
     moveCharacter() {
@@ -257,5 +264,9 @@ class Character extends MovableObject {
             // }, false);
             this.deathSoundHasBeenPlayed = true;
         }
+    }
+
+    timePassedSinceLastThrow() {
+        return new Date().getTime() - this.lastThrow; // Difference in milliseconds
     }
 }

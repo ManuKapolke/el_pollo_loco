@@ -26,7 +26,47 @@ class World {
             this.checkThrows();
             this.checkChickenKills();
             this.checkGameOver();
-        }, 200);
+        }, 50);
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
+                this.character.hit();
+            }
+        });
+
+        this.level.bottles.forEach(bottle => {
+            if (this.character.isColliding(bottle)) {
+                this.character.collect(bottle);
+            }
+        });
+
+        this.level.coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                this.character.collect(coin);
+            }
+        });
+
+        this.updateStatusBars();
+    }
+
+    checkThrows() {
+        if (this.keyboard.D) {
+            if (this.character.numberOfBottles === 0) {
+                this.character.nothingToThrow_sound.play();
+                // todo: statusBarBottles blink?
+                return;
+            }
+            if (this.character.timePassedSinceLastThrow() < 1000) return;
+
+            let bottle_x = this.character.x + 0.6 * this.character.width;
+            let bottle_y = this.character.y + 0.4 * this.character.height;
+            let bottle = new ThrownObject(bottle_x, bottle_y, this);
+
+            this.thrownObjects.push(bottle);
+            this.character.throwBottle(bottle);
+        }
     }
 
     checkChickenKills() {
@@ -56,48 +96,10 @@ class World {
         clearAllIntervals();
     }
 
-    checkCollisions() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-            }
-        });
-
-        this.level.bottles.forEach(bottle => {
-            if (this.character.isColliding(bottle)) {
-                this.character.collect(bottle);
-            }
-        });
-
-        this.level.coins.forEach(coin => {
-            if (this.character.isColliding(coin)) {
-                this.character.collect(coin);
-            }
-        });
-
-        this.updateStatusBars();
-    }
-
     updateStatusBars() {
         this.statusBarHealth.setPercentage(this.character.energy);
         this.statusBarBottles.setPercentage(10 * this.character.numberOfBottles);
         this.statusBarCoins.setPercentage(10 * this.character.numberOfCoins);
-    }
-
-    checkThrows() {
-        if (this.keyboard.D) {
-            if (this.character.numberOfBottles === 0) {
-                this.character.nothingToThrow_sound.play();
-                // todo: statusBarBottles blink?
-                return;
-            }
-            let bottle_x = this.character.x + 0.6 * this.character.width;
-            let bottle_y = this.character.y + 0.4 * this.character.height;
-            let bottle = new ThrownObject(bottle_x, bottle_y, this);
-            this.thrownObjects.push(bottle);
-            bottle.throw(this.character.otherDirection);
-            this.character.numberOfBottles--;
-        }
     }
 
     setWorld() {
@@ -151,7 +153,7 @@ class World {
 
         try {
             object.draw(this.ctx);
-            object.drawFrame(this.ctx);
+            // object.drawFrame(this.ctx);
         } catch (error) {
             debugger;
             console.warn(error);

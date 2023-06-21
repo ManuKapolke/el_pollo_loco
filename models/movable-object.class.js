@@ -18,6 +18,9 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+            else {
+                this.y = 135;
+            }
         }, 1000 / 25);
     }
 
@@ -37,7 +40,7 @@ class MovableObject extends DrawableObject {
             return true;
         }
         else {
-            return this.y < 120;
+            return this.y < 135;
         }
     }
 
