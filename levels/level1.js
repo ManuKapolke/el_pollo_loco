@@ -25,6 +25,8 @@ function initLevel() {
         new Endboss()
     ];
 
+    level1.endboss = level1.enemies.at(-1);
+
     level1.clouds = [
         new Cloud()
     ];

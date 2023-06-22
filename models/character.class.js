@@ -28,7 +28,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
-    IMAGES_WALKING = [
+    IMAGES_WALK = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
         'img/2_character_pepe/2_walk/W-23.png',
@@ -36,7 +36,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-25.png',
         'img/2_character_pepe/2_walk/W-26.png'
     ];
-    IMAGES_JUMPING = [
+    IMAGES_JUMP = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
         'img/2_character_pepe/3_jump/J-33.png',
@@ -52,7 +52,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
-    IMAGES_DEAD = [
+    IMAGES_DEATH = [
         'img/2_character_pepe/5_dead/D-51.png',
         'img/2_character_pepe/5_dead/D-52.png',
         'img/2_character_pepe/5_dead/D-53.png',
@@ -76,15 +76,14 @@ class Character extends MovableObject {
     death_sound = new Audio('audio/dead.mp3');
 
 
-
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONGIDLE);
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_DEATH);
         this.applyGravity();
 
         this.animate();
@@ -126,24 +125,23 @@ class Character extends MovableObject {
     }
 
     killByJump(enemy) {
-        let enemyIndex = this.world.level.enemies.indexOf(enemy);
+        if (enemy.isDead()) return;
         enemy.die();
         setTimeout(() => {
-            this.world.level.enemies.splice(enemyIndex, 1);
+            this.world.deleteDeadEnemy(enemy);
         }, 500);
 
         this.jump();
     }
 
     killByThrow(bottle, enemy) {
-        let bottleIndex = this.world.thrownObjects.indexOf(bottle);
-        let enemyIndex = this.world.level.enemies.indexOf(enemy);
+        if (enemy.isDead()) return;
         enemy.die();
         setTimeout(() => {
-            this.world.thrownObjects.splice(bottleIndex, 1);
+            this.world.deleteThrownBottle(bottle);
         }, 300);
         setTimeout(() => {
-            this.world.level.enemies.splice(enemyIndex, 1);
+            this.world.deleteDeadEnemy(enemy);
         }, 500);
     }
 
@@ -189,8 +187,8 @@ class Character extends MovableObject {
 
     playCharacterAnimations() {
         if (this.isDead()) {
-            if (!this.lastImageIsShown(this.IMAGES_DEAD)) {
-                this.playAnimation(this.IMAGES_DEAD);
+            if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
+                this.playAnimation(this.IMAGES_DEATH);
             }
             this.y += 30;
             // this.deathAnimationHasBeenPlayed = true;
@@ -199,10 +197,10 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT);
         }
         else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
+            this.playAnimation(this.IMAGES_JUMP);
         }
         else if (this.isWalking()) {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_WALK);
         }
         else {
             if (this.world.timePassedSinceLastKeyPress() < 5000) {

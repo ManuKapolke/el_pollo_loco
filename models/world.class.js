@@ -3,6 +3,7 @@ class World {
     statusBarHealth = new StatusBarHealth();
     statusBarCoins = new StatusBarCoins();
     statusBarBottles = new StatusBarBottles();
+    statusBarEndboss = new StatusBarEndboss();
     thrownObjects = [];
     level = level1;
     canvas;
@@ -17,14 +18,15 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.run();
+        this.runGame();
     }
 
-    run() {
+    runGame() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrows();
             this.checkChickenKills();
+            this.checkEndbossHits();
             this.checkGameOver();
         }, 50);
     }
@@ -55,7 +57,6 @@ class World {
         if (this.keyboard.D) {
             if (this.character.numberOfBottles === 0) {
                 this.character.nothingToThrow_sound.play();
-                // todo: statusBarBottles blink?
                 return;
             }
             if (this.character.timePassedSinceLastThrow() < 1000) return;
@@ -83,6 +84,39 @@ class World {
         });
     }
 
+    checkEndbossHits() {
+        // let endboss = this.level.enemies.at(-1);
+        this.thrownObjects.forEach(bottle => {
+            if (bottle.isColliding(this.level.endboss)) {
+                this.level.endboss.hit();
+            }
+        });
+
+        this.updateStatusBars();
+    }
+
+    deleteDeadEnemies() {
+        this.level.enemies.forEach(enemy => {
+            if (enemy.isDead()) {
+                deleteDeadEnemy(enemy);
+            }
+        });
+    }
+
+    deleteDeadEnemy(enemy) {
+        let enemyIndex = this.level.enemies.indexOf(enemy);
+        // if (enemyIndex == -1) {
+        //     debugger;
+        // }
+        console.log("enemy killed: " + enemyIndex);
+        this.level.enemies.splice(enemyIndex, 1);
+    }
+
+    deleteThrownBottle(bottle) {
+        let bottleIndex = this.world.thrownObjects.indexOf(bottle);
+        this.world.thrownObjects.splice(bottleIndex, 1);
+    }
+
     checkGameOver() {
         if (this.character.isDead()) {
             setTimeout(() => {
@@ -100,6 +134,7 @@ class World {
         this.statusBarHealth.setPercentage(this.character.energy);
         this.statusBarBottles.setPercentage(10 * this.character.numberOfBottles);
         this.statusBarCoins.setPercentage(10 * this.character.numberOfCoins);
+        this.statusBarEndboss.setPercentage(this.level.endboss.energy);
     }
 
     setWorld() {
@@ -125,6 +160,7 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarEndboss);
 
         // Add non-fixed objects:
         this.ctx.translate(this.camera_x, 0);

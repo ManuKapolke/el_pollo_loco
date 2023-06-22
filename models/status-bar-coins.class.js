@@ -1,7 +1,7 @@
 class StatusBarCoins extends StatusBar {
-    x = 250;
-    y = 10;
-    dirName = '1_statusbar_coin';
+    x = 20;
+    y = 45;
+    dirName = '1_statusbar/1_statusbar_coin';
     color = 'blue';
     percentage = 0;
 

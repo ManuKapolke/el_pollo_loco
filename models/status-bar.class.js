@@ -1,6 +1,6 @@
 class StatusBar extends DrawableObject {
-    width = 595 / 3;
-    height = 158 / 3;
+    width = 595 / 4;
+    height = 158 / 4;
     dirName;
     color = 'green';
     IMAGES = [];
@@ -8,7 +8,7 @@ class StatusBar extends DrawableObject {
 
     pushImages(dirName, color) {
         [0, 20, 40, 60, 80, 100].forEach(status => {
-            let path = `img/7_statusbars/1_statusbar/${dirName}/${color}/${status}.png`;
+            let path = `img/7_statusbars/${dirName}/${color}/${status}.png`;
             this.IMAGES.push(path);
         });
     }

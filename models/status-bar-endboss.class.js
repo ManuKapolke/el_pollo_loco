@@ -1,8 +1,10 @@
-class StatusBarBottles extends StatusBar {
-    x = 20;
-    y = 80;
-    dirName = '1_statusbar/3_statusbar_bottle';
-    color = 'orange';
+class StatusBarEndboss extends StatusBar {
+    x = 500;
+    y = 20;
+    width = 674 / 3.5;
+    height = 165 / 3.5;
+    dirName = '2_statusbar_endboss';
+    color = 'green';
     percentage = 100;
 
     constructor() {
