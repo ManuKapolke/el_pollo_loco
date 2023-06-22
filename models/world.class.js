@@ -88,7 +88,8 @@ class World {
         // let endboss = this.level.enemies.at(-1);
         this.thrownObjects.forEach(bottle => {
             if (bottle.isColliding(this.level.endboss)) {
-                this.level.endboss.hit();
+                this.level.endboss.hit(4);
+                this.deleteThrownBottle(bottle);
             }
         });
 
@@ -104,17 +105,18 @@ class World {
     }
 
     deleteDeadEnemy(enemy) {
-        let enemyIndex = this.level.enemies.indexOf(enemy);
-        // if (enemyIndex == -1) {
-        //     debugger;
-        // }
-        console.log("enemy killed: " + enemyIndex);
-        this.level.enemies.splice(enemyIndex, 1);
+        setTimeout(() => {
+            let enemyIndex = this.level.enemies.indexOf(enemy);
+            // console.log("enemy killed: " + enemyIndex);
+            this.level.enemies.splice(enemyIndex, 1);
+        }, 500);
     }
 
     deleteThrownBottle(bottle) {
-        let bottleIndex = this.world.thrownObjects.indexOf(bottle);
-        this.world.thrownObjects.splice(bottleIndex, 1);
+        setTimeout(() => {
+            let bottleIndex = this.thrownObjects.indexOf(bottle);
+            this.thrownObjects.splice(bottleIndex, 1);
+        }, 300);
     }
 
     checkGameOver() {

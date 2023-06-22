@@ -63,9 +63,9 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    hit() {
+    hit(energyLossFactor = 1) {
         if (this.isHurt()) return;
-        this.energy = Math.max(this.energy - 5, 0);
+        this.energy = Math.max(this.energy - energyLossFactor * 5, 0);
         this.lastHit = new Date().getTime();
     }
 

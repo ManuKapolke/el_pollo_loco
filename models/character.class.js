@@ -137,12 +137,8 @@ class Character extends MovableObject {
     killByThrow(bottle, enemy) {
         if (enemy.isDead()) return;
         enemy.die();
-        setTimeout(() => {
-            this.world.deleteThrownBottle(bottle);
-        }, 300);
-        setTimeout(() => {
-            this.world.deleteDeadEnemy(enemy);
-        }, 500);
+        this.world.deleteThrownBottle(bottle);
+        this.world.deleteDeadEnemy(enemy);
     }
 
     moveCharacter() {
