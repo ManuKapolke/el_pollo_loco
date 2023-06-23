@@ -11,6 +11,7 @@ class World {
     keyboard;
     camera_x = 0;
     gameOver_sound = new Audio('audio/game-over.mp3');
+    gameWon_sound = new Audio('audio/win.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
@@ -59,7 +60,7 @@ class World {
                 this.character.nothingToThrow_sound.play();
                 return;
             }
-            if (this.character.timePassedSinceLastThrow() < 1000) return;
+            if (this.character.timePassedSinceLastThrow() < 500) return;
 
             let bottle_x = this.character.x + 0.6 * this.character.width;
             let bottle_y = this.character.y + 0.4 * this.character.height;
@@ -125,10 +126,20 @@ class World {
                 this.gameOver();
             }, 1000);
         }
+        else if (this.level.endboss.isDead()) {
+            setTimeout(() => {
+                this.gameWon();
+            }, 1000);
+        }
     }
 
     gameOver() {
         this.gameOver_sound.play();
+        clearAllIntervals();
+    }
+
+    gameWon() {
+        this.gameWon_sound.play();
         clearAllIntervals();
     }
 
@@ -191,9 +202,8 @@ class World {
 
         try {
             object.draw(this.ctx);
-            // object.drawFrame(this.ctx);
+            object.drawFrame(this.ctx);
         } catch (error) {
-            debugger;
             console.warn(error);
             console.log(object);
         }

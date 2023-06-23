@@ -67,7 +67,7 @@ class Character extends MovableObject {
         left: 0.2 * this.width
     };
     numberOfCoins = 0;
-    numberOfBottles = 5;
+    numberOfBottles = 25;
     lastThrow = 0;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_voice.mp3');
@@ -106,6 +106,7 @@ class Character extends MovableObject {
             let objIndex = this.world.level.coins.indexOf(obj);
             obj.collect_sound.play();
             this.numberOfCoins++;
+            this.energy = Math.min(this.energy + 5, 100);
             this.world.level.coins.splice(objIndex, 1);
         }
     }
@@ -127,6 +128,7 @@ class Character extends MovableObject {
     killByJump(enemy) {
         if (enemy.isDead()) return;
         enemy.die();
+        enemy.smash_sound.play();
         setTimeout(() => {
             this.world.deleteDeadEnemy(enemy);
         }, 500);

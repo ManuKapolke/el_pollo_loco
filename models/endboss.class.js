@@ -72,10 +72,20 @@ class Endboss extends MovableObject {
 
     moveEndboss() {
         if (this.characterIsRight()) {
-            this.moveRight();
+            console.log('right');
+            setTimeout(() => {
+                if (this.characterIsRight()) {
+                    this.moveRight();
+                }
+            }, 1000);
         }
         if (this.characterIsLeft()) {
-            this.moveLeft();
+            console.log('left');
+            setTimeout(() => {
+                if (this.characterIsLeft()) {
+                    this.moveLeft();
+                }
+            }, 1000);
         }
 
         // if (false) {
@@ -84,7 +94,7 @@ class Endboss extends MovableObject {
     }
 
     characterIsRight() {
-        return this.x + this.width < this.world.character.x;
+        return this.x + 0.5 * this.width < this.world.character.x + 0.5 * this.world.character.width;
     }
 
     characterIsLeft() {

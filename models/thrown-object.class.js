@@ -17,6 +17,7 @@ class ThrownObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
+    hasBeenThrown = false;
     throw_sound = new Audio('audio/throw.mp3');
     break_sound = new Audio('audio/bottle_break.mp3');
 
@@ -41,17 +42,26 @@ class ThrownObject extends MovableObject {
             this.x += sgn * 10;
         }, 25);
         this.throw_sound.play();
-        setInterval(() => {
+        let checkHitInterval = setInterval(() => {
+
             this.world.level.enemies.forEach(enemy => {
                 if (this.isColliding(enemy)) {
+                    this.playAnimation(this.IMAGES_SPLASH);
+
+                    if (this.hasBeenThrown) return;
+
                     this.throw_sound.pause();
                     this.break_sound.play();
                     this.stopGravity();
                     clearInterval(fly);
-                    this.playAnimation(this.IMAGES_SPLASH);
+                    this.hasBeenThrown = true;
                 }
             });
         }, 50);
+        setTimeout(() => {
+            this.hasBeenThrown = true;
+            clearInterval(checkHitInterval);
+        }, 3000);
     }
 
     // animate() {
