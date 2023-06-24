@@ -50,29 +50,32 @@ class Endboss extends MovableObject {
     attack_sound = new Audio('audio/endboss_alert.mp3');
     hurt_sound = new Audio('audio/endboss_hurt.mp3');
     death_sound = new Audio('audio/endboss_dead.mp3');
+    alertSoundHasBeenPlayed = false;
+    attackSoundHasBeenPlayed = false;
 
 
     constructor() {
-        super().loadImage(this.IMAGES_WALK[0]);
+        super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEATH);
 
-        this.x = (MOST_RIGHT_BG - 1) * (CANVAS_WIDTH - 1);
+        this.x = WORLD_END - this.width;
+        this.applyGravity();
         this.animate();
         this.playSoundEffects();
     }
 
     animate() {
-        setInterval(() => this.moveEndboss(), 1000 / 60);
+        // setInterval(() => this.moveEndboss(), 1000 / 60);
         setInterval(() => this.playEndbossAnimations(), 100);
     }
 
     moveEndboss() {
+        // if(this.world.character.isInFinalZone() && !this.world.character.hadEnteredFinalZone()) return;
         if (this.characterIsRight()) {
-            console.log('right');
             setTimeout(() => {
                 if (this.characterIsRight()) {
                     this.moveRight();
@@ -80,7 +83,6 @@ class Endboss extends MovableObject {
             }, 1000);
         }
         if (this.characterIsLeft()) {
-            console.log('left');
             setTimeout(() => {
                 if (this.characterIsLeft()) {
                     this.moveLeft();
@@ -116,7 +118,6 @@ class Endboss extends MovableObject {
             if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
                 this.playAnimation(this.IMAGES_DEATH);
             }
-            this.y += 30;
         }
         else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -133,11 +134,13 @@ class Endboss extends MovableObject {
     }
 
     isAlert() {
-        return false;
+        return this.timePassedSinceLastHit() > 500 &&
+            this.timePassedSinceLastHit() <= 3000;
     }
 
     isAttacking() {
-        return false;
+        return this.timePassedSinceLastHit() > 3000 &&
+            this.timePassedSinceLastHit() <= 6000;;
     }
 
     isWalking() {
@@ -169,13 +172,23 @@ class Endboss extends MovableObject {
 
     playSoundIfEndbossIsAlert() {
         if (this.isAlert()) {
+            if (this.alertSoundHasBeenPlayed) return;
             this.alert_sound.play();
+            this.alertSoundHasBeenPlayed = true;
+        }
+        else {
+            this.alertSoundHasBeenPlayed = false;
         }
     }
 
     playSoundIfEndbossIsAttacking() {
         if (this.isAttacking()) {
+            if (this.attackSoundHasBeenPlayed) return;
             this.attack_sound.play();
+            this.attackSoundHasBeenPlayed = true;
+        }
+        else {
+            this.attackSoundHasBeenPlayed = false;
         }
     }
 

@@ -35,7 +35,8 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
-                this.character.hit();
+                const energyLossFactor = enemy instanceof Endboss ? 2 : 1;
+                this.character.hit(energyLossFactor);
             }
         });
 
@@ -202,7 +203,7 @@ class World {
 
         try {
             object.draw(this.ctx);
-            object.drawFrame(this.ctx);
+            // object.drawFrame(this.ctx);
         } catch (error) {
             console.warn(error);
             console.log(object);
@@ -228,5 +229,16 @@ class World {
 
     timePassedSinceLastKeyPress() {
         return new Date().getTime() - this.keyboard.lastKeyPress; // Difference in milliseconds
+    }
+
+    getCurrentBackground() {
+        let currentBackground;
+        this.level.backgroundObjects.forEach((bg) => {
+            if (bg.x <= this.character.x && this.character.x < bg.x + CANVAS_WIDTH) {
+                currentBackground = Math.floor(this.level.backgroundObjects.indexOf(bg) / 4) + MOST_LEFT_BG;
+                return;
+            }
+        });
+        return currentBackground;
     }
 }

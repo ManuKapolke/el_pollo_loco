@@ -18,6 +18,6 @@ class CollectableBottle extends CollectableObject {
         let randomIndex = Math.round(Math.random());
         super().loadImage(this.IMAGES[randomIndex]);
 
-        this.x = WORLD_START + Math.random() * WORLD_WIDTH - CANVAS_WIDTH;
+        this.x = (WORLD_START + 200) + Math.random() * WORLD_WIDTH - CANVAS_WIDTH;
     }
 }

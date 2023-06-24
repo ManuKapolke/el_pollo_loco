@@ -67,7 +67,7 @@ class Character extends MovableObject {
         left: 0.2 * this.width
     };
     numberOfCoins = 0;
-    numberOfBottles = 25;
+    numberOfBottles = 20;
     lastThrow = 0;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_voice.mp3');
@@ -150,7 +150,10 @@ class Character extends MovableObject {
         if (this.shallMoveLeft()) {
             this.moveLeft();
         }
-        this.world.camera_x = -this.x + 100;
+        if (this.x - 100 < MOST_RIGHT_BG * CANVAS_WIDTH) {
+            this.world.camera_x = -this.x + 100;
+        }
+
 
         if (this.shallJump()) {
             this.jump();
@@ -158,7 +161,7 @@ class Character extends MovableObject {
     }
 
     shallMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x;
     }
 
     shallMoveLeft() {
@@ -188,8 +191,6 @@ class Character extends MovableObject {
             if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
                 this.playAnimation(this.IMAGES_DEATH);
             }
-            this.y += 30;
-            // this.deathAnimationHasBeenPlayed = true;
         }
         else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
