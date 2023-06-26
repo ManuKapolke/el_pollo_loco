@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
     gravityInterval;
     deathSoundHasBeenPlayed = false;
     hurtSoundHasBeenPlayed = false;
+    hasBeenInFinalZone = false;
     // onCollisionCourse;
 
     applyGravity() {
@@ -87,5 +88,9 @@ class MovableObject extends DrawableObject {
 
     lastImageIsShown(images) {
         return this.img.src.endsWith(images.at(-1));
+    }
+
+    isInFinalZone() {
+        return this.x > MOST_RIGHT_BG * CANVAS_WIDTH;
     }
 }

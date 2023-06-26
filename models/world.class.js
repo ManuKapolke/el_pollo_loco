@@ -27,9 +27,18 @@ class World {
             this.checkCollisions();
             this.checkThrows();
             this.checkChickenKills();
+            this.checkEnteringFinalZone();
             this.checkEndbossHits();
             this.checkGameOver();
         }, 50);
+    }
+
+    checkEnteringFinalZone() {
+        if (this.character.hasBeenInFinalZone) return;
+
+        if (this.character.isInFinalZone()) {
+            this.character.hasBeenInFinalZone = true;
+        }
     }
 
     checkCollisions() {
