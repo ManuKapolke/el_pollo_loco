@@ -12,6 +12,10 @@ class World {
     camera_x = 0;
     gameOver_sound = new Audio('audio/game-over.mp3');
     gameWon_sound = new Audio('audio/win.mp3');
+    gameWon_music = new Audio('audio/music/won.mp3');
+    gameLost_music = new Audio('audio/music/lost.mp3');
+    background_music = new Audio('audio/music/game-bg.mp3');
+    endbossAppears_music = new Audio('audio/music/endboss-appears2.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
@@ -20,6 +24,20 @@ class World {
         this.draw();
         this.setWorld();
         this.runGame();
+        this.playBackgroundMusic();
+    }
+
+    playBackgroundMusic() {
+        this.background_music.play();
+        this.background_music.addEventListener('ended', () => {
+            this.background_music.play();
+        }, false);
+        setInterval(() => {
+            if (this.character.hasBeenInFinalZone) {
+                this.background_music.pause();
+                this.endbossAppears_music.play();
+            }
+        }, 100);
     }
 
     runGame() {
@@ -135,9 +153,13 @@ class World {
         if (this.character.isDead()) {
             setTimeout(() => {
                 this.gameOver();
-            }, 1000);
+            }, 800);
         }
         else if (this.level.endboss.isDead()) {
+            if (this.level.endboss.hasDied) return;
+            this.level.endboss.hasDied = true;
+
+            this.level.endboss.speedY = 0;
             setTimeout(() => {
                 this.gameWon();
             }, 1000);
@@ -145,13 +167,22 @@ class World {
     }
 
     gameOver() {
+        this.background_music.pause();
+        this.endbossAppears_music.pause();
         this.gameOver_sound.play();
         clearAllIntervals();
+        setTimeout(() => {
+            this.gameLost_music.play();
+        }, 2000);
     }
 
     gameWon() {
-        this.gameWon_sound.play();
+        this.endbossAppears_music.pause();
+        // this.gameWon_sound.play();
         clearAllIntervals();
+        // setTimeout(() => {
+        this.gameWon_music.play();
+        // }, 4000);
     }
 
     updateStatusBars() {
@@ -184,7 +215,10 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
-        this.addToMap(this.statusBarEndboss);
+        if (this.character.hasBeenInFinalZone) {
+            this.addToMap(this.statusBarEndboss);
+        }
+
 
         // Add non-fixed objects:
         this.ctx.translate(this.camera_x, 0);

@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
     deathSoundHasBeenPlayed = false;
     hurtSoundHasBeenPlayed = false;
     hasBeenInFinalZone = false;
+    hasDied = false;
     // onCollisionCourse;
 
     applyGravity() {

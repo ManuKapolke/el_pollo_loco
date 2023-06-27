@@ -187,7 +187,7 @@ class Character extends MovableObject {
     }
 
     isSleeping() {
-        return this.world.timePassedSinceLastKeyPress() > 10000;
+        return this.world.timePassedSinceLastKeyPress() > 10000 && this.timePassedSinceLastHit() > 5000;
     }
 
     playCharacterAnimations() {
@@ -246,9 +246,6 @@ class Character extends MovableObject {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
             this.hurt_sound.play();
-            // this.hurt_sound.addEventListener('ended', () => {
-            //     this.hurt_sound.pause();
-            // }, false);
             this.hurtSoundHasBeenPlayed = true;
         }
         else {
@@ -260,9 +257,6 @@ class Character extends MovableObject {
         if (this.isDead()) {
             if (this.deathSoundHasBeenPlayed) return;
             this.death_sound.play();
-            // this.death_sound.addEventListener('ended', () => {
-            //     this.death_sound.pause();
-            // }, false);
             this.deathSoundHasBeenPlayed = true;
         }
     }

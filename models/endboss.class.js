@@ -81,14 +81,14 @@ class Endboss extends MovableObject {
                     if (this.characterIsRight()) {
                         this.moveRight();
                     }
-                }, 1000);
+                }, 500);
             }
             if (this.characterIsLeft()) {
                 setTimeout(() => {
                     if (this.characterIsLeft()) {
                         this.moveLeft();
                     }
-                }, 1000);
+                }, 500);
             }
         }
 
@@ -157,14 +157,14 @@ class Endboss extends MovableObject {
 
     isAlert() {
         let alertAtFirstContact = (this.animationCount < 8);
-        let alertAfterHit = (this.timePassedSinceLastHit() > 500 && this.timePassedSinceLastHit() <= 3000);
-        let alertAfterAttack = (this.timePassedSinceLastHit() > 3800 && this.timePassedSinceLastHit() <= 6000);
+        let alertAfterHit = (this.timePassedSinceLastHit() > 500 && this.timePassedSinceLastHit() <= 800);
+        let alertAfterAttack = (this.timePassedSinceLastHit() > 1600 && this.timePassedSinceLastHit() <= 2800);
         return alertAtFirstContact || alertAfterHit || alertAfterAttack;
     }
 
     isAttacking() {
-        return this.timePassedSinceLastHit() > 3000 &&
-            this.timePassedSinceLastHit() <= 3800;
+        return this.timePassedSinceLastHit() > 800 &&
+            this.timePassedSinceLastHit() <= 1600;
     }
 
     isWalking() {
@@ -187,7 +187,7 @@ class Endboss extends MovableObject {
     }
 
     playSoundIfEndbossIsWalking() {
-        if (this.isWalking()) {
+        if (this.isWalking() && !this.world.character.isDead()) {
             this.walking_sound.play();
         }
         else {
