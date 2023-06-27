@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'zabars';
-    src: url('fonts/zabars.ttf') format('truetype');
+    src: url('assets/fonts/zabars.ttf') format('truetype');
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
@@ -15,7 +15,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-image: url('img/desert-bg3.png');
+    background-image: url('assets/img/desert-bg3.png');
     background-size: cover;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     font-size: 46px;
