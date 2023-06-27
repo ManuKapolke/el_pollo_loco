@@ -161,7 +161,7 @@ class Character extends MovableObject {
     }
 
     shallMoveRight() {
-        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x;
+        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x - 50;
     }
 
     shallMoveLeft() {

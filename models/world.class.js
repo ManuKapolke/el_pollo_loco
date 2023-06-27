@@ -101,6 +101,7 @@ class World {
             if (bottle.isColliding(this.level.endboss)) {
                 this.level.endboss.hit(4);
                 this.deleteThrownBottle(bottle);
+                this.level.endboss.speed += 0.1;
             }
         });
 
@@ -132,11 +133,13 @@ class World {
 
     checkGameOver() {
         if (this.character.isDead()) {
+            // this.character.speedY = -15;
             setTimeout(() => {
                 this.gameOver();
             }, 1000);
         }
         else if (this.level.endboss.isDead()) {
+            // this.level.endboss.speedY = 0;
             setTimeout(() => {
                 this.gameWon();
             }, 1000);

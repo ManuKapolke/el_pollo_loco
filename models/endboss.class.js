@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-    y = 140;
+    y = 135;
     width = 1045 / 4;
     height = 1217 / 4;
     speed = 1;
@@ -75,25 +75,30 @@ class Endboss extends MovableObject {
     }
 
     moveEndboss() {
-        if (!this.isWalking()) return;
-
-        if (this.characterIsRight()) {
-            setTimeout(() => {
-                if (this.characterIsRight()) {
-                    this.moveRight();
-                }
-            }, 1000);
-        }
-        if (this.characterIsLeft()) {
-            setTimeout(() => {
-                if (this.characterIsLeft()) {
-                    this.moveLeft();
-                }
-            }, 1000);
+        if (this.isWalking()) {
+            if (this.characterIsRight()) {
+                setTimeout(() => {
+                    if (this.characterIsRight()) {
+                        this.moveRight();
+                    }
+                }, 1000);
+            }
+            if (this.characterIsLeft()) {
+                setTimeout(() => {
+                    if (this.characterIsLeft()) {
+                        this.moveLeft();
+                    }
+                }, 1000);
+            }
         }
 
         if (this.shallJump()) {
             this.jump();
+        }
+
+        if (this.isAboveGround()) {
+            let sgn = this.otherDirection ? 1 : -1;
+            this.x = this.x + sgn * 3 * this.speed;
         }
     }
 
@@ -116,13 +121,11 @@ class Endboss extends MovableObject {
     }
 
     jump() {// todo
-        let sgn = this.otherDirection ? 1 : -1;
         this.speedY = 30;
-        this.x = this.x + sgn * 50 * this.speed;
     }
 
     shallJump() {
-        return this.img.src.endsWith(this.IMAGES_ATTACK[4]);
+        return this.isAttacking() && !this.isAboveGround();
     }
 
     playEndbossAnimations() {
@@ -159,12 +162,13 @@ class Endboss extends MovableObject {
     isAlert() {
         let alertAtFirstContact = (this.animationCount < 8);
         let alertAfterHit = (this.timePassedSinceLastHit() > 500 && this.timePassedSinceLastHit() <= 3000);
-        return alertAtFirstContact || alertAfterHit;
+        let alertAfterAttack = (this.timePassedSinceLastHit() > 3800 && this.timePassedSinceLastHit() <= 6000);
+        return alertAtFirstContact || alertAfterHit || alertAfterAttack;
     }
 
     isAttacking() {
         return this.timePassedSinceLastHit() > 3000 &&
-            this.timePassedSinceLastHit() <= 5400;
+            this.timePassedSinceLastHit() <= 3800;
     }
 
     isWalking() {
