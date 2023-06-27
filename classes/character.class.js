@@ -67,7 +67,7 @@ class Character extends MovableObject {
         left: 0.2 * this.width
     };
     numberOfCoins = 0;
-    numberOfBottles = 20;
+    numberOfBottles = 0;
     lastThrow = 0;
     walking_sound = new Audio('assets/audio/running.mp3');
     jump_sound = new Audio('assets/audio/jump_voice.mp3');

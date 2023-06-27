@@ -172,6 +172,7 @@ class World {
         this.gameOver_sound.play();
         clearAllIntervals();
         setTimeout(() => {
+            document.getElementById('game-over').classList.add('full-opacity');
             this.gameLost_music.play();
         }, 2000);
     }
@@ -180,9 +181,9 @@ class World {
         this.endbossAppears_music.pause();
         // this.gameWon_sound.play();
         clearAllIntervals();
-        // setTimeout(() => {
-        this.gameWon_music.play();
-        // }, 4000);
+        setTimeout(() => {
+            this.gameWon_music.play();
+        }, 1000);
     }
 
     updateStatusBars() {

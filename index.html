@@ -35,11 +35,19 @@
     <script src="js/game.js"></script>
 </head>
 
-<body onload="initLevel();init()">
+<body>
     <h1>El Pollo Loco</h1>
+
     <div id="fullscreen">
         <canvas id="canvas" width="720" height="480"></canvas>
-        <!-- <button id="start-btn" onclick="initLevel()">Play</button>-->
+
+        <div id="start-screen" class="start-end-screen full-opacity" onclick="initLevel();init()">
+            <!-- <button id="start-btn" onclick="initLevel();init()">Play</button> -->
+        </div>
+
+        <div id="game-over" class="start-end-screen"></div>
+
+        <!-- <div id="game-won" class="start-end-screen"></div> -->
     </div>
 
 </body>

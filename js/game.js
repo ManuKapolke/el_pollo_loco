@@ -6,6 +6,10 @@ let fullscreenIsActive = false;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    document.getElementById('start-screen').classList.remove('full-opacity');
+    setTimeout(() => {
+        document.getElementById('start-screen').classList.add('d-none');
+    }, 500);
 }
 
 window.addEventListener('keydown', (e) => {
