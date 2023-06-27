@@ -7,21 +7,21 @@ function initLevel() {
     level1 = new Level();
 
     level1.enemies = [
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
         new Endboss()
     ];
 

@@ -133,13 +133,11 @@ class World {
 
     checkGameOver() {
         if (this.character.isDead()) {
-            // this.character.speedY = -15;
             setTimeout(() => {
                 this.gameOver();
             }, 1000);
         }
         else if (this.level.endboss.isDead()) {
-            // this.level.endboss.speedY = 0;
             setTimeout(() => {
                 this.gameWon();
             }, 1000);

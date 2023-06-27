@@ -120,10 +120,6 @@ class Endboss extends MovableObject {
         this.otherDirection = false;
     }
 
-    jump() {// todo
-        this.speedY = 30;
-    }
-
     shallJump() {
         return this.isAttacking() && !this.isAboveGround();
     }

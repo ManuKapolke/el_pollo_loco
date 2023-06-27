@@ -74,6 +74,7 @@ class Character extends MovableObject {
     nothingToThrow_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
     death_sound = new Audio('audio/dead.mp3');
+    sleeping_sound = new Audio('audio/sleep.mp3');
 
 
     constructor() {
@@ -154,7 +155,6 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
         }
 
-
         if (this.shallJump()) {
             this.jump();
         }
@@ -186,6 +186,10 @@ class Character extends MovableObject {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
 
+    isSleeping() {
+        return this.world.timePassedSinceLastKeyPress() > 10000;
+    }
+
     playCharacterAnimations() {
         if (this.isDead()) {
             if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
@@ -202,7 +206,7 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALK);
         }
         else {
-            if (this.world.timePassedSinceLastKeyPress() < 5000) {
+            if (!this.isSleeping()) {
                 this.playAnimation(this.IMAGES_IDLE);
             } else {
                 this.playAnimation(this.IMAGES_LONGIDLE);
@@ -219,7 +223,7 @@ class Character extends MovableObject {
             this.playSoundIfCharacterIsWalking();
             this.playSoundIfCharacterIsJumping();
             this.playSoundIfCharacterIsHurt();
-
+            this.playSoundIfCharacterIsSleeping();
         }, 1000 / 60);
     }
 
@@ -260,6 +264,15 @@ class Character extends MovableObject {
             //     this.death_sound.pause();
             // }, false);
             this.deathSoundHasBeenPlayed = true;
+        }
+    }
+
+    playSoundIfCharacterIsSleeping() {
+        if (this.isSleeping()) {
+            this.sleeping_sound.play();
+        }
+        else {
+            this.sleeping_sound.pause();
         }
     }
 
