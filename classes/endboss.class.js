@@ -48,7 +48,7 @@ class Endboss extends MovableObject {
     animationCount = 0;
     walking_sound = new Audio('assets/audio/chicken2.mp3');
     alert_sound = new Audio('assets/audio/endboss_alert.mp3');
-    attack_sound = new Audio('assets/audio/endboss_alert.mp3');
+    attack_sound = new Audio('assets/audio/endboss_attack.mp3');
     hurt_sound = new Audio('assets/audio/endboss_hurt.mp3');
     death_sound = new Audio('assets/audio/endboss_dead.mp3');
     alertSoundHasBeenPlayed = false;

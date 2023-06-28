@@ -151,7 +151,7 @@ class Character extends MovableObject {
         if (this.shallMoveLeft()) {
             this.moveLeft();
         }
-        if (this.x - 100 < MOST_RIGHT_BG * CANVAS_WIDTH) {
+        if (this.x - 100 < MOST_RIGHT_BG * CANVAS_WIDTH && this.x - 100 > WORLD_START) {
             this.world.camera_x = -this.x + 100;
         }
 
@@ -161,11 +161,11 @@ class Character extends MovableObject {
     }
 
     shallMoveRight() {
-        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x - 50;
+        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x - 10;
     }
 
     shallMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x + 111;
+        return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x + 10;
     }
 
     shallJump() {
