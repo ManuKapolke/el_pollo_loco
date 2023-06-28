@@ -9,6 +9,7 @@ function init() {
     document.getElementById('start-screen').classList.remove('full-opacity');
     setTimeout(() => {
         document.getElementById('start-screen').classList.add('d-none');
+        // document.getElementById('start-btn').disabled = true;
     }, 500);
 }
 

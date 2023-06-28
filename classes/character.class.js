@@ -107,7 +107,7 @@ class Character extends MovableObject {
             let objIndex = this.world.level.coins.indexOf(obj);
             obj.collect_sound.play();
             this.numberOfCoins++;
-            this.energy = Math.min(this.energy + 5, 100);
+            this.energy += 5;
             this.world.level.coins.splice(objIndex, 1);
         }
     }

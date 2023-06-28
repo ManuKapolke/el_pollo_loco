@@ -31,10 +31,7 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(obj) {
-        return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
-            this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
-            this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
-            this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
+        return this.isOverlapping(obj);
     }
 
     isAboveGround() {

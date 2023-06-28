@@ -1,6 +1,4 @@
 let level1;
-let numberOfBottles = 10;
-let numberOfCoins = 10;
 
 
 function initLevel() {
@@ -31,15 +29,18 @@ function initLevel() {
         new Cloud()
     ];
 
-    level1.bottles = Array(numberOfBottles).fill().map(() => new CollectableBottle());
+    level1.numberOfBottles = 50;
+    level1.numberOfCoins = 50;
 
-    level1.coins = Array(numberOfCoins).fill().map(() => new CollectableCoin());
+    level1.bottles = Array(level1.numberOfBottles).fill().map(() => new CollectableBottle());
+
+    level1.coins = Array(level1.numberOfCoins).fill().map(() => new CollectableCoin());
+
+    level1.replaceOverlappingCollectableObjects();
 
     level1.backgroundObjects = [];
 
     createBackgroundObjectsForLevel1();
-
-    // document.getElementById('start-btn').disabled = true;
 }
 
 

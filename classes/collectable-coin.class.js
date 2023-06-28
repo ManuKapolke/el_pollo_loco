@@ -17,7 +17,11 @@ class CollectableCoin extends CollectableObject {
     constructor() {
         super().loadImage(this.IMAGES[1]);
 
-        this.x = (WORLD_START + 200) + Math.random() * WORLD_WIDTH - CANVAS_WIDTH;
+        this.place();
+    }
+
+    place() {
+        super.place();
         this.y = 100 + Math.random() * 250;
     }
 }

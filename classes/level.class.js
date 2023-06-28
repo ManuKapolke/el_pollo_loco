@@ -6,6 +6,8 @@ class Level {
     // collectableObjects;
     bottles;
     coins;
+    numberOfBottles;
+    numberOfCoins;
     level_start_x = WORLD_START;
     level_end_x = WORLD_END;
 
@@ -15,7 +17,20 @@ class Level {
     //     this.backgroundObjects = backgroundObjects;
     // }
 
-    getCollectableObjects() {
-        return this.bottles.concat(this.coins);
+    replaceOverlappingCollectableObjects() {
+        let objects = this.getCollectableObjects();
+
+        objects.forEach((obj) => {
+            while (obj.overlapsWithOtherObjects(objects)) {
+                obj.place();
+            }
+        });
     }
+
+    getCollectableObjects() {
+        // return this.bottles.concat(this.coins);
+        return [...this.bottles, ...this.coins];
+    }
+
+
 }
