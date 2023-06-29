@@ -1,0 +1,130 @@
+$loco-red: rgb(160, 34, 10);
+
+@mixin flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face {
+    font-family: 'zabars';
+    src: url('assets/fonts/zabars.ttf') format('truetype');
+    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-image: url('assets/img/desert-bg3.png');
+    background-size: cover;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    font-size: 46px;
+    color: $loco-red;
+}
+
+h1 {
+    letter-spacing: 8px;
+    text-shadow: 4px 4px 2px rgba($loco-red, 0.3);
+}
+
+#fullscreen {
+    position: relative;
+}
+
+canvas {
+    width: 100%;
+    border-radius: 10px;
+    background-color: black;
+    box-shadow: 0px 0px 6px 6px rgba($loco-red, 0.7);
+    display: block;
+}
+
+.overlay-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    opacity: 0;
+    transition: all 500ms ease-in-out;
+}
+
+#start-screen {
+    background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1big.png');
+    background-size: cover;
+    background-position-y: 40%;
+    // z-index: 1;
+}
+
+#menu-screen {
+    @include flex-centered;
+    z-index: 1;
+}
+
+#play-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+    img {
+        width: 180px;
+        opacity: 0.7;
+    }
+
+    &:hover img {
+        opacity: 0.8;
+    }
+}
+
+#end-screen-lost {
+    background-image: url('assets/img/9_intro_outro_screens/game_over/game-over.png');
+    background-size: contain;
+}
+
+#end-screen-won {
+    background-image: url('assets/img/9_intro_outro_screens/game_over/game-over.png');
+    background-size: contain;
+}
+
+@media only screen and (max-width: 720px) {
+    #fullscreen {
+        width: 100%;
+    }
+
+    canvas {
+        border-radius: unset;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    h1 {
+        display: none;
+    }
+
+    /* #fullscreen {
+        height: 100vh;
+        border-radius: unset;
+    } */
+
+    canvas {
+        height: 100vh;
+        border-radius: unset;
+    }
+}
+
+.d-none {
+    display: none;
+}
+
+.full-opacity {
+    opacity: 1 !important;
+}

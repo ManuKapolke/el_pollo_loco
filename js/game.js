@@ -6,6 +6,8 @@ let fullscreenIsActive = false;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+
+    document.getElementById('play-btn').classList.add('d-none');
     document.getElementById('start-screen').classList.remove('full-opacity');
     setTimeout(() => {
         document.getElementById('start-screen').classList.add('d-none');

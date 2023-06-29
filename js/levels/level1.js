@@ -5,21 +5,21 @@ function initLevel() {
     level1 = new Level();
 
     level1.enemies = [
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
-        // new BabyChicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
+        new BabyChicken(),
         new Endboss()
     ];
 
@@ -29,8 +29,8 @@ function initLevel() {
         new Cloud()
     ];
 
-    level1.numberOfBottles = 50;
-    level1.numberOfCoins = 50;
+    level1.numberOfBottles = 10;
+    level1.numberOfCoins = 10;
 
     level1.bottles = Array(level1.numberOfBottles).fill().map(() => new CollectableBottle());
 

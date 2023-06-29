@@ -172,7 +172,7 @@ class World {
         this.gameOver_sound.play();
         clearAllIntervals();
         setTimeout(() => {
-            document.getElementById('game-over').classList.add('full-opacity');
+            document.getElementById('end-screen-lost').classList.add('full-opacity');
             this.gameLost_music.play();
         }, 2000);
     }

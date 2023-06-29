@@ -41,13 +41,18 @@
     <div id="fullscreen">
         <canvas id="canvas" width="720" height="480"></canvas>
 
-        <div id="start-screen" class="start-end-screen full-opacity" onclick="initLevel();init()">
-            <!-- <button id="start-btn" onclick="initLevel();init()">Play</button> -->
+        <div id="start-screen" class="overlay-screen full-opacity">
         </div>
 
-        <div id="game-over" class="start-end-screen"></div>
+        <div id="menu-screen" class="overlay-screen full-opacity">
+            <button id="play-btn" onclick="initLevel();init()">
+                <img src="assets/img/play-3-256.png">
+            </button>
+        </div>
 
-        <!-- <div id="game-won" class="start-end-screen"></div> -->
+        <div id="end-screen-lost" class="overlay-screen"></div>
+
+        <!-- <div id="end-screen-won" class="overlay-screen"></div> -->
     </div>
 
 </body>
