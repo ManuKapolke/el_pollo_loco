@@ -38,7 +38,7 @@
 <body>
     <h1>El Pollo Loco</h1>
 
-    <div id="fullscreen">
+    <div id="main-screen-container">
         <canvas id="canvas" width="720" height="480"></canvas>
 
         <div id="start-screen" class="overlay-screen full-opacity">
@@ -48,6 +48,17 @@
             <button id="play-btn" onclick="initLevel();init()">
                 <img src="assets/img/play-3-256.png">
             </button>
+            <div id="menu-bar">
+                <button id="sound-btn" onclick="">
+                    <img id="sound-btn-icon" src="assets/img/volume-up-4-32.png">
+                </button>
+                <button id="info-btn" onclick="">
+                    <img id="info-btn-icon" src="assets/img/info-2-32.png">
+                </button>
+                <button id="fullscreen-btn" onclick="">
+                    <img src="assets/img/fullscreen.png">
+                </button>
+            </div>
         </div>
 
         <div id="end-screen-lost" class="overlay-screen"></div>

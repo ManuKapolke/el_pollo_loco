@@ -2,6 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let fullscreenIsActive = false;
+let musicIsOn = true;
+let soundIsOn = true;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -82,7 +84,7 @@ function toggleFullscreen() {
 
 /* Open fullscreen */
 function openFullscreen() {
-    let elem = document.getElementById('fullscreen');
+    let elem = document.getElementById('main-screen-container');
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */

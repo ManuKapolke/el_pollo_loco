@@ -4,6 +4,11 @@
   src: url("assets/fonts/zabars.ttf") format("truetype");
   /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
+@font-face {
+  font-family: "boogaloo";
+  src: url("assets/fonts/boogaloo-regular.ttf") format("truetype");
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 * {
   margin: 0;
 }
@@ -19,7 +24,7 @@ body {
   background-size: cover;
   font-family: "zabars", Arial, Helvetica, sans-serif;
   font-size: 46px;
-  color: rgb(160, 34, 10);
+  color: #a0220a;
 }
 
 h1 {
@@ -27,8 +32,12 @@ h1 {
   text-shadow: 4px 4px 2px rgba(160, 34, 10, 0.3);
 }
 
-#fullscreen {
+#main-screen-container {
   position: relative;
+  font-family: "boogaloo", Arial, Helvetica, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  color: #a0220a;
 }
 
 canvas {
@@ -66,14 +75,56 @@ canvas {
 #play-btn {
   cursor: pointer;
   background-color: transparent;
+  border-radius: 50%;
   border: none;
 }
 #play-btn img {
-  width: 180px;
+  width: 200px;
   opacity: 0.7;
 }
 #play-btn:hover img {
   opacity: 0.8;
+}
+
+#menu-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#sound-btn,
+#info-btn,
+#fullscreen-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "boogaloo", Arial, Helvetica, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  color: #a0220a;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+}
+#sound-btn img,
+#info-btn img,
+#fullscreen-btn img {
+  width: 32px;
+  opacity: 0.8;
+}
+#sound-btn:hover img,
+#info-btn:hover img,
+#fullscreen-btn:hover img {
+  opacity: 1;
+}
+
+#fullscreen-btn img {
+  width: 28px;
 }
 
 #end-screen-lost {
@@ -87,7 +138,7 @@ canvas {
 }
 
 @media only screen and (max-width: 720px) {
-  #fullscreen {
+  #main-screen-container {
     width: 100%;
   }
   canvas {
@@ -98,7 +149,7 @@ canvas {
   h1 {
     display: none;
   }
-  /* #fullscreen {
+  /* #main-screen-container {
       height: 100vh;
       border-radius: unset;
   } */
