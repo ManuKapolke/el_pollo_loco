@@ -12,7 +12,6 @@ class MovableObject extends DrawableObject {
     hurtSoundHasBeenPlayed = false;
     hasBeenInFinalZone = false;
     hasDied = false;
-    // onCollisionCourse;
 
     applyGravity() {
         this.gravityInterval = setInterval(() => {

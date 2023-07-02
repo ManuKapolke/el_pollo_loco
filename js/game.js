@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 let fullscreenIsActive = false;
 let musicIsOn = true;
 let soundIsOn = true;
+let intervalIds = [];
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -15,6 +16,27 @@ function init() {
         document.getElementById('start-screen').classList.add('d-none');
         // document.getElementById('start-btn').disabled = true;
     }, 500);
+}
+
+
+function toggleSoundAndMusic() {
+    const soundIcon = document.getElementById('sound-btn-icon');
+    if (musicIsOn) {
+        musicIsOn = false;
+        soundIcon.src = 'assets/img/sounds-without-music.png';
+        soundIcon.style.width = '28px';
+    }
+    else if (soundIsOn) {
+        soundIsOn = false;
+        soundIcon.src = 'assets/img/sounds-off.png';
+        soundIcon.style.width = '28px';
+    }
+    else {
+        musicIsOn = true;
+        soundIsOn = true;
+        soundIcon.src = 'assets/img/sounds-and-music.png';
+        soundIcon.style.width = '32px';
+    }
 }
 
 window.addEventListener('keydown', (e) => {
@@ -32,6 +54,7 @@ window.addEventListener('keydown', (e) => {
             keyboard.DOWN = true;
             break;
         case ' ':
+            e.preventDefault();// damit sound/music nicht getoggelt wird
             keyboard.SPACE = true;
             break;
         case 'd':
@@ -64,6 +87,18 @@ window.addEventListener('keyup', (e) => {
 
     keyboard.lastKeyPress = new Date().getTime();
 });
+
+
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIds.push(id);
+    return id;
+}
+
+
+function clearStoppableIntervals() {
+    intervalIds.forEach(clearInterval);
+}
 
 
 /* Alternative (quick and dirty), um alle Intervalle zu beenden. */

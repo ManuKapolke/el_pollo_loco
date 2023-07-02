@@ -63,12 +63,4 @@ class ThrownObject extends MovableObject {
             clearInterval(checkHitInterval);
         }, 3000);
     }
-
-    // animate() {
-    //     setInterval(() => {
-    //         if (this.world.keyboard.D && !this.isAboveGround()) {
-    //             this.throw();
-    //         }
-    //     }, 1000 / 60);
-    // }
 }

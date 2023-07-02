@@ -70,8 +70,8 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        setInterval(() => this.moveEndboss(), 1000 / 60);
-        setInterval(() => this.playEndbossAnimations(), 200);
+        setStoppableInterval(() => this.moveEndboss(), 1000 / 60);
+        setStoppableInterval(() => this.playEndbossAnimations(), 200);
     }
 
     moveEndboss() {
@@ -172,7 +172,7 @@ class Endboss extends MovableObject {
     }
 
     playSoundEffects() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (!this.world.character.hasBeenInFinalZone) return;
             if (this.isDead()) {
                 this.playSoundIfEndbossIsDead();

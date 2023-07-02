@@ -16,6 +16,7 @@ class World {
     gameLost_music = new Audio('assets/audio/music/lost.mp3');
     background_music = new Audio('assets/audio/music/game-bg.mp3');
     endbossAppears_music = new Audio('assets/audio/music/endboss-appears2.mp3');
+    gameOverSoundHasBeenPlayed = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
@@ -28,14 +29,15 @@ class World {
     }
 
     playBackgroundMusic() {
-        this.background_music.play();
-        this.background_music.addEventListener('ended', () => {
-            this.background_music.play();
-        }, false);
-        setInterval(() => {
+        setStoppableInterval(() => {
+            this.playMusicIfSwitchedOn(this.background_music);
+            // this.background_music.addEventListener('ended', () => {
+            //     this.background_music.play();
+            // }, false);
+
             if (this.character.hasBeenInFinalZone) {
                 this.background_music.pause();
-                this.endbossAppears_music.play();
+                this.playMusicIfSwitchedOn(this.endbossAppears_music);
             }
         }, 100);
     }
@@ -85,7 +87,7 @@ class World {
     checkThrows() {
         if (this.keyboard.D) {
             if (this.character.numberOfBottles === 0) {
-                this.character.nothingToThrow_sound.play();
+                this.playSoundIfSwitchedOn(this.character.nothingToThrow_sound);
                 return;
             }
             if (this.character.timePassedSinceLastThrow() < 500) return;
@@ -156,10 +158,10 @@ class World {
             }, 800);
         }
         else if (this.level.endboss.isDead()) {
-            if (this.level.endboss.hasDied) return;
-            this.level.endboss.hasDied = true;
-
-            this.level.endboss.speedY = 0;
+            if (!this.level.endboss.hasDied) {
+                this.level.endboss.hasDied = true;
+                this.level.endboss.speedY = 0;
+            }
             setTimeout(() => {
                 this.gameWon();
             }, 1000);
@@ -169,20 +171,22 @@ class World {
     gameOver() {
         this.background_music.pause();
         this.endbossAppears_music.pause();
-        this.gameOver_sound.play();
-        clearAllIntervals();
+        if (!this.gameOverSoundHasBeenPlayed) {
+            this.playSoundIfSwitchedOn(this.gameOver_sound);
+            this.gameOverSoundHasBeenPlayed = true;
+        }
+        clearStoppableIntervals();
         setTimeout(() => {
             document.getElementById('end-screen-lost').classList.add('full-opacity');
-            this.gameLost_music.play();
+            this.playMusicIfSwitchedOn(this.gameLost_music);
         }, 2000);
     }
 
     gameWon() {
         this.endbossAppears_music.pause();
-        // this.gameWon_sound.play();
-        clearAllIntervals();
+        clearStoppableIntervals();
         setTimeout(() => {
-            this.gameWon_music.play();
+            this.playMusicIfSwitchedOn(this.gameWon_music);
         }, 1000);
     }
 
@@ -285,5 +289,21 @@ class World {
             }
         });
         return currentBackground;
+    }
+
+    playSoundIfSwitchedOn(soundObject) {
+        if (soundIsOn) {
+            soundObject.play();
+        } else {
+            soundObject.pause();
+        }
+    }
+
+    playMusicIfSwitchedOn(musicObject) {
+        if (musicIsOn) {
+            musicObject.play();
+        } else {
+            musicObject.pause();
+        }
     }
 }

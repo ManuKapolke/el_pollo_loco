@@ -92,20 +92,20 @@ class Character extends MovableObject {
     }
 
     animate() {
-        setInterval(() => this.moveCharacter(), 1000 / 60);
-        setInterval(() => this.playCharacterAnimations(), 100);
+        setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
+        setStoppableInterval(() => this.playCharacterAnimations(), 100);
     }
 
     collect(obj) {
         if (obj instanceof CollectableBottle) {
             let objIndex = this.world.level.bottles.indexOf(obj);
-            obj.collect_sound.play();
+            this.world.playSoundIfSwitchedOn(obj.collect_sound);
             this.numberOfBottles++;
             this.world.level.bottles.splice(objIndex, 1);
         }
         else if (obj instanceof CollectableCoin) {
             let objIndex = this.world.level.coins.indexOf(obj);
-            obj.collect_sound.play();
+            this.world.playSoundIfSwitchedOn(obj.collect_sound);
             this.numberOfCoins++;
             this.energy += 5;
             this.world.level.coins.splice(objIndex, 1);
@@ -129,7 +129,7 @@ class Character extends MovableObject {
     killByJump(enemy) {
         if (enemy.isDead()) return;
         enemy.die();
-        enemy.smash_sound.play();
+        this.world.playSoundIfSwitchedOn(enemy.smash_sound);
         setTimeout(() => {
             this.world.deleteDeadEnemy(enemy);
         }, 500);
@@ -215,7 +215,7 @@ class Character extends MovableObject {
     }
 
     playSoundEffects() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isDead()) {
                 this.playSoundIfCharacterIsDead();
                 return;
@@ -229,7 +229,7 @@ class Character extends MovableObject {
 
     playSoundIfCharacterIsWalking() {
         if (this.isWalking()) {
-            this.walking_sound.play();
+            this.world.playSoundIfSwitchedOn(this.walking_sound);
         }
         else {
             this.walking_sound.pause();
@@ -238,14 +238,14 @@ class Character extends MovableObject {
 
     playSoundIfCharacterIsJumping() {
         if (this.shallJump()) {
-            this.jump_sound.play();
+            this.world.playSoundIfSwitchedOn(this.jump_sound);
         }
     }
 
     playSoundIfCharacterIsHurt() {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
-            this.hurt_sound.play();
+            this.world.playSoundIfSwitchedOn(this.hurt_sound);
             this.hurtSoundHasBeenPlayed = true;
         }
         else {
@@ -256,14 +256,14 @@ class Character extends MovableObject {
     playSoundIfCharacterIsDead() {
         if (this.isDead()) {
             if (this.deathSoundHasBeenPlayed) return;
-            this.death_sound.play();
+            this.world.playSoundIfSwitchedOn(this.death_sound);
             this.deathSoundHasBeenPlayed = true;
         }
     }
 
     playSoundIfCharacterIsSleeping() {
         if (this.isSleeping()) {
-            this.sleeping_sound.play();
+            this.world.playSoundIfSwitchedOn(this.sleeping_sound);
         }
         else {
             this.sleeping_sound.pause();
