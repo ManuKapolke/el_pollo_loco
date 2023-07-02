@@ -8,6 +8,7 @@ class Level {
     coins;
     numberOfBottles;
     numberOfCoins;
+    numberOfClouds;
     level_start_x = WORLD_START;
     level_end_x = WORLD_END;
 

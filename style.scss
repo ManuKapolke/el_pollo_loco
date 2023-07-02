@@ -72,12 +72,16 @@ canvas {
     background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1big.png');
     background-size: cover;
     background-position-y: 40%;
-    // z-index: 1;
 }
 
 #menu-screen {
     @include flex-centered;
     z-index: 1;
+
+    &:hover #play-btn img {
+        opacity: 0.5;
+        transition: all 250ms ease-in-out;
+    }
 }
 
 #play-btn {
@@ -87,12 +91,14 @@ canvas {
     border: none;
 
     img {
-        width: 200px;
-        opacity: 0.7;
+        width: 250px;
+        opacity: 0;
+        transition: all 250ms ease-in-out;
     }
 
     &:hover img {
-        opacity: 0.8;
+        opacity: 0.8 !important;
+        transition: all 250ms ease-in-out;
     }
 }
 
