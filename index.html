@@ -44,20 +44,126 @@
         <div id="start-screen" class="overlay-screen full-opacity">
         </div>
 
-        <div id="menu-screen" class="overlay-screen full-opacity">
-            <button id="play-btn" onclick="initLevel();init()">
-                <img src="assets/img/play-3-256.png">
+        <div id="play-btn-screen" class="overlay-screen full-opacity">
+            <button id="play-btn" onclick="initLevel();startGame()">
+                <img src="assets/img/play.png">
             </button>
-            <div id="menu-bar">
-                <button id="sound-btn" onclick="toggleSoundAndMusic()">
-                    <img id="sound-btn-icon" src="assets/img/sounds-and-music.png">
-                </button>
-                <button id="info-btn" onclick="">
-                    <img id="info-btn-icon" src="assets/img/info-2-32.png">
-                </button>
-                <button id="fullscreen-btn" onclick="">
-                    <img src="assets/img/fullscreen.png">
-                </button>
+        </div>
+
+        <div id="menu-bar">
+            <button id="sound-btn" onclick="toggleSoundAndMusic()">
+                <img id="sound-btn-icon" src="assets/img/sounds-and-music.png">
+            </button>
+            <button id="info-btn" onclick="toggleGameInfo()">
+                <img id="info-btn-icon" src="assets/img/info.png">
+            </button>
+            <button id="fullscreen-btn" onclick="toggleFullscreen()">
+                <img src="assets/img/fullscreen.png">
+            </button>
+        </div>
+
+        <div id="info-screen" class="overlay-screen">
+            <div id="info-content">
+                <section>
+                    <h2>Story</h2>
+                    <p>
+                        Somewhere in a Mexican desert, the brave <i>Pepe Peligroso</i> is confronted with a horde of
+                        strangely upset
+                        chickens. According to rumors, they have tasted a mysterious salsa sauce made from secret
+                        special
+                        ingredients, which caused them to start losing their minds.
+                    </p>
+                    <p>
+                        Help Pepe make his way through the desert.
+                        Along you may find salsa bottles lying around that you can use to defend yourself. You should
+                        also collect as many coins as possible, since they give you energy and sparkle lovely in the
+                        sunlight.
+                    </p>
+                    <p>
+                        But beware: stories have been told about one insane,
+                        aggressive psycho chicken roaming nearby, which is claimed to be bigger than anything ever
+                        encountered: "El Pollo Loco"...
+                    </p>
+                </section>
+
+                <section>
+                    <h2>How To Play</h2>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="keyboard">
+                                        <img src="assets/img/key-right.png">
+                                    </div>
+                                </td>
+                                <td>Move Right</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="keyboard">
+                                        <img src="assets/img/key-left.png">
+                                    </div>
+                                </td>
+                                <td>Move Left</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="keyboard">
+                                        <img id="key-space" src="assets/img/key-space.png">
+                                    </div>
+                                    <span>/</span>
+                                    <div class="keyboard">
+                                        <img src="assets/img/key-up.png">
+                                    </div>
+                                </td>
+                                <td>Jump</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="keyboard">
+                                        D
+                                    </div>
+                                </td>
+                                <td>Throw Bottles</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Sound Options</h2>
+                    <p class="description-text">Click on the sound icon above to switch between the following options:
+                    </p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="sound-option">
+                                        <img src="assets/img/sounds-and-music.png">
+                                    </div>
+                                </td>
+                                <td>Play Sounds And Music</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="sound-option">
+                                        <img src="assets/img/sounds-without-music.png">
+                                    </div>
+                                </td>
+                                <td>Play Sounds Only (No Music)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="sound-option">
+                                        <img src="assets/img/sounds-off.png">
+                                    </div>
+                                </td>
+                                <td>Mute Sounds And Music</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
             </div>
         </div>
 

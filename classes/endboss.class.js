@@ -188,7 +188,7 @@ class Endboss extends MovableObject {
 
     playSoundIfEndbossIsWalking() {
         if (this.isWalking() && !this.world.character.isDead()) {
-            this.walking_sound.play();
+            this.world.playSoundIfSwitchedOn(this.walking_sound);
         }
         else {
             this.walking_sound.pause();
@@ -199,7 +199,7 @@ class Endboss extends MovableObject {
         if (this.isAlert()) {
             if (this.alertSoundHasBeenPlayed) return;
             setTimeout(() => {
-                this.alert_sound.play();
+                this.world.playSoundIfSwitchedOn(this.alert_sound);
             }, 1000);
             this.alertSoundHasBeenPlayed = true;
         }
@@ -211,7 +211,7 @@ class Endboss extends MovableObject {
     playSoundIfEndbossIsAttacking() {
         if (this.isAttacking()) {
             if (this.attackSoundHasBeenPlayed) return;
-            this.attack_sound.play();
+            this.world.playSoundIfSwitchedOn(this.attack_sound);
             this.attackSoundHasBeenPlayed = true;
         }
         else {
@@ -222,7 +222,7 @@ class Endboss extends MovableObject {
     playSoundIfEndbossIsHurt() {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
-            this.hurt_sound.play();
+            this.world.playSoundIfSwitchedOn(this.hurt_sound);
             this.hurtSoundHasBeenPlayed = true;
         }
         else {
@@ -233,7 +233,7 @@ class Endboss extends MovableObject {
     playSoundIfEndbossIsDead() {
         if (this.isDead()) {
             if (this.deathSoundHasBeenPlayed) return;
-            this.death_sound.play();
+            this.world.playSoundIfSwitchedOn(this.death_sound);
             this.deathSoundHasBeenPlayed = true;
         }
     }

@@ -176,6 +176,7 @@ class World {
             this.gameOverSoundHasBeenPlayed = true;
         }
         clearStoppableIntervals();
+        gameIsRunning = false;
         setTimeout(() => {
             document.getElementById('end-screen-lost').classList.add('full-opacity');
             this.playMusicIfSwitchedOn(this.gameLost_music);
@@ -185,6 +186,7 @@ class World {
     gameWon() {
         this.endbossAppears_music.pause();
         clearStoppableIntervals();
+        gameIsRunning = false;
         setTimeout(() => {
             this.playMusicIfSwitchedOn(this.gameWon_music);
         }, 1000);

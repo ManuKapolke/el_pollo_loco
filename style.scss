@@ -1,10 +1,22 @@
 $loco-red: #a0220a;
+$loco-yellow: #ffc521;
+$loco-orange: #ef8b10;
+$transparent-black: rgba(0, 0, 0, 0.878);
+$loco-gradient: linear-gradient(to bottom, $loco-yellow, $loco-orange);
+
+
 
 @mixin flex-centered {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+// @mixin textcolor-gradient($colorA: $loco-yellow, $colorB: $loco-orange) {
+//     background: linear-gradient(to bottom, $colorA, $colorB);
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+// }
 
 @font-face {
     font-family: 'zabars';
@@ -20,6 +32,7 @@ $loco-red: #a0220a;
 
 * {
     margin: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -31,22 +44,37 @@ body {
     gap: 20px;
     background-image: url('assets/img/desert-bg3.png');
     background-size: cover;
-    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    font-family: 'boogaloo', Arial, Helvetica, sans-serif;
     font-size: 46px;
     color: $loco-red;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+// ::-webkit-scrollbar-track {
+//     // background: #f1f1f1;
+//     border-radius: 50%;
+// }
+
+::-webkit-scrollbar-thumb {
+    background: $loco-orange;
+    border-radius: 2px;
+}
+
+// ::-webkit-scrollbar-thumb:hover {
+//     background: $loco-yellow;
+// }
+
 h1 {
     letter-spacing: 8px;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
     text-shadow: 4px 4px 2px rgba($loco-red, 0.3);
 }
 
 #main-screen-container {
     position: relative;
-    font-family: 'boogaloo', Arial, Helvetica, sans-serif;
-    font-size: 46px;
-    font-weight: 700;
-    color: $loco-red;
 }
 
 canvas {
@@ -74,7 +102,7 @@ canvas {
     background-position-y: 40%;
 }
 
-#menu-screen {
+#play-btn-screen {
     @include flex-centered;
     z-index: 1;
 
@@ -110,16 +138,13 @@ canvas {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
 }
 
 #sound-btn,
 #info-btn,
 #fullscreen-btn {
     @include flex-centered;
-    font-family: 'boogaloo', Arial, Helvetica, sans-serif;
-    font-size: 46px;
-    font-weight: 700;
-    color: $loco-red;
     cursor: pointer;
     background-color: transparent;
     border-radius: 50%;
@@ -138,6 +163,90 @@ canvas {
 
 #fullscreen-btn img {
     width: 28px;
+}
+
+#info-screen {
+    @include flex-centered;
+    padding: 72px 40px 48px 40px;
+    background-color: $transparent-black;
+}
+
+#info-content {
+    display: flex;
+    flex-direction: column;
+    // gap: 10px;
+    color: $loco-orange;
+    font-size: 28px;
+    overflow: auto;
+    height: inherit;
+    z-index: 2;
+    padding-right: 16px;
+
+    section {
+        margin-bottom: 48px;
+    }
+
+    h2 {
+        margin-bottom: 24px;
+        color: $loco-yellow;
+    }
+
+    td {
+        margin-bottom: 12px;
+    }
+
+    td:first-child {
+        @include flex-centered;
+        margin-right: 100px;
+        margin-left: 8px;
+
+        span {
+            color: $loco-red;
+            margin: 0 16px;
+            font-size: 48px;
+        }
+
+    }
+}
+
+.keyboard {
+    @include flex-centered;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    color: $loco-red;
+    background: $loco-gradient;
+    border: solid 2px;
+    font-size: 32px;
+
+    img:not(#key-space) {
+        width: 16px;
+        height: 16px
+    }
+
+    #key-space {
+        width: 36px;
+        height: 36px
+    }
+}
+
+.description-text {
+    margin-bottom: 16px;
+}
+
+.sound-option {
+    @include flex-centered;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: $loco-red;
+    background: $loco-gradient;
+    border: solid 2px;
+
+    img {
+        width: 32px;
+        height: 32px
+    }
 }
 
 #end-screen-lost {

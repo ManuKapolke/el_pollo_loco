@@ -5,8 +5,9 @@ let fullscreenIsActive = false;
 let musicIsOn = true;
 let soundIsOn = true;
 let intervalIds = [];
+let gameIsRunning = false;
 
-function init() {
+function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
@@ -16,27 +17,8 @@ function init() {
         document.getElementById('start-screen').classList.add('d-none');
         // document.getElementById('start-btn').disabled = true;
     }, 500);
-}
 
-
-function toggleSoundAndMusic() {
-    const soundIcon = document.getElementById('sound-btn-icon');
-    if (musicIsOn) {
-        musicIsOn = false;
-        soundIcon.src = 'assets/img/sounds-without-music.png';
-        soundIcon.style.width = '28px';
-    }
-    else if (soundIsOn) {
-        soundIsOn = false;
-        soundIcon.src = 'assets/img/sounds-off.png';
-        soundIcon.style.width = '28px';
-    }
-    else {
-        musicIsOn = true;
-        soundIsOn = true;
-        soundIcon.src = 'assets/img/sounds-and-music.png';
-        soundIcon.style.width = '32px';
-    }
+    gameIsRunning = true;
 }
 
 window.addEventListener('keydown', (e) => {
@@ -104,6 +86,35 @@ function clearStoppableIntervals() {
 /* Alternative (quick and dirty), um alle Intervalle zu beenden. */
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+
+function toggleSoundAndMusic() {
+    const soundIcon = document.getElementById('sound-btn-icon');
+    if (musicIsOn) {
+        musicIsOn = false;
+        soundIcon.src = 'assets/img/sounds-without-music.png';
+        soundIcon.style.width = '28px';
+    }
+    else if (soundIsOn) {
+        soundIsOn = false;
+        soundIcon.src = 'assets/img/sounds-off.png';
+        soundIcon.style.width = '28px';
+    }
+    else {
+        musicIsOn = true;
+        soundIsOn = true;
+        soundIcon.src = 'assets/img/sounds-and-music.png';
+        soundIcon.style.width = '32px';
+    }
+}
+
+
+function toggleGameInfo() {
+    document.getElementById('info-screen').classList.toggle('full-opacity');
+    if (!gameIsRunning) {
+        document.getElementById('play-btn').classList.toggle('d-none');
+    }
 }
 
 
