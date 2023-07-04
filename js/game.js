@@ -6,16 +6,18 @@ let musicIsOn = true;
 let soundIsOn = true;
 let intervalIds = [];
 let gameIsRunning = false;
+let gameIsLost = false;
+let gameIsWon = false;
 
 function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
     document.getElementById('play-btn').classList.add('d-none');
+    document.getElementById('play-btn-screen').classList.remove('full-opacity');
     document.getElementById('start-screen').classList.remove('full-opacity');
     setTimeout(() => {
         document.getElementById('start-screen').classList.add('d-none');
-        // document.getElementById('start-btn').disabled = true;
     }, 500);
 
     gameIsRunning = true;
@@ -112,7 +114,16 @@ function toggleSoundAndMusic() {
 
 function toggleGameInfo() {
     document.getElementById('info-screen').classList.toggle('full-opacity');
-    if (!gameIsRunning) {
+
+    if (gameIsRunning) return;
+
+    if (gameIsLost) {
+        document.getElementById('end-screen-lost').classList.toggle('full-opacity');
+    }
+    // else if (gameIsWon) {
+    //     document.getElementById('end-screen-won').classList.toggle('full-opacity');
+    // }
+    else {// game has not been started
         document.getElementById('play-btn').classList.toggle('d-none');
     }
 }

@@ -3,6 +3,8 @@ $loco-yellow: #ffc521;
 $loco-orange: #ef8b10;
 $transparent-black: rgba(0, 0, 0, 0.878);
 $loco-gradient: linear-gradient(to bottom, $loco-yellow, $loco-orange);
+$canvas-width: 720px;
+$canvas-height: 480px;
 
 
 
@@ -174,9 +176,8 @@ canvas {
 #info-content {
     display: flex;
     flex-direction: column;
-    // gap: 10px;
     color: $loco-orange;
-    font-size: 28px;
+    font-size: 26px;
     overflow: auto;
     height: inherit;
     z-index: 2;
@@ -199,17 +200,10 @@ canvas {
         @include flex-centered;
         margin-right: 100px;
         margin-left: 8px;
-
-        span {
-            color: $loco-red;
-            margin: 0 16px;
-            font-size: 48px;
-        }
-
     }
 }
 
-.keyboard {
+.key {
     @include flex-centered;
     width: 48px;
     height: 48px;
@@ -219,15 +213,21 @@ canvas {
     border: solid 2px;
     font-size: 32px;
 
-    img:not(#key-space) {
+    img:not(.key-space) {
         width: 16px;
         height: 16px
     }
 
-    #key-space {
+    .key-space {
         width: 36px;
         height: 36px
     }
+}
+
+.key-separator {
+    color: $loco-red;
+    margin: 0 16px;
+    font-size: 48px;
 }
 
 .description-text {
@@ -244,8 +244,8 @@ canvas {
     border: solid 2px;
 
     img {
-        width: 32px;
-        height: 32px
+        width: 26px;
+        height: 26px
     }
 }
 
@@ -259,7 +259,52 @@ canvas {
     background-size: contain;
 }
 
-@media only screen and (max-width: 720px) {
+#permanent-key-info-container {
+    @include flex-centered;
+    gap: 32px;
+    width: 95%;
+    position: absolute;
+    bottom: -80px;
+    left: calc(0.5 * 0.05 * $canvas-width);
+    font-size: 24px;
+    background-color: rgba($loco-yellow, 0.4);
+    padding: 10px;
+    border-radius: 10px;
+
+    .permanent-key-info {
+        @include flex-centered;
+        gap: 10px;
+    }
+}
+
+.permanent-key {
+    @extend .key;
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+
+    img:not(.key-space) {
+        width: 8px;
+        height: 8px
+    }
+
+    .key-space {
+        width: 24px;
+        height: 24px
+    }
+}
+
+.permanent-key-jump {
+    @include flex-centered;
+}
+
+.permanent-key-separator {
+    color: $loco-red;
+    margin: 0 8px;
+    font-size: 24px;
+}
+
+@media only screen and (max-width: $canvas-width) {
     #main-screen-container {
         width: 100%;
     }
@@ -269,7 +314,7 @@ canvas {
     }
 }
 
-@media only screen and (max-height: 480px) {
+@media only screen and (max-height: $canvas-height) {
     h1 {
         display: none;
     }

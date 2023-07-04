@@ -150,7 +150,7 @@ canvas {
   display: flex;
   flex-direction: column;
   color: #ef8b10;
-  font-size: 28px;
+  font-size: 26px;
   overflow: auto;
   height: inherit;
   z-index: 2;
@@ -173,13 +173,8 @@ canvas {
   margin-right: 100px;
   margin-left: 8px;
 }
-#info-content td:first-child span {
-  color: #a0220a;
-  margin: 0 16px;
-  font-size: 48px;
-}
 
-.keyboard {
+.key, .permanent-key {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -191,13 +186,19 @@ canvas {
   border: solid 2px;
   font-size: 32px;
 }
-.keyboard img:not(#key-space) {
+.key img:not(.key-space), .permanent-key img:not(.key-space) {
   width: 16px;
   height: 16px;
 }
-.keyboard #key-space {
+.key .key-space, .permanent-key .key-space {
   width: 36px;
   height: 36px;
+}
+
+.key-separator {
+  color: #a0220a;
+  margin: 0 16px;
+  font-size: 48px;
 }
 
 .description-text {
@@ -216,8 +217,8 @@ canvas {
   border: solid 2px;
 }
 .sound-option img {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
 }
 
 #end-screen-lost {
@@ -228,6 +229,53 @@ canvas {
 #end-screen-won {
   background-image: url("assets/img/9_intro_outro_screens/game_over/game-over.png");
   background-size: contain;
+}
+
+#permanent-key-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 95%;
+  position: absolute;
+  bottom: -80px;
+  left: 18px;
+  font-size: 24px;
+  background-color: rgba(255, 197, 33, 0.4);
+  padding: 10px;
+  border-radius: 10px;
+}
+#permanent-key-info-container .permanent-key-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.permanent-key {
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+}
+.permanent-key img:not(.key-space) {
+  width: 8px;
+  height: 8px;
+}
+.permanent-key .key-space {
+  width: 24px;
+  height: 24px;
+}
+
+.permanent-key-jump {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.permanent-key-separator {
+  color: #a0220a;
+  margin: 0 8px;
+  font-size: 24px;
 }
 
 @media only screen and (max-width: 720px) {

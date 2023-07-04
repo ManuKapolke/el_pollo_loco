@@ -139,7 +139,6 @@ class World {
     deleteDeadEnemy(enemy) {
         setTimeout(() => {
             let enemyIndex = this.level.enemies.indexOf(enemy);
-            // console.log("enemy killed: " + enemyIndex);
             this.level.enemies.splice(enemyIndex, 1);
         }, 500);
     }
@@ -154,7 +153,7 @@ class World {
     checkGameOver() {
         if (this.character.isDead()) {
             setTimeout(() => {
-                this.gameOver();
+                this.gameLost();
             }, 800);
         }
         else if (this.level.endboss.isDead()) {
@@ -168,7 +167,7 @@ class World {
         }
     }
 
-    gameOver() {
+    gameLost() {
         this.background_music.pause();
         this.endbossAppears_music.pause();
         if (!this.gameOverSoundHasBeenPlayed) {
@@ -176,19 +175,23 @@ class World {
             this.gameOverSoundHasBeenPlayed = true;
         }
         clearStoppableIntervals();
-        gameIsRunning = false;
         setTimeout(() => {
-            document.getElementById('end-screen-lost').classList.add('full-opacity');
+            if (gameIsRunning) {
+                document.getElementById('end-screen-lost').classList.add('full-opacity');
+            }
             this.playMusicIfSwitchedOn(this.gameLost_music);
+            gameIsRunning = false;
+            gameIsLost = true;
         }, 2000);
     }
 
     gameWon() {
         this.endbossAppears_music.pause();
         clearStoppableIntervals();
-        gameIsRunning = false;
         setTimeout(() => {
             this.playMusicIfSwitchedOn(this.gameWon_music);
+            gameIsRunning = false;
+            gameIsWon = true;
         }, 1000);
     }
 
