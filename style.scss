@@ -87,6 +87,24 @@ canvas {
     display: block;
 }
 
+#status-bar-numbers {
+    @include flex-centered;
+    flex-direction: column;
+    gap: 12px;
+    width: 32px;
+    position: absolute;
+    top: 22px;
+    left: 24%;
+    font-size: 20px;
+    color: white;
+}
+
+#endboss-status {
+    position: absolute;
+    top: 62%;
+    left: 966%;
+}
+
 .overlay-screen {
     position: absolute;
     top: 0;
@@ -192,14 +210,11 @@ canvas {
         color: $loco-yellow;
     }
 
-    td {
-        margin-bottom: 12px;
-    }
-
     td:first-child {
         @include flex-centered;
-        margin-right: 100px;
-        margin-left: 8px;
+        height: 64px;
+        padding-right: 80px;
+        padding-left: 8px;
     }
 }
 

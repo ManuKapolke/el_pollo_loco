@@ -43,12 +43,14 @@ class World {
     }
 
     runGame() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkCollisions();
             this.checkThrows();
             this.checkChickenKills();
             this.checkEnteringFinalZone();
             this.checkEndbossHits();
+        }, 50);
+        setInterval(() => {
             this.checkGameOver();
         }, 50);
     }
@@ -58,6 +60,10 @@ class World {
 
         if (this.character.isInFinalZone()) {
             this.character.hasBeenInFinalZone = true;
+            showElement('endboss-status');
+        }
+        else {
+            removeElement('endboss-status');
         }
     }
 
@@ -119,7 +125,7 @@ class World {
         // let endboss = this.level.enemies.at(-1);
         this.thrownObjects.forEach(bottle => {
             if (bottle.isColliding(this.level.endboss)) {
-                this.level.endboss.hit(4);
+                this.level.endboss.hit();
                 this.deleteThrownBottle(bottle);
                 this.level.endboss.speed += 0.1;
             }
@@ -196,10 +202,22 @@ class World {
     }
 
     updateStatusBars() {
+        const coinsPercentage = (100 / this.level.numberOfCoins) * this.character.numberOfCoins;
+        const bottlesPercentage = (100 / this.level.numberOfBottles) * this.character.numberOfBottles;
+
         this.statusBarHealth.setPercentage(this.character.energy);
-        this.statusBarBottles.setPercentage(10 * this.character.numberOfBottles);
-        this.statusBarCoins.setPercentage(10 * this.character.numberOfCoins);
+        this.statusBarCoins.setPercentage(coinsPercentage);
+        this.statusBarBottles.setPercentage(bottlesPercentage);
         this.statusBarEndboss.setPercentage(this.level.endboss.energy);
+
+        this.updateStatusBarNumbers();
+    }
+
+    updateStatusBarNumbers() {
+        document.getElementById('health-status').innerHTML = this.character.energy;
+        document.getElementById('coins-status').innerHTML = this.character.numberOfCoins;
+        document.getElementById('bottles-status').innerHTML = this.character.numberOfBottles;
+        document.getElementById('endboss-status').innerHTML = this.level.endboss.energy;
     }
 
     setWorld() {

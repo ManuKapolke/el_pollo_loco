@@ -66,6 +66,8 @@ class Character extends MovableObject {
         bottom: 0.05 * this.height,
         left: 0.2 * this.width
     };
+    energyLossPerHit = 5;
+    energyGainPerCoin = 2;
     numberOfCoins = 0;
     numberOfBottles = 0;
     lastThrow = 0;
@@ -107,7 +109,7 @@ class Character extends MovableObject {
             let objIndex = this.world.level.coins.indexOf(obj);
             this.world.playSoundIfSwitchedOn(obj.collect_sound);
             this.numberOfCoins++;
-            this.energy += 5;
+            this.energy += this.energyGainPerCoin;
             this.world.level.coins.splice(objIndex, 1);
         }
     }
@@ -128,7 +130,7 @@ class Character extends MovableObject {
 
     killByJump(enemy) {
         if (enemy.isDead()) return;
-        enemy.die();
+        enemy.die(); //oder: enemy.hit() ?
         this.world.playSoundIfSwitchedOn(enemy.smash_sound);
         setTimeout(() => {
             this.world.deleteDeadEnemy(enemy);
@@ -139,7 +141,7 @@ class Character extends MovableObject {
 
     killByThrow(bottle, enemy) {
         if (enemy.isDead()) return;
-        enemy.die();
+        enemy.die(); //oder: enemy.hit() ?
         this.world.deleteThrownBottle(bottle);
         this.world.deleteDeadEnemy(enemy);
     }

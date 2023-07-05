@@ -55,6 +55,26 @@ canvas {
   display: block;
 }
 
+#status-bar-numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  width: 32px;
+  position: absolute;
+  top: 22px;
+  left: 24%;
+  font-size: 20px;
+  color: white;
+}
+
+#endboss-status {
+  position: absolute;
+  top: 62%;
+  left: 966%;
+}
+
 .overlay-screen {
   position: absolute;
   top: 0;
@@ -163,15 +183,13 @@ canvas {
   margin-bottom: 24px;
   color: #ffc521;
 }
-#info-content td {
-  margin-bottom: 12px;
-}
 #info-content td:first-child {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 100px;
-  margin-left: 8px;
+  height: 64px;
+  padding-right: 80px;
+  padding-left: 8px;
 }
 
 .key, .permanent-key {

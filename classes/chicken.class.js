@@ -10,13 +10,13 @@ class Chicken extends MovableObject {
     IMAGES_DEATH = [
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
-
     offset = {
         top: 0.05 * this.height,
         right: 0.02 * this.width,
         bottom: 0.2 * this.height,
         left: 0.02 * this.width
     };
+    energyLossPerHit = 100;
     smash_sound = new Audio('assets/audio/smash.mp3');
     death_sound = new Audio('assets/audio/chicken_dead.mp3');
 

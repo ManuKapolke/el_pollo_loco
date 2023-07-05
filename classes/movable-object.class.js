@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    energyLossPerHit;
     world;
     gravityInterval;
     deathSoundHasBeenPlayed = false;
@@ -63,7 +64,7 @@ class MovableObject extends DrawableObject {
 
     hit(energyLossFactor = 1) {
         if (this.isHurt()) return;
-        this.energy = Math.max(this.energy - energyLossFactor * 5, 0);
+        this.energy = Math.max(this.energy - energyLossFactor * this.energyLossPerHit, 0);
         this.lastHit = new Date().getTime();
     }
 
