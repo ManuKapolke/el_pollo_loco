@@ -91,4 +91,13 @@ class MovableObject extends DrawableObject {
     isInFinalZone() {
         return this.x > MOST_RIGHT_BG * CANVAS_WIDTH;
     }
+
+    moveTowardsCenter() {
+        if (this.isInLeftHalfOfCanvas()) {
+            this.moveRight();
+        }
+        else if (this.isInRightHalfOfCanvas()) {
+            this.moveLeft();
+        }
+    }
 }

@@ -70,4 +70,11 @@ class DrawableObject {
             this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
     }
 
+    isInLeftHalfOfCanvas() {
+        return this.x < -this.world.camera_x + 0.5 * (CANVAS_WIDTH - this.width);
+    }
+
+    isInRightHalfOfCanvas() {
+        return this.x > -this.world.camera_x + 0.5 * (CANVAS_WIDTH - this.width);
+    }
 }

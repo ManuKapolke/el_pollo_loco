@@ -60,6 +60,20 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/5_dead/D-55.png',
         'assets/img/2_character_pepe/5_dead/D-56.png'//, 'assets/img/2_character_pepe/5_dead/D-57.png'
     ];
+    IMAGES_DANCE = [
+        'assets/img/pepe_dance/J-35.png',
+        'assets/img/pepe_dance/J-35_mirrored.png',
+        'assets/img/pepe_dance/J-35.png',
+        'assets/img/pepe_dance/J-35_mirrored.png',
+        'assets/img/pepe_dance/J-35.png',
+        'assets/img/pepe_dance/J-36.png',
+        'assets/img/pepe_dance/J-35_mirrored.png',
+        'assets/img/pepe_dance/J-36_mirrored.png',
+        'assets/img/pepe_dance/J-35.png',
+        'assets/img/pepe_dance/J-36.png',
+        'assets/img/pepe_dance/J-35_mirrored.png',
+        'assets/img/pepe_dance/J-36_mirrored.png'
+    ];
     offset = {
         top: 0.5 * this.height,
         right: 0.3 * this.width,
@@ -87,6 +101,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEATH);
+        this.loadImages(this.IMAGES_DANCE);
         this.applyGravity();
 
         this.animate();
@@ -214,6 +229,10 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_LONGIDLE);
             }
         }
+    }
+
+    playDanceAnimation() {
+        this.playAnimation(this.IMAGES_DANCE);
     }
 
     playSoundEffects() {

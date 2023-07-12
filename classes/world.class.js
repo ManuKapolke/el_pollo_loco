@@ -52,7 +52,7 @@ class World {
         }, 50);
         setInterval(() => {
             this.checkGameOver();
-        }, 50);
+        }, 300);
     }
 
     checkEnteringFinalZone() {
@@ -168,6 +168,7 @@ class World {
                 this.level.endboss.speedY = 0;
             }
             setTimeout(() => {
+                if (gameIsLost) return;
                 this.gameWon();
             }, 1000);
         }
@@ -195,10 +196,19 @@ class World {
         this.endbossAppears_music.pause();
         clearStoppableIntervals();
         setTimeout(() => {
+            if (gameIsRunning) {
+                document.getElementById('end-screen-won').classList.add('full-opacity');
+            }
             this.playMusicIfSwitchedOn(this.gameWon_music);
+
             gameIsRunning = false;
             gameIsWon = true;
         }, 1000);
+        setTimeout(() => {
+            this.character.speed = 30;
+            this.character.moveTowardsCenter();
+            this.character.playDanceAnimation();
+        }, 3000);
     }
 
     updateStatusBars() {

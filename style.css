@@ -245,8 +245,25 @@ canvas {
 }
 
 #end-screen-won {
-  background-image: url("assets/img/9_intro_outro_screens/game_over/game-over.png");
-  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+#end-screen-won span {
+  background: linear-gradient(to bottom, #ffc521, #ef8b10);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 140px;
+  text-shadow: -4px 4px 2px rgba(160, 34, 10, 0.3);
+  z-index: 2;
+}
+#end-screen-won .end-screen-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 400px rgba(0, 0, 0, 0.9);
 }
 
 #permanent-key-info-container {
