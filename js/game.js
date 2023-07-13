@@ -10,14 +10,20 @@ let gameIsLost = false;
 let gameIsWon = false;
 
 function startGame() {
+    showElement('loader');
     initLevel();
+    initWorld();
+    removeStartScreen();
+    gameIsRunning = true;
+    setTimeout(() => {
+        removeElement('loader');
+    }, 1000);
+
+}
+
+function initWorld() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-
-    removeStartScreen();
-
-    gameIsRunning = true;
 }
 
 function restartGame() {
@@ -159,11 +165,13 @@ function toggleGameInfo() {
 
     if (gameIsLost) {
         document.getElementById('end-screen-lost').classList.toggle('full-opacity');
-        document.getElementById('replay-btn').classList.toggle('d-none');
+        document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
+        document.getElementById('replay-btn-screen').style.zIndex = (+document.getElementById('replay-btn-screen').style.zIndex + 1) % 2;
     }
     else if (gameIsWon) {
         document.getElementById('end-screen-won').classList.toggle('full-opacity');
-        document.getElementById('replay-btn').classList.toggle('d-none');
+        document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
+        document.getElementById('replay-btn-screen').style.zIndex = (+document.getElementById('replay-btn-screen').style.zIndex + 1) % 2;
     }
     else {// game has not been started
         document.getElementById('play-btn').classList.toggle('d-none');

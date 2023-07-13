@@ -1,6 +1,7 @@
 $loco-red: #a0220a;
 $loco-yellow: #ffc521;
 $loco-orange: #ef8b10;
+$loco-beige: #CCAF7D;
 $transparent-black: rgba(0, 0, 0, 0.878);
 $loco-gradient: linear-gradient(to bottom, $loco-yellow, $loco-orange);
 $canvas-width: 720px;
@@ -361,6 +362,37 @@ canvas {
     color: $loco-red;
     margin: 0 8px;
     font-size: 24px;
+}
+
+.loader-container {
+    @include flex-centered;
+    position: fixed;
+    background-color: rgba($loco-beige, 0.7);
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+}
+
+.loader {
+    border-left: 16px dashed $loco-red;
+    border-right: 16px dashed $loco-orange;
+    border-radius: 50%;
+    background-image: url('assets/img/6_salsa_bottle/salsa_bottle.png');
+    background-size: contain;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media only screen and (max-width: $canvas-width) {

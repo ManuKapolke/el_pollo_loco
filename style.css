@@ -342,6 +342,37 @@ canvas {
   font-size: 24px;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: rgba(204, 175, 125, 0.7);
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+}
+
+.loader {
+  border-left: 16px dashed #a0220a;
+  border-right: 16px dashed #ef8b10;
+  border-radius: 50%;
+  background-image: url("assets/img/6_salsa_bottle/salsa_bottle.png");
+  background-size: contain;
+  background-position: center;
+  width: 200px;
+  height: 200px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @media only screen and (max-width: 720px) {
   #main-screen-container {
     width: 100%;
