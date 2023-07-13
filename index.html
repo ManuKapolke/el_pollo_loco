@@ -52,7 +52,7 @@
         </div>
 
         <div id="play-btn-screen" class="overlay-screen full-opacity">
-            <button id="play-btn" onclick="initLevel();startGame()">
+            <button id="play-btn" onclick="startGame()">
                 <img src="assets/img/play.png">
             </button>
         </div>
@@ -179,7 +179,12 @@
         <div id="end-screen-won" class="overlay-screen">
             <span>YOU WON!</span>
             <div class="end-screen-circle"></div>
+        </div>
 
+        <div id="replay-btn-screen" class="overlay-screen d-none">
+            <button id="replay-btn" onclick="restartGame()">
+                REPLAY
+            </button>
         </div>
 
         <div id="permanent-key-info-container">

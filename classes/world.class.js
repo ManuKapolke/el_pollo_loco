@@ -149,6 +149,10 @@ class World {
         }, 500);
     }
 
+    deleteAllEnemies() {
+        this.level.enemies = [];
+    }
+
     deleteThrownBottle(bottle) {
         setTimeout(() => {
             let bottleIndex = this.thrownObjects.indexOf(bottle);
@@ -184,11 +188,11 @@ class World {
         clearStoppableIntervals();
         setTimeout(() => {
             if (gameIsRunning) {
-                document.getElementById('end-screen-lost').classList.add('full-opacity');
+                gameIsRunning = false;
+                gameIsLost = true;
+                showEndScreen('end-screen-lost');
             }
             this.playMusicIfSwitchedOn(this.gameLost_music);
-            gameIsRunning = false;
-            gameIsLost = true;
         }, 2000);
     }
 
@@ -197,18 +201,19 @@ class World {
         clearStoppableIntervals();
         setTimeout(() => {
             if (gameIsRunning) {
-                document.getElementById('end-screen-won').classList.add('full-opacity');
+                gameIsRunning = false;
+                gameIsWon = true;
+                showEndScreen('end-screen-won');
+                this.deleteAllEnemies();
             }
             this.playMusicIfSwitchedOn(this.gameWon_music);
 
-            gameIsRunning = false;
-            gameIsWon = true;
         }, 1000);
         setTimeout(() => {
-            this.character.speed = 30;
+            this.character.speed = 25;
             this.character.moveTowardsCenter();
             this.character.playDanceAnimation();
-        }, 3000);
+        }, 2800);
     }
 
     updateStatusBars() {

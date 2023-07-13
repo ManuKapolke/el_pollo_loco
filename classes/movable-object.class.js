@@ -89,7 +89,7 @@ class MovableObject extends DrawableObject {
     }
 
     isInFinalZone() {
-        return this.x > MOST_RIGHT_BG * CANVAS_WIDTH;
+        return this.x > MOST_RIGHT_BG * CANVAS_WIDTH - 140;
     }
 
     moveTowardsCenter() {

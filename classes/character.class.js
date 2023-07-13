@@ -62,9 +62,13 @@ class Character extends MovableObject {
     ];
     IMAGES_DANCE = [
         'assets/img/pepe_dance/J-35.png',
-        'assets/img/pepe_dance/J-35_mirrored.png',
         'assets/img/pepe_dance/J-35.png',
-        'assets/img/pepe_dance/J-35_mirrored.png',
+        'assets/img/pepe_dance/J-38.png',
+        'assets/img/pepe_dance/J-38.png',
+        'assets/img/pepe_dance/J-33.png',
+        'assets/img/pepe_dance/J-33.png',
+        'assets/img/pepe_dance/J-35.png',
+        'assets/img/pepe_dance/J-35.png',
         'assets/img/pepe_dance/J-35.png',
         'assets/img/pepe_dance/J-36.png',
         'assets/img/pepe_dance/J-35_mirrored.png',
@@ -80,7 +84,7 @@ class Character extends MovableObject {
         bottom: 0.05 * this.height,
         left: 0.2 * this.width
     };
-    energyLossPerHit = 5;
+    energyLossPerHit = 15;
     energyGainPerCoin = 2;
     numberOfCoins = 0;
     numberOfBottles = 0;

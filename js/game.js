@@ -10,17 +10,57 @@ let gameIsLost = false;
 let gameIsWon = false;
 
 function startGame() {
+    initLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
-    document.getElementById('play-btn').classList.add('d-none');
-    document.getElementById('play-btn-screen').classList.remove('full-opacity');
-    document.getElementById('start-screen').classList.remove('full-opacity');
-    setTimeout(() => {
-        document.getElementById('start-screen').classList.add('d-none');
-    }, 500);
+
+    removeStartScreen();
 
     gameIsRunning = true;
+}
+
+function restartGame() {
+    clearAllIntervals();
+    intervalIds = [];
+    world.gameLost_music.pause();
+    world.gameWon_music.pause();
+    removeEndScreen();
+    startGame();
+    gameIsLost = false;
+    gameIsWon = false;
+}
+
+function removeStartScreen() {
+    removeElement('play-btn');
+    removeOpacity('play-btn-screen');
+    removeOpacity('start-screen');
+    setTimeout(() => {
+        removeElement('start-screen');
+    }, 500);
+}
+
+function removeEndScreen() {
+    const endScreenId = gameIsLost ? 'end-screen-lost' : 'end-screen-won';
+
+    document.getElementById('replay-btn-screen').style.zIndex = 0;
+    // removeElement('replay-btn');
+    removeOpacity('replay-btn-screen');
+
+    removeOpacity(endScreenId);
+    setTimeout(() => {
+        removeElement(endScreenId);
+    }, 500);
+}
+
+function showEndScreen(endScreenId) {
+    showElement(endScreenId);
+    addOpacity(endScreenId);
+    showElement('replay-btn-screen');
+    // showElement('replay-btn');
+    addOpacity('replay-btn-screen');
+    document.getElementById('replay-btn-screen').style.zIndex = 1;
+
 }
 
 window.addEventListener('keydown', (e) => {
@@ -119,10 +159,12 @@ function toggleGameInfo() {
 
     if (gameIsLost) {
         document.getElementById('end-screen-lost').classList.toggle('full-opacity');
+        document.getElementById('replay-btn').classList.toggle('d-none');
     }
-    // else if (gameIsWon) {
-    //     document.getElementById('end-screen-won').classList.toggle('full-opacity');
-    // }
+    else if (gameIsWon) {
+        document.getElementById('end-screen-won').classList.toggle('full-opacity');
+        document.getElementById('replay-btn').classList.toggle('d-none');
+    }
     else {// game has not been started
         document.getElementById('play-btn').classList.toggle('d-none');
     }
@@ -196,4 +238,12 @@ function hideElement(id) {
  */
 function removeElement(id) {
     document.getElementById(id).classList.add('d-none');
+}
+
+function removeOpacity(id) {
+    document.getElementById(id).classList.remove('full-opacity');
+}
+
+function addOpacity(id) {
+    document.getElementById(id).classList.add('full-opacity');
 }

@@ -1,8 +1,8 @@
-let level1;
+let level1 = new Level();
 
 
 function initLevel() {
-    level1 = new Level();
+    // level1 = new Level();
 
     level1.enemies = [
         new Chicken(),
