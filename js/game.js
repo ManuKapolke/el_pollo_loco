@@ -9,6 +9,11 @@ let gameIsRunning = false;
 let gameIsLost = false;
 let gameIsWon = false;
 
+async function init() {
+    await loadSoundSettingFromLocalStorage();
+    setSoundIcon();
+}
+
 function startGame() {
     showElement('loader');
     initLevel();
@@ -138,24 +143,38 @@ function clearAllIntervals() {
 
 
 function toggleSoundAndMusic() {
-    const soundIcon = document.getElementById('sound-btn-icon');
     if (musicIsOn) {
         musicIsOn = false;
-        soundIcon.src = 'assets/img/sounds-without-music.png';
-        soundIcon.style.width = '28px';
     }
     else if (soundIsOn) {
         soundIsOn = false;
-        soundIcon.src = 'assets/img/sounds-off.png';
-        soundIcon.style.width = '28px';
     }
     else {
         musicIsOn = true;
         soundIsOn = true;
+    }
+    setSoundIcon();
+    saveSoundSettingToLocalStorage();
+}
+
+
+function setSoundIcon() {
+    const soundIcon = document.getElementById('sound-btn-icon');
+    if (musicIsOn) {
         soundIcon.src = 'assets/img/sounds-and-music.png';
         soundIcon.style.width = '32px';
     }
+    else if (soundIsOn) {
+        soundIcon.src = 'assets/img/sounds-without-music.png';
+        soundIcon.style.width = '28px';
+    }
+    else {
+        soundIcon.src = 'assets/img/sounds-off.png';
+        soundIcon.style.width = '28px';
+    }
 }
+
+
 
 
 function toggleGameInfo() {
@@ -254,4 +273,15 @@ function removeOpacity(id) {
 
 function addOpacity(id) {
     document.getElementById(id).classList.add('full-opacity');
+}
+
+function saveSoundSettingToLocalStorage() {
+    localStorage.setItem('musicIsOn', JSON.stringify(musicIsOn));
+    localStorage.setItem('soundIsOn', JSON.stringify(soundIsOn));
+}
+
+
+async function loadSoundSettingFromLocalStorage() {
+    musicIsOn = JSON.parse(localStorage.getItem('musicIsOn') || true);
+    soundIsOn = JSON.parse(localStorage.getItem('soundIsOn') || true);
 }
