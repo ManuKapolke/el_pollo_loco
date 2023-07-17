@@ -38,12 +38,11 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
-    <div id="loader" class="loader-container d-none">
-        <div class="loader"></div>
-    </div>
-
-
     <div id="main-screen-container">
+        <div id="loader" class="loader-container overlay-screen d-none">
+            <div class="loader"></div>
+        </div>
+
         <canvas id="canvas" width="720" height="480"></canvas>
 
         <div id="status-bar-numbers">
@@ -70,7 +69,7 @@
                 <img id="info-btn-icon" src="assets/img/info.png">
             </button>
             <button id="fullscreen-btn" onclick="toggleFullscreen()">
-                <img src="assets/img/fullscreen.png">
+                <img id="fullscreen-btn-icon" src="assets/img/fullscreen.png">
             </button>
         </div>
 
@@ -192,40 +191,40 @@
             </button>
         </div>
 
-        <div id="permanent-key-info-container">
-            <div class="permanent-key-info">
+
+    </div>
+    <div id="permanent-key-info-container">
+        <div class="permanent-key-info">
+            <div class="permanent-key">
+                <img src="assets/img/key-left.png">
+            </div>
+            <span>Move Left</span>
+        </div>
+        <div class="permanent-key-info">
+            <div class="permanent-key">
+                <img src="assets/img/key-right.png">
+            </div>
+            <span>Move Right</span>
+        </div>
+        <div class="permanent-key-info">
+            <div class="permanent-key-jump">
                 <div class="permanent-key">
-                    <img src="assets/img/key-left.png">
+                    <img class="key-space" src="assets/img/key-space.png">
                 </div>
-                <span>Move Left</span>
-            </div>
-            <div class="permanent-key-info">
+                <span class="permanent-key-separator">/</span>
                 <div class="permanent-key">
-                    <img src="assets/img/key-right.png">
+                    <img src="assets/img/key-up.png">
                 </div>
-                <span>Move Right</span>
             </div>
-            <div class="permanent-key-info">
-                <div class="permanent-key-jump">
-                    <div class="permanent-key">
-                        <img class="key-space" src="assets/img/key-space.png">
-                    </div>
-                    <span class="permanent-key-separator">/</span>
-                    <div class="permanent-key">
-                        <img src="assets/img/key-up.png">
-                    </div>
-                </div>
-                <span>Jump</span>
+            <span>Jump</span>
+        </div>
+        <div class="permanent-key-info">
+            <div class="permanent-key">
+                D
             </div>
-            <div class="permanent-key-info">
-                <div class="permanent-key">
-                    D
-                </div>
-                <span>Throw Bottles</span>
-            </div>
+            <span>Throw Bottles</span>
         </div>
     </div>
-
 </body>
 
 </html>

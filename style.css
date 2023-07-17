@@ -146,7 +146,7 @@ canvas {
 #sound-btn img,
 #info-btn img,
 #fullscreen-btn img {
-  width: 32px;
+  width: 32.4px;
   opacity: 0.8;
 }
 #sound-btn:hover img,
@@ -156,7 +156,7 @@ canvas {
 }
 
 #fullscreen-btn img {
-  width: 28px;
+  width: 28.8px;
 }
 
 #info-screen {
@@ -242,7 +242,8 @@ canvas {
 
 #end-screen-lost {
   background-image: url("assets/img/9_intro_outro_screens/game_over/game-over.png");
-  background-size: contain;
+  background-size: cover;
+  background-repeat: round;
 }
 
 #end-screen-won {
@@ -299,11 +300,9 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 32px;
-  width: 95%;
-  position: absolute;
-  bottom: -80px;
-  left: 18px;
+  width: 684px;
   font-size: 24px;
   background-color: rgba(255, 197, 33, 0.4);
   padding: 10px;
@@ -346,11 +345,9 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
   background-color: rgba(204, 175, 125, 0.7);
   z-index: 5;
-  width: 100%;
-  height: 100%;
+  opacity: 1;
 }
 
 .loader {
@@ -373,16 +370,40 @@ canvas {
     transform: rotate(360deg);
   }
 }
+/*--------------------------------------------------
+Media Query
+---------------------------------------------------*/
 @media only screen and (max-width: 720px) {
+  body {
+    font-size: 32px;
+  }
   #main-screen-container {
     width: 100%;
   }
-  canvas {
+  canvas,
+  .overlay-screen {
     border-radius: unset;
   }
+  #permanent-key-info-container {
+    gap: 20px;
+    font-size: 18px;
+    width: 80%;
+  }
+  #permanent-key-info {
+    gap: 6;
+  }
 }
-@media only screen and (max-height: 480px) {
-  h1 {
+@media only screen and (max-width: 360px) {
+  body {
+    font-size: 24px;
+  }
+}
+@media only screen and (max-height: 612px) {
+  body {
+    height: unset;
+  }
+  h1,
+  #permanent-key-info-container {
     display: none;
   }
   /* #main-screen-container {
@@ -391,6 +412,9 @@ canvas {
   } */
   canvas {
     height: 100vh;
+    border-radius: unset;
+  }
+  .overlay-screen {
     border-radius: unset;
   }
 }

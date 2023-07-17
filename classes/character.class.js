@@ -84,7 +84,7 @@ class Character extends MovableObject {
         bottom: 0.05 * this.height,
         left: 0.2 * this.width
     };
-    energyLossPerHit = 15;
+    energyLossPerHit = 10;
     energyGainPerCoin = 2;
     numberOfCoins = 0;
     numberOfBottles = 0;

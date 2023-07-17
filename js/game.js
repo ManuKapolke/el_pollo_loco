@@ -162,16 +162,28 @@ function setSoundIcon() {
     const soundIcon = document.getElementById('sound-btn-icon');
     if (musicIsOn) {
         soundIcon.src = 'assets/img/sounds-and-music.png';
-        soundIcon.style.width = '32px';
+        soundIcon.style.width = `${0.045 * getCanvasWidth()}px`;
     }
     else if (soundIsOn) {
         soundIcon.src = 'assets/img/sounds-without-music.png';
-        soundIcon.style.width = '28px';
+        soundIcon.style.width = `${0.04 * getCanvasWidth()}px`;
     }
     else {
         soundIcon.src = 'assets/img/sounds-off.png';
-        soundIcon.style.width = '28px';
+        soundIcon.style.width = `${0.04 * getCanvasWidth()}px`;
     }
+}
+
+
+function setInfoIcon() {
+    const infoIcon = document.getElementById('info-btn-icon');
+    infoIcon.style.width = `${0.045 * getCanvasWidth()}px`;
+}
+
+
+function setFullscreenIcon() {
+    const fullscreenIcon = document.getElementById('fullscreen-btn-icon');
+    fullscreenIcon.style.width = `${0.04 * getCanvasWidth()}px`;
 }
 
 
@@ -284,4 +296,28 @@ function saveSoundSettingToLocalStorage() {
 async function loadSoundSettingFromLocalStorage() {
     musicIsOn = JSON.parse(localStorage.getItem('musicIsOn') || true);
     soundIsOn = JSON.parse(localStorage.getItem('soundIsOn') || true);
+}
+
+
+
+/*--------------------------------------------------
+Responsiveness
+---------------------------------------------------*/
+window.addEventListener('resize', () => {
+    console.log('canvasWidth:', getCanvasWidth());
+    // todo: styles in Abhängigkeit der width setzten
+    // sound/info/fullscreen icon, status numbers, replay button etc.
+    setSoundIcon();
+    setInfoIcon();
+    setFullscreenIcon();
+
+    const menuBar = document.getElementById('menu-bar');
+    menuBar.style.gap = `${0.045 * getCanvasWidth()}px`;
+    menuBar.style.top = `${0.03 * getCanvasWidth()}px`;
+    menuBar.style.right = `${0.03 * getCanvasWidth()}px`;
+});
+
+
+function getCanvasWidth() {
+    return Math.min(CANVAS_WIDTH, window.innerWidth);
 }
