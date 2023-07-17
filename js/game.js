@@ -315,6 +315,9 @@ window.addEventListener('resize', () => {
     menuBar.style.gap = `${0.045 * getCanvasWidth()}px`;
     menuBar.style.top = `${0.03 * getCanvasWidth()}px`;
     menuBar.style.right = `${0.03 * getCanvasWidth()}px`;
+
+    const playBtn = document.getElementById('play-btn-img');
+    playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
 });
 
 

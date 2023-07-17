@@ -111,7 +111,7 @@ canvas {
   outline: none;
 }
 #play-btn img {
-  width: 280px;
+  width: 288px;
   opacity: 0;
   transition: all 250ms ease-in-out;
 }

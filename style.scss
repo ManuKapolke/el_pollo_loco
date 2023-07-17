@@ -141,7 +141,7 @@ canvas {
     outline: none;
 
     img {
-        width: 280px;
+        width: calc(0.4 * $canvas-width);
         // height: 300px;
         opacity: 0;
         transition: all 250ms ease-in-out;
