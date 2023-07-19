@@ -305,6 +305,7 @@ Responsiveness
 ---------------------------------------------------*/
 window.addEventListener('resize', () => {
     console.log('canvasWidth:', getCanvasWidth());
+    console.log('canvasHeight:', getCanvasHeight());
     // todo: styles in Abhängigkeit der width setzten
     // sound/info/fullscreen icon, status numbers, replay button etc.
     setSoundIcon();
@@ -318,9 +319,59 @@ window.addEventListener('resize', () => {
 
     const playBtn = document.getElementById('play-btn-img');
     playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
+
+    const statusNumbers = document.getElementById('status-bar-numbers');
+    statusNumbers.style.width = `${0.045 * getCanvasWidth()}px`;
+    statusNumbers.style.height = `${0.195 * getCanvasHeight()}px`;
+    // statusNumbers.style.gap = `${0.014 * getCanvasWidth()}px`;
+    statusNumbers.style.fontSize = `${0.027 * getCanvasWidth()}px`;
+
+    const replayBtn = document.getElementById('replay-btn');
+    replayBtn.style.fontSize = `${0.056 * getCanvasWidth()}px`;
+    // replayBtn.style.marginBottom = `${0.0167 * getCanvasHeight()}px`;
+
+    const endScreenWon = document.getElementById('end-screen-won');
+    endScreenWon.style.fontSize = `${0.29 * getCanvasHeight()}px`;
+
+    const endScreenCircle = document.getElementById('end-screen-circle');
+    endScreenCircle.style.width = `${0.5 * getCanvasHeight()}px`;
+    endScreenCircle.style.height = `${0.5 * getCanvasHeight()}px`;
+
+    const infoContent = document.getElementById('info-content');
+    infoContent.style.fontSize = `${0.06 * getCanvasHeight()}px`;
+
+    const keys = document.getElementsByClassName('key');
+    const keySeparator = document.getElementById('key-separator');
+    Array.from(keys).forEach((key) => {
+        key.style.width = `${0.1 * getCanvasHeight()}px`;
+        key.style.height = `${0.1 * getCanvasHeight()}px`;
+        key.style.fontSize = `${0.045 * getCanvasWidth()}px`;
+    });
+    keySeparator.style.fontSize = `${0.1 * getCanvasHeight()}px`;
+    keySeparator.style.marginLeft = `${0.033 * getCanvasHeight()}px`;
+    keySeparator.style.marginRight = `${0.033 * getCanvasHeight()}px`;
+
+    const soundOptions = document.getElementsByClassName('sound-option');
+    const soundDescription = document.getElementById('sound-description-text');
+    Array.from(soundOptions).forEach((so) => {
+        so.style.width = `${0.1 * getCanvasHeight()}px`;
+        so.style.height = `${0.1 * getCanvasHeight()}px`;
+    });
+    soundDescription.marginBottom = `${0.033 * getCanvasHeight()}px`;
+
+    const iconCell = document.getElementsByClassName('icon-td');
+    Array.from(iconCell).forEach((cell) => {
+        cell.style.height = `${0.0888 * getCanvasWidth()}px`;
+        cell.style.paddingRight = `${0.111 * getCanvasWidth()}px`;
+        cell.style.paddingLeft = `${0.0111 * getCanvasWidth()}px`;
+    });
 });
 
 
 function getCanvasWidth() {
-    return Math.min(CANVAS_WIDTH, window.innerWidth);
+    return Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
+}
+
+function getCanvasHeight() {
+    return Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);
 }

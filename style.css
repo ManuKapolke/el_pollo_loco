@@ -57,13 +57,13 @@ canvas {
 
 #status-bar-numbers {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  gap: 12px;
-  width: 32px;
+  width: 32.4px;
+  height: 93.6px;
   position: absolute;
-  top: 22px;
+  top: 5%;
   left: 24%;
   font-size: 20px;
   color: white;
@@ -71,8 +71,8 @@ canvas {
 
 #endboss-status {
   position: absolute;
-  top: 62%;
-  left: 966%;
+  top: 60%;
+  right: -930%;
 }
 
 .overlay-screen {
@@ -163,7 +163,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 72px 40px 48px 40px;
+  padding: 10% 5% 6% 5%;
   background-color: rgba(0, 0, 0, 0.878);
 }
 
@@ -171,26 +171,26 @@ canvas {
   display: flex;
   flex-direction: column;
   color: #ef8b10;
-  font-size: 26px;
+  font-size: 28.8px;
   overflow: auto;
   height: inherit;
   z-index: 3;
   padding-right: 16px;
 }
 #info-content section {
-  margin-bottom: 48px;
+  margin-bottom: 10%;
 }
 #info-content h2 {
-  margin-bottom: 24px;
+  margin-bottom: 5%;
   color: #ffc521;
 }
-#info-content td:first-child {
+#info-content .icon-td {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 64px;
-  padding-right: 80px;
-  padding-left: 8px;
+  height: 63.936px;
+  padding-right: 79.92px;
+  padding-left: 7.992px;
 }
 
 .key, .permanent-key {
@@ -203,25 +203,25 @@ canvas {
   color: #a0220a;
   background: linear-gradient(to bottom, #ffc521, #ef8b10);
   border: solid 2px;
-  font-size: 32px;
+  font-size: 32.4px;
 }
 .key img:not(.key-space), .permanent-key img:not(.key-space) {
-  width: 16px;
-  height: 16px;
+  width: 33.33%;
+  height: 33.33%;
 }
 .key .key-space, .permanent-key .key-space {
-  width: 36px;
-  height: 36px;
+  width: 75%;
+  height: 75%;
 }
 
-.key-separator {
+#key-separator {
   color: #a0220a;
-  margin: 0 16px;
+  margin: 0 15.84px;
   font-size: 48px;
 }
 
-.description-text {
-  margin-bottom: 16px;
+#sound-description-text {
+  margin-bottom: 15.84px;
 }
 
 .sound-option {
@@ -236,8 +236,8 @@ canvas {
   border: solid 2px;
 }
 .sound-option img {
-  width: 26px;
-  height: 26px;
+  width: 60%;
+  height: 60%;
 }
 
 #end-screen-lost {
@@ -252,16 +252,16 @@ canvas {
   align-items: center;
   flex-direction: column;
   overflow: hidden;
+  font-size: 139.2px;
 }
 #end-screen-won span {
   background: linear-gradient(to bottom, #ffc521, #ef8b10);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 140px;
   text-shadow: -4px 4px 2px rgba(160, 34, 10, 0.3);
   z-index: 1;
 }
-#end-screen-won .end-screen-circle {
+#end-screen-won #end-screen-circle {
   width: 240px;
   height: 240px;
   border-radius: 50%;
@@ -284,9 +284,9 @@ canvas {
   border: solid 2px;
   outline: none;
   font-family: "boogaloo", Arial, Helvetica, sans-serif;
-  font-size: 40px;
-  padding: 0px 16px;
-  margin-bottom: 8px;
+  font-size: 40.32px;
+  padding: 0px 2.22%;
+  margin-bottom: 1.11%;
   box-shadow: 0px 1px 4px 2px rgba(255, 197, 33, 0.3);
   cursor: pointer;
   transition: all 250ms ease-in-out;
@@ -335,7 +335,7 @@ canvas {
   align-items: center;
 }
 
-.permanent-key-separator {
+#permanent-key-separator {
   color: #a0220a;
   margin: 0 8px;
   font-size: 24px;
