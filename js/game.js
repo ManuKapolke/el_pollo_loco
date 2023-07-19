@@ -12,6 +12,7 @@ let gameIsWon = false;
 async function init() {
     await loadSoundSettingFromLocalStorage();
     setSoundIcon();
+    resizeCanvasContent();
 }
 
 function startGame() {
@@ -162,28 +163,13 @@ function setSoundIcon() {
     const soundIcon = document.getElementById('sound-btn-icon');
     if (musicIsOn) {
         soundIcon.src = 'assets/img/sounds-and-music.png';
-        soundIcon.style.width = `${0.045 * getCanvasWidth()}px`;
     }
     else if (soundIsOn) {
         soundIcon.src = 'assets/img/sounds-without-music.png';
-        soundIcon.style.width = `${0.04 * getCanvasWidth()}px`;
     }
     else {
         soundIcon.src = 'assets/img/sounds-off.png';
-        soundIcon.style.width = `${0.04 * getCanvasWidth()}px`;
     }
-}
-
-
-function setInfoIcon() {
-    const infoIcon = document.getElementById('info-btn-icon');
-    infoIcon.style.width = `${0.045 * getCanvasWidth()}px`;
-}
-
-
-function setFullscreenIcon() {
-    const fullscreenIcon = document.getElementById('fullscreen-btn-icon');
-    fullscreenIcon.style.width = `${0.04 * getCanvasWidth()}px`;
 }
 
 
@@ -303,69 +289,139 @@ async function loadSoundSettingFromLocalStorage() {
 /*--------------------------------------------------
 Responsiveness
 ---------------------------------------------------*/
-window.addEventListener('resize', () => {
-    console.log('canvasWidth:', getCanvasWidth());
-    console.log('canvasHeight:', getCanvasHeight());
-    // todo: styles in Abhängigkeit der width setzten
-    // sound/info/fullscreen icon, status numbers, replay button etc.
-    setSoundIcon();
-    setInfoIcon();
-    setFullscreenIcon();
+window.addEventListener('resize', resizeCanvasContent);
 
+
+function resizeCanvasContent() {
+    resizeMenuBar();
+    resizePlayButton();
+    resizeStatusNumbers();
+    resizeReplayButton();
+    resizeEndScreen();
+    resizeInfoScreen();
+    resizeLoader();
+}
+
+
+function resizeMenuBar() {
     const menuBar = document.getElementById('menu-bar');
     menuBar.style.gap = `${0.045 * getCanvasWidth()}px`;
     menuBar.style.top = `${0.03 * getCanvasWidth()}px`;
     menuBar.style.right = `${0.03 * getCanvasWidth()}px`;
 
+    resizeSoundIcon();
+    resizeInfoIcon();
+    resizeFullscreenIcon();
+}
+
+
+function resizeSoundIcon() {
+    const soundIcon = document.getElementById('sound-btn-icon');
+    if (musicIsOn) {
+        soundIcon.style.width = `${0.045 * getCanvasWidth()}px`;
+    }
+    else {
+        soundIcon.style.width = `${0.04 * getCanvasWidth()}px`;
+    }
+}
+
+
+function resizeInfoIcon() {
+    const infoIcon = document.getElementById('info-btn-icon');
+    infoIcon.style.width = `${0.045 * getCanvasWidth()}px`;
+}
+
+
+function resizeFullscreenIcon() {
+    const fullscreenIcon = document.getElementById('fullscreen-btn-icon');
+    fullscreenIcon.style.width = `${0.04 * getCanvasWidth()}px`;
+}
+
+
+function resizePlayButton() {
     const playBtn = document.getElementById('play-btn-img');
     playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
+}
 
+
+function resizeStatusNumbers() {
     const statusNumbers = document.getElementById('status-bar-numbers');
     statusNumbers.style.width = `${0.045 * getCanvasWidth()}px`;
     statusNumbers.style.height = `${0.195 * getCanvasHeight()}px`;
-    // statusNumbers.style.gap = `${0.014 * getCanvasWidth()}px`;
     statusNumbers.style.fontSize = `${0.027 * getCanvasWidth()}px`;
+}
 
+
+function resizeReplayButton() {
     const replayBtn = document.getElementById('replay-btn');
     replayBtn.style.fontSize = `${0.056 * getCanvasWidth()}px`;
-    // replayBtn.style.marginBottom = `${0.0167 * getCanvasHeight()}px`;
+}
 
+
+function resizeEndScreen() {
     const endScreenWon = document.getElementById('end-screen-won');
-    endScreenWon.style.fontSize = `${0.29 * getCanvasHeight()}px`;
-
     const endScreenCircle = document.getElementById('end-screen-circle');
+    endScreenWon.style.fontSize = `${0.29 * getCanvasHeight()}px`;
     endScreenCircle.style.width = `${0.5 * getCanvasHeight()}px`;
     endScreenCircle.style.height = `${0.5 * getCanvasHeight()}px`;
+}
 
+
+function resizeInfoScreen() {
     const infoContent = document.getElementById('info-content');
     infoContent.style.fontSize = `${0.06 * getCanvasHeight()}px`;
 
-    const keys = document.getElementsByClassName('key');
-    const keySeparator = document.getElementById('key-separator');
-    Array.from(keys).forEach((key) => {
-        key.style.width = `${0.1 * getCanvasHeight()}px`;
-        key.style.height = `${0.1 * getCanvasHeight()}px`;
-        key.style.fontSize = `${0.045 * getCanvasWidth()}px`;
-    });
-    keySeparator.style.fontSize = `${0.1 * getCanvasHeight()}px`;
-    keySeparator.style.marginLeft = `${0.033 * getCanvasHeight()}px`;
-    keySeparator.style.marginRight = `${0.033 * getCanvasHeight()}px`;
+    resizeInfoScreenIcons();
+}
 
-    const soundOptions = document.getElementsByClassName('sound-option');
-    const soundDescription = document.getElementById('sound-description-text');
-    Array.from(soundOptions).forEach((so) => {
-        so.style.width = `${0.1 * getCanvasHeight()}px`;
-        so.style.height = `${0.1 * getCanvasHeight()}px`;
-    });
-    soundDescription.marginBottom = `${0.033 * getCanvasHeight()}px`;
 
+function resizeInfoScreenIcons() {
     const iconCell = document.getElementsByClassName('icon-td');
     Array.from(iconCell).forEach((cell) => {
         cell.style.height = `${0.0888 * getCanvasWidth()}px`;
         cell.style.paddingRight = `${0.111 * getCanvasWidth()}px`;
         cell.style.paddingLeft = `${0.0111 * getCanvasWidth()}px`;
     });
-});
+
+    resizeInfoScreenKeys();
+    resizeInfoScreenSoundOptions();
+}
+
+
+function resizeInfoScreenKeys() {
+    const keys = document.getElementsByClassName('key');
+    const keySeparator = document.getElementById('key-separator');
+
+    Array.from(keys).forEach((key) => {
+        key.style.width = `${0.1 * getCanvasHeight()}px`;
+        key.style.height = `${0.1 * getCanvasHeight()}px`;
+        key.style.fontSize = `${0.045 * getCanvasWidth()}px`;
+    });
+
+    keySeparator.style.fontSize = `${0.1 * getCanvasHeight()}px`;
+    keySeparator.style.marginLeft = `${0.033 * getCanvasHeight()}px`;
+    keySeparator.style.marginRight = `${0.033 * getCanvasHeight()}px`;
+}
+
+
+function resizeInfoScreenSoundOptions() {
+    const soundOptions = document.getElementsByClassName('sound-option');
+    const soundDescription = document.getElementById('sound-description-text');
+
+    Array.from(soundOptions).forEach((so) => {
+        so.style.width = `${0.1 * getCanvasHeight()}px`;
+        so.style.height = `${0.1 * getCanvasHeight()}px`;
+    });
+
+    soundDescription.marginBottom = `${0.033 * getCanvasHeight()}px`;
+}
+
+
+function resizeLoader() {
+    const loader = document.getElementById('loader-img');
+    loader.style.borderLeftWidth = `${0.02 * getCanvasWidth()}`;
+    loader.style.borderRightWidth = `${0.02 * getCanvasWidth()}`;
+}
 
 
 function getCanvasWidth() {

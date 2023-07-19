@@ -389,15 +389,15 @@ canvas {
     opacity: 1;
 }
 
-.loader {
-    border-left: 16px dashed $loco-red;
-    border-right: 16px dashed $loco-orange;
+#loader-img {
+    border-left: calc(0.02 * $canvas-width) dashed $loco-red;
+    border-right: calc(0.02 * $canvas-width) dashed $loco-orange;
     border-radius: 50%;
     background-image: url('assets/img/6_salsa_bottle/salsa_bottle.png');
     background-size: contain;
     background-position: center;
-    width: 200px;
-    height: 200px;
+    width: 26%;
+    height: 39%;
     animation: spin 2s linear infinite;
 }
 

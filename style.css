@@ -350,15 +350,15 @@ canvas {
   opacity: 1;
 }
 
-.loader {
-  border-left: 16px dashed #a0220a;
-  border-right: 16px dashed #ef8b10;
+#loader-img {
+  border-left: 14.4px dashed #a0220a;
+  border-right: 14.4px dashed #ef8b10;
   border-radius: 50%;
   background-image: url("assets/img/6_salsa_bottle/salsa_bottle.png");
   background-size: contain;
   background-position: center;
-  width: 200px;
-  height: 200px;
+  width: 26%;
+  height: 39%;
   animation: spin 2s linear infinite;
 }
 
