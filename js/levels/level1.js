@@ -1,7 +1,7 @@
 let level1 = new Level();
 
 
-function initLevel() {
+async function initLevel() {
     // level1 = new Level();
 
     level1.enemies = [

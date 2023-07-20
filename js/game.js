@@ -9,28 +9,35 @@ let gameIsRunning = false;
 let gameIsLost = false;
 let gameIsWon = false;
 
+
 async function init() {
     await loadSoundSettingFromLocalStorage();
     setSoundIcon();
     resizeCanvasContent();
 }
 
-function startGame() {
+
+async function startGame() {
     showElement('loader');
-    initLevel();
-    initWorld();
-    removeStartScreen();
-    gameIsRunning = true;
+
+    setTimeout(async function () {
+        removeStartScreen();
+        await initLevel();
+        await initWorld();
+        gameIsRunning = true;
+    }, 500);
+
     setTimeout(() => {
         removeElement('loader');
     }, 2000);
-
 }
 
-function initWorld() {
+
+async function initWorld() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
+
 
 function restartGame() {
     clearAllIntervals();
@@ -43,6 +50,7 @@ function restartGame() {
     gameIsWon = false;
 }
 
+
 function removeStartScreen() {
     removeElement('play-btn');
     removeOpacity('play-btn-screen');
@@ -51,6 +59,7 @@ function removeStartScreen() {
         removeElement('start-screen');
     }, 500);
 }
+
 
 function removeEndScreen() {
     const endScreenId = gameIsLost ? 'end-screen-lost' : 'end-screen-won';
@@ -65,6 +74,7 @@ function removeEndScreen() {
     }, 500);
 }
 
+
 function showEndScreen(endScreenId) {
     showElement(endScreenId);
     addOpacity(endScreenId);
@@ -74,6 +84,7 @@ function showEndScreen(endScreenId) {
     document.getElementById('replay-btn-screen').style.zIndex = 1;
 
 }
+
 
 window.addEventListener('keydown', (e) => {
     switch (e.key) {
@@ -98,6 +109,7 @@ window.addEventListener('keydown', (e) => {
             break;
     }
 });
+
 
 window.addEventListener('keyup', (e) => {
     switch (e.key) {
@@ -173,8 +185,6 @@ function setSoundIcon() {
 }
 
 
-
-
 function toggleGameInfo() {
     document.getElementById('info-screen').classList.toggle('full-opacity');
 
@@ -206,6 +216,7 @@ function toggleFullscreen() {
     fullscreenIsActive = !fullscreenIsActive;
 }
 
+
 /* Open fullscreen */
 function openFullscreen() {
     let elem = document.getElementById('main-screen-container');
@@ -220,6 +231,7 @@ function openFullscreen() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
+
 
 /* Close fullscreen */
 function closeFullscreen() {
@@ -236,7 +248,6 @@ function closeFullscreen() {
 }
 
 
-
 /*--------------------------------------------------
 Show / Hide
 ---------------------------------------------------*/
@@ -249,6 +260,7 @@ function showElement(id) {
     document.getElementById(id).classList.remove('hidden');
 }
 
+
 /**
  * Function to hide an element with a given ID by adding the 'hidden' class.
  * @param {string} id - The ID of the element to hide.
@@ -256,6 +268,7 @@ function showElement(id) {
 function hideElement(id) {
     document.getElementById(id).classList.add('hidden');
 }
+
 
 /**
  * Function to remove an element with a given ID by adding the 'd-none' class.
@@ -265,13 +278,16 @@ function removeElement(id) {
     document.getElementById(id).classList.add('d-none');
 }
 
+
 function removeOpacity(id) {
     document.getElementById(id).classList.remove('full-opacity');
 }
 
+
 function addOpacity(id) {
     document.getElementById(id).classList.add('full-opacity');
 }
+
 
 function saveSoundSettingToLocalStorage() {
     localStorage.setItem('musicIsOn', JSON.stringify(musicIsOn));
@@ -283,7 +299,6 @@ async function loadSoundSettingFromLocalStorage() {
     musicIsOn = JSON.parse(localStorage.getItem('musicIsOn') || true);
     soundIsOn = JSON.parse(localStorage.getItem('soundIsOn') || true);
 }
-
 
 
 /*--------------------------------------------------
@@ -418,6 +433,7 @@ function resizeLoader() {
 function getCanvasWidth() {
     return Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
 }
+
 
 function getCanvasHeight() {
     return Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);

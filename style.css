@@ -341,9 +341,7 @@ canvas {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  width: 26%;
-  height: 39%;
-  animation: spin 1s linear infinite, zoom-in-out 2s linear;
+  animation: spin 1s linear infinite, zoom-in-out 2s ease-in-out;
 }
 
 @keyframes spin {
