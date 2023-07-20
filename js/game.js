@@ -23,7 +23,7 @@ function startGame() {
     gameIsRunning = true;
     setTimeout(() => {
         removeElement('loader');
-    }, 1000);
+    }, 2000);
 
 }
 
@@ -295,11 +295,10 @@ window.addEventListener('resize', resizeCanvasContent);
 function resizeCanvasContent() {
     resizeMenuBar();
     resizePlayButton();
-    resizeStatusNumbers();
     resizeReplayButton();
     resizeEndScreen();
     resizeInfoScreen();
-    resizeLoader();
+    // resizeLoader();
 }
 
 
@@ -341,14 +340,6 @@ function resizeFullscreenIcon() {
 function resizePlayButton() {
     const playBtn = document.getElementById('play-btn-img');
     playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
-}
-
-
-function resizeStatusNumbers() {
-    const statusNumbers = document.getElementById('status-bar-numbers');
-    statusNumbers.style.width = `${0.045 * getCanvasWidth()}px`;
-    statusNumbers.style.height = `${0.195 * getCanvasHeight()}px`;
-    statusNumbers.style.fontSize = `${0.027 * getCanvasWidth()}px`;
 }
 
 

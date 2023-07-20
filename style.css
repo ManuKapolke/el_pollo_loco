@@ -55,26 +55,6 @@ canvas {
   display: block;
 }
 
-#status-bar-numbers {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  width: 32.4px;
-  height: 93.6px;
-  position: absolute;
-  top: 5%;
-  left: 24%;
-  font-size: 20px;
-  color: white;
-}
-
-#endboss-status {
-  position: absolute;
-  top: 60%;
-  right: -930%;
-}
-
 .overlay-screen {
   position: absolute;
   top: 0;
@@ -345,7 +325,10 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(204, 175, 125, 0.7);
+  background-image: url("assets/img/5_background/layers/air.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 5;
   opacity: 1;
 }
@@ -357,9 +340,10 @@ canvas {
   background-image: url("assets/img/6_salsa_bottle/salsa_bottle.png");
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   width: 26%;
   height: 39%;
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite, zoom-in-out 2s linear;
 }
 
 @keyframes spin {
@@ -368,6 +352,26 @@ canvas {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@keyframes zoom-in-out {
+  0% {
+    width: 0;
+    height: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+  50% {
+    width: 50%;
+    height: 75%;
+    border-left-width: 14.4px;
+    border-right-width: 14.4px;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-left-width: 0;
+    border-right-width: 0;
   }
 }
 /*--------------------------------------------------

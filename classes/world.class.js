@@ -20,6 +20,9 @@ class World {
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
+        this.ctx.font = '20px "boogaloo", Arial, Helvetica, sans-serif';
+        this.ctx.fillStyle = '#fff';
+        this.ctx.textAlign = 'center';
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -60,11 +63,11 @@ class World {
 
         if (this.character.isInFinalZone()) {
             this.character.hasBeenInFinalZone = true;
-            showElement('endboss-status');
+            // showElement('endboss-status');
         }
-        else {
-            removeElement('endboss-status');
-        }
+        // else {
+        //     removeElement('endboss-status');
+        // }
     }
 
     checkCollisions() {
@@ -224,15 +227,6 @@ class World {
         this.statusBarCoins.setPercentage(coinsPercentage);
         this.statusBarBottles.setPercentage(bottlesPercentage);
         this.statusBarEndboss.setPercentage(this.level.endboss.energy);
-
-        this.updateStatusBarNumbers();
-    }
-
-    updateStatusBarNumbers() {
-        document.getElementById('health-status').innerHTML = this.character.energy;
-        document.getElementById('coins-status').innerHTML = this.character.numberOfCoins;
-        document.getElementById('bottles-status').innerHTML = this.character.numberOfBottles;
-        document.getElementById('endboss-status').innerHTML = this.level.endboss.energy;
     }
 
     setWorld() {
@@ -258,8 +252,15 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+        this.ctx.fillText(this.character.energy, ...this.getStatusBarCoordinates(this.statusBarHealth));
+        this.ctx.fillText(this.character.numberOfCoins, ...this.getStatusBarCoordinates(this.statusBarCoins));
+        this.ctx.fillText(this.character.numberOfBottles, ...this.getStatusBarCoordinates(this.statusBarBottles));
+
         if (this.character.hasBeenInFinalZone) {
             this.addToMap(this.statusBarEndboss);
+            this.ctx.textAlign = 'right';
+            this.ctx.fillText(this.level.endboss.energy, ...this.getStatusBarCoordinates(this.statusBarEndboss));
+            this.ctx.textAlign = 'center';
         }
 
 
@@ -312,6 +313,17 @@ class World {
     flipImageBack(object) {
         object.x *= -1;
         this.ctx.restore(); // stellt gespeicherte ctx-Einstellungen wieder her
+    }
+
+    getStatusBarCoordinates(statusBar) {
+        let x = statusBar.x + statusBar.width + 18;
+        let y = statusBar.y + 0.8 * statusBar.height;
+
+        if (statusBar === this.statusBarEndboss) {
+            x = statusBar.x - 5;
+            y = statusBar.y + 0.6 * statusBar.height;
+        }
+        return [x, y];
     }
 
     timePassedSinceLastKeyPress() {
