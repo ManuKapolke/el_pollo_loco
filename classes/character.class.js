@@ -78,6 +78,7 @@ class Character extends MovableObject {
         'assets/img/pepe_dance/J-35_mirrored.png',
         'assets/img/pepe_dance/J-36_mirrored.png'
     ];
+    numberOfImagesToLoad = this.IMAGES_IDLE.length + this.IMAGES_LONGIDLE.length + this.IMAGES_WALK.length + this.IMAGES_JUMP.length + this.IMAGES_HURT.length + this.IMAGES_DEATH.length + this.IMAGES_DANCE.length + 1;
     offset = {
         top: 0.5 * this.height,
         right: 0.3 * this.width,

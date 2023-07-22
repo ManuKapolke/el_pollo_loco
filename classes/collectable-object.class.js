@@ -3,8 +3,8 @@ class CollectableObject extends DrawableObject {
     collect_sound;
 
     place() {
-        this.x = (WORLD_START + 200) + Math.random() * (WORLD_WIDTH - CANVAS_WIDTH);
+        do {
+            this.x = (WORLD_START + 200) + Math.random() * (WORLD_WIDTH - CANVAS_WIDTH);
+        } while (this.isInStartCanvas());
     }
-
-
 }

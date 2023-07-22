@@ -10,6 +10,7 @@ class Chicken extends MovableObject {
     IMAGES_DEATH = [
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
+    numberOfImagesToLoad = this.IMAGES_WALK.length + this.IMAGES_DEATH.length + 1;
     offset = {
         top: 0.05 * this.height,
         right: 0.02 * this.width,
@@ -25,7 +26,6 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEATH);
 
-        // this.x = 200 + Math.random() * (WORLD_WIDTH - (200 - WORLD_START));
         this.x = 2 * CANVAS_WIDTH + Math.random() * (MOST_RIGHT_BG - 2) * CANVAS_WIDTH;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();

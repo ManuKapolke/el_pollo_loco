@@ -5,6 +5,8 @@ class DrawableObject {
     height;
     img;
     imageCache = {};
+    numberOfImagesToLoad;
+    numberOfLoadedImages = 0;
     offset = {
         top: 0,
         right: 0,
@@ -15,6 +17,12 @@ class DrawableObject {
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
+        this.img.onload = () => {
+            this.numberOfLoadedImages++;
+            // if (this.allImagesAreLoaded()) {
+            //     console.log('all images are loaded', this);
+            // }
+        };
     }
 
     loadImages(arr) {
@@ -22,7 +30,17 @@ class DrawableObject {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
+            img.onload = () => {
+                this.numberOfLoadedImages++;
+                // if (this.allImagesAreLoaded()) {
+                //     console.log('all images are loaded', this);
+                // }
+            };
         });
+    }
+
+    allImagesAreLoaded() {
+        return this.numberOfImagesToLoad === this.numberOfLoadedImages;
     }
 
     draw(ctx) {
@@ -76,5 +94,9 @@ class DrawableObject {
 
     isInRightHalfOfCanvas() {
         return this.x > -this.world.camera_x + 0.5 * (CANVAS_WIDTH - this.width);
+    }
+
+    isInStartCanvas() {
+        return 0 < this.x && this.x < CANVAS_WIDTH;
     }
 }

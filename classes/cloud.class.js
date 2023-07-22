@@ -2,6 +2,7 @@ class Cloud extends MovableObject {
     y = 0;
     width = 1920 / 3;
     height = 1080 / 3;
+    numberOfImagesToLoad = 1;
 
     constructor(x) {
         super().loadImage('assets/img/5_background/layers/4_clouds/1.png');

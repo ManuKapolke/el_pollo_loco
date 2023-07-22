@@ -11,6 +11,7 @@ class StatusBar extends DrawableObject {
             let path = `assets/img/7_statusbars/${dirName}/${color}/${status}.png`;
             this.IMAGES.push(path);
         });
+        this.numberOfImagesToLoad = this.IMAGES.length;
     }
 
     setPercentage(percentage) {

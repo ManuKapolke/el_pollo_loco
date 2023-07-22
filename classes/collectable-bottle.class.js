@@ -6,6 +6,7 @@ class CollectableBottle extends CollectableObject {
         'assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         'assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
+    numberOfImagesToLoad = 1;
     offset = {
         top: 0.1 * this.height,
         right: 0.3 * this.width,

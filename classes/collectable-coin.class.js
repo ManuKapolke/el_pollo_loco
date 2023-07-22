@@ -6,6 +6,7 @@ class CollectableCoin extends CollectableObject {
         'assets/img/8_coin/coin_1.png',
         'assets/img/8_coin/coin_2.png'
     ];
+    numberOfImagesToLoad = 1;
     offset = {
         top: 0.3 * this.height,
         right: 0.3 * this.width,

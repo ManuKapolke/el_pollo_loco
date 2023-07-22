@@ -17,6 +17,7 @@ class World {
     background_music = new Audio('assets/audio/music/game-bg.mp3');
     endbossAppears_music = new Audio('assets/audio/music/endboss-appears2.mp3');
     gameOverSoundHasBeenPlayed = false;
+    allImagesAreLoaded = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // definiert Funktionen/Einstellungen für das Einfügen von Bildern
@@ -29,6 +30,25 @@ class World {
         this.setWorld();
         this.runGame();
         this.playBackgroundMusic();
+    }
+
+    checkIfAllImagesAreLoaded() {
+        if (this.allImagesAreLoaded) return;
+
+        if (
+            this.character.allImagesAreLoaded() &&
+            this.statusBarHealth.allImagesAreLoaded() &&
+            this.statusBarCoins.allImagesAreLoaded() &&
+            this.statusBarBottles.allImagesAreLoaded() &&
+            // this.statusBarEndboss.allImagesAreLoaded() &&
+            // // this.level.enemies.every(obj => obj.allImagesAreLoaded()) &&
+            // this.level.bottles.every(obj => obj.allImagesAreLoaded()) &&
+            // this.level.coins.every(obj => obj.allImagesAreLoaded()) &&
+            this.level.clouds.every(obj => obj.allImagesAreLoaded()) &&
+            this.level.backgroundObjects.every(obj => obj.allImagesAreLoaded())
+        ) {
+            this.allImagesAreLoaded = true;
+        }
     }
 
     playBackgroundMusic() {
