@@ -213,6 +213,7 @@ class World {
             if (gameIsRunning) {
                 gameIsRunning = false;
                 gameIsLost = true;
+                removeElement('touch-keys');
                 showEndScreen('end-screen-lost');
             }
             this.playMusicIfSwitchedOn(this.gameLost_music);
@@ -226,6 +227,7 @@ class World {
             if (gameIsRunning) {
                 gameIsRunning = false;
                 gameIsWon = true;
+                removeElement('touch-keys');
                 showEndScreen('end-screen-won');
                 this.deleteAllEnemies();
             }

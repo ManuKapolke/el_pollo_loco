@@ -4,6 +4,7 @@ $loco-orange: #ef8b10;
 $loco-beige: #CCAF7D;
 $transparent-black: rgba(0, 0, 0, 0.878);
 $loco-gradient: linear-gradient(to bottom, $loco-yellow, $loco-orange);
+$loco-gradient-reversed: linear-gradient(to bottom, $loco-orange, $loco-yellow);
 $canvas-width: 720px;
 $canvas-height: 480px;
 
@@ -296,7 +297,12 @@ canvas {
     transition: all 250ms ease-in-out;
 
     &:hover {
-        background: linear-gradient(to bottom, $loco-orange, $loco-yellow);
+        background: $loco-gradient-reversed;
+        transition: all 250ms ease-in-out;
+    }
+
+    &:active {
+        background: rgba($loco-red, 0.5);
         transition: all 250ms ease-in-out;
     }
 }
@@ -322,11 +328,26 @@ canvas {
     width: calc(0.12 * $canvas-height);
     height: calc(0.12 * $canvas-height);
     border-radius: 50%;
+    background: $loco-gradient-reversed;
+    z-index: -1;
+    opacity: 0;
+    cursor: pointer;
+    // transition: all 250ms ease-in-out;
 
     .key-bottle {
         width: 84% !important;
         height: 60% !important;
         rotate: -30deg;
+    }
+
+    &:hover {
+        background: $loco-gradient;
+        // transition: all 250ms ease-in-out;
+    }
+
+    &:active {
+        background: rgba($loco-red, 0.5);
+        // transition: all 250ms ease-in-out;
     }
 }
 
@@ -497,8 +518,44 @@ Media Query
     }
 }
 
+
+/*--------------------------------------------------
+CHECK IF ON MOBILE DEVICE
+---------------------------------------------------*/
+
+@media (pointer: coarse) {
+    .touch-key {
+        z-index: 1;
+        opacity: 1;
+    }
+
+    #permanent-key-info-container {
+        display: none;
+    }
+}
+
+// @media (pointer: coarse) and (orientation:landscape) {
+//     canvas {
+//         height: 100vh !important;
+//         width: 100% !important;
+//         border-radius: 0;
+//     }
+
+//     .game-wrapper {
+//         width: 100%;
+//     }
+
+//     .headline {
+//         display: noned;
+//     }
+// }
+
+
+
+
+
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .full-opacity {

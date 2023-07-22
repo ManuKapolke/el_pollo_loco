@@ -35,6 +35,7 @@ async function startGame() {
             if (world.allImagesAreLoaded) {
                 clearInterval(checkLoading);
                 removeElement('loader');
+                provideTouchKeysForMobileDevices();
             }
         }, 50);
 
@@ -145,6 +146,42 @@ window.addEventListener('keyup', (e) => {
 
     keyboard.lastKeyPress = new Date().getTime();
 });
+
+
+function provideTouchKeysForMobileDevices() {
+    // if (!isTouchDevice()) return;
+    // if(!isMobileDevice()) return;
+
+    showElement('touch-keys');
+    handleTouchKeys();
+}
+
+
+function handleTouchKeys() {
+    synchronizeTouchKeyWithKeyboardKey('touch-key-left', 'LEFT');
+    synchronizeTouchKeyWithKeyboardKey('touch-key-right', 'RIGHT');
+    synchronizeTouchKeyWithKeyboardKey('touch-key-jump', 'UP');
+    synchronizeTouchKeyWithKeyboardKey('touch-key-throw', 'D');
+}
+
+
+function synchronizeTouchKeyWithKeyboardKey(touchKeyId, keyName) {
+    const touchKey = document.getElementById(touchKeyId);
+    touchKey.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        touchKey.style.background = '#a0220a80';
+        keyboard[keyName] = true;
+    });
+    touchKey.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        touchKey.style.background = 'linear-gradient(to bottom, #ef8b10, #ffc521)';
+        keyboard[keyName] = false;
+
+        keyboard.lastKeyPress = new Date().getTime();
+    });
+}
+
+
 
 
 function setStoppableInterval(fn, time) {
@@ -324,6 +361,7 @@ function resizeCanvasContent() {
     resizeEndScreen();
     resizeInfoScreen();
     // resizeLoader();
+    resizeTouchKeys();
 }
 
 
@@ -437,6 +475,23 @@ function resizeLoader() {
     const loader = document.getElementById('loader-img');
     loader.style.borderLeftWidth = `${0.02 * getCanvasWidth()}`;
     loader.style.borderRightWidth = `${0.02 * getCanvasWidth()}`;
+}
+
+
+function resizeTouchKeys() {
+    const touchKeyContainer = document.getElementById('touch-keys');
+    const touchKeyContainerLeft = document.getElementById('touch-keys-lefthand');
+    const touchKeyContainerRight = document.getElementById('touch-keys-righthand');
+    const touchKeys = document.getElementsByClassName('touch-key');
+
+    touchKeyContainer.style.padding = `${0.015 * getCanvasWidth()}px ${0.045 * getCanvasWidth()}px`;
+    touchKeyContainerLeft.style.gap = `${0.05 * getCanvasWidth()}px`;
+    touchKeyContainerRight.style.gap = `${0.05 * getCanvasWidth()}px`;
+
+    Array.from(touchKeys).forEach((key) => {
+        key.style.width = `${0.12 * getCanvasHeight()}px`;
+        key.style.height = `${0.12 * getCanvasHeight()}px`;
+    });
 }
 
 

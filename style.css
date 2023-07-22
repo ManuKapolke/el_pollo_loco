@@ -275,6 +275,10 @@ canvas {
   background: linear-gradient(to bottom, #ef8b10, #ffc521);
   transition: all 250ms ease-in-out;
 }
+#replay-btn:active {
+  background: rgba(160, 34, 10, 0.5);
+  transition: all 250ms ease-in-out;
+}
 
 #touch-keys {
   display: flex;
@@ -296,11 +300,21 @@ canvas {
   width: 57.6px;
   height: 57.6px;
   border-radius: 50%;
+  background: linear-gradient(to bottom, #ef8b10, #ffc521);
+  z-index: -1;
+  opacity: 0;
+  cursor: pointer;
 }
 .touch-key .key-bottle {
   width: 84% !important;
   height: 60% !important;
   rotate: -30deg;
+}
+.touch-key:hover {
+  background: linear-gradient(to bottom, #ffc521, #ef8b10);
+}
+.touch-key:active {
+  background: rgba(160, 34, 10, 0.5);
 }
 
 #permanent-key-info-container {
@@ -443,8 +457,20 @@ Media Query
     border-radius: unset;
   }
 }
+/*--------------------------------------------------
+CHECK IF ON MOBILE DEVICE
+---------------------------------------------------*/
+@media (pointer: coarse) {
+  .touch-key {
+    z-index: 1;
+    opacity: 1;
+  }
+  #permanent-key-info-container {
+    display: none;
+  }
+}
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .full-opacity {
