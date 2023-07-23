@@ -238,18 +238,21 @@ function toggleGameInfo() {
     if (gameIsRunning) return;
 
     if (gameIsLost) {
-        document.getElementById('end-screen-lost').classList.toggle('full-opacity');
-        document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
-        document.getElementById('replay-btn-screen').style.zIndex = (+document.getElementById('replay-btn-screen').style.zIndex + 1) % 2;
+        toggleEndScreen('end-screen-lost');
     }
     else if (gameIsWon) {
-        document.getElementById('end-screen-won').classList.toggle('full-opacity');
-        document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
-        document.getElementById('replay-btn-screen').style.zIndex = (+document.getElementById('replay-btn-screen').style.zIndex + 1) % 2;
+        toggleEndScreen('end-screen-won');
     }
     else {// game has not been started
         document.getElementById('play-btn').classList.toggle('d-none');
     }
+}
+
+
+function toggleEndScreen(screenId) {
+    document.getElementById(screenId).classList.toggle('full-opacity');
+    document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
+    document.getElementById('replay-btn-screen').style.zIndex = (+document.getElementById('replay-btn-screen').style.zIndex + 1) % 2;
 }
 
 
@@ -489,8 +492,8 @@ function resizeTouchKeys() {
     touchKeyContainerRight.style.gap = `${0.05 * getCanvasWidth()}px`;
 
     Array.from(touchKeys).forEach((key) => {
-        key.style.width = `${0.12 * getCanvasHeight()}px`;
-        key.style.height = `${0.12 * getCanvasHeight()}px`;
+        key.style.width = `${0.16 * getCanvasHeight()}px`;
+        key.style.height = `${0.16 * getCanvasHeight()}px`;
     });
 }
 

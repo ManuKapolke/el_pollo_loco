@@ -325,8 +325,8 @@ canvas {
 
 .touch-key {
     @extend .key;
-    width: calc(0.12 * $canvas-height);
-    height: calc(0.12 * $canvas-height);
+    width: calc(0.16 * $canvas-height);
+    height: calc(0.16 * $canvas-height);
     border-radius: 50%;
     background: $loco-gradient-reversed;
     z-index: -1;
@@ -334,11 +334,6 @@ canvas {
     cursor: pointer;
     // transition: all 250ms ease-in-out;
 
-    .key-bottle {
-        width: 84% !important;
-        height: 60% !important;
-        rotate: -30deg;
-    }
 
     &:hover {
         background: $loco-gradient;
@@ -349,6 +344,12 @@ canvas {
         background: rgba($loco-red, 0.5);
         // transition: all 250ms ease-in-out;
     }
+}
+
+.key-bottle {
+    width: 84% !important;
+    height: 60% !important;
+    rotate: -30deg;
 }
 
 #permanent-key-info-container {
@@ -457,6 +458,16 @@ canvas {
 }
 
 
+
+.mobile-only {
+    display: none !important;
+}
+
+.desktop-only {
+    display: flex !important;
+}
+
+
 /*--------------------------------------------------
 Media Query
 ---------------------------------------------------*/
@@ -524,6 +535,15 @@ CHECK IF ON MOBILE DEVICE
 ---------------------------------------------------*/
 
 @media (pointer: coarse) {
+    #play-btn img {
+        opacity: 0.7 !important;
+    }
+
+    .key {
+        border-radius: 50%;
+        background: $loco-gradient-reversed;
+    }
+
     .touch-key {
         z-index: 1;
         opacity: 1;
@@ -531,6 +551,14 @@ CHECK IF ON MOBILE DEVICE
 
     #permanent-key-info-container {
         display: none;
+    }
+
+    .mobile-only {
+        display: flex !important;
+    }
+
+    .desktop-only {
+        display: none !important;
     }
 }
 

@@ -297,24 +297,25 @@ canvas {
 }
 
 .touch-key {
-  width: 57.6px;
-  height: 57.6px;
+  width: 76.8px;
+  height: 76.8px;
   border-radius: 50%;
   background: linear-gradient(to bottom, #ef8b10, #ffc521);
   z-index: -1;
   opacity: 0;
   cursor: pointer;
 }
-.touch-key .key-bottle {
-  width: 84% !important;
-  height: 60% !important;
-  rotate: -30deg;
-}
 .touch-key:hover {
   background: linear-gradient(to bottom, #ffc521, #ef8b10);
 }
 .touch-key:active {
   background: rgba(160, 34, 10, 0.5);
+}
+
+.key-bottle {
+  width: 84% !important;
+  height: 60% !important;
+  rotate: -30deg;
 }
 
 #permanent-key-info-container {
@@ -409,6 +410,14 @@ canvas {
     border-right-width: 14.4px;
   }
 }
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: flex !important;
+}
+
 /*--------------------------------------------------
 Media Query
 ---------------------------------------------------*/
@@ -461,12 +470,25 @@ Media Query
 CHECK IF ON MOBILE DEVICE
 ---------------------------------------------------*/
 @media (pointer: coarse) {
+  #play-btn img {
+    opacity: 0.7 !important;
+  }
+  .key, .touch-key, .permanent-key {
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #ef8b10, #ffc521);
+  }
   .touch-key {
     z-index: 1;
     opacity: 1;
   }
   #permanent-key-info-container {
     display: none;
+  }
+  .mobile-only {
+    display: flex !important;
+  }
+  .desktop-only {
+    display: none !important;
   }
 }
 .d-none {

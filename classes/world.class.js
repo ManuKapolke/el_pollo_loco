@@ -215,6 +215,9 @@ class World {
                 gameIsLost = true;
                 removeElement('touch-keys');
                 showEndScreen('end-screen-lost');
+                if (document.getElementById('info-screen').classList.contains('full-opacity')) {
+                    toggleEndScreen('end-screen-lost');
+                }
             }
             this.playMusicIfSwitchedOn(this.gameLost_music);
         }, 2000);
@@ -229,6 +232,9 @@ class World {
                 gameIsWon = true;
                 removeElement('touch-keys');
                 showEndScreen('end-screen-won');
+                if (document.getElementById('info-screen').classList.contains('full-opacity')) {
+                    toggleEndScreen('end-screen-won');
+                }
                 this.deleteAllEnemies();
             }
             this.playMusicIfSwitchedOn(this.gameWon_music);
