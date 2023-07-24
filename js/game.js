@@ -235,6 +235,8 @@ function setSoundIcon() {
 function toggleGameInfo() {
     document.getElementById('info-screen').classList.toggle('full-opacity');
 
+    document.getElementById('touch-keys').classList.toggle('full-opacity');
+
     if (gameIsRunning) return;
 
     if (gameIsLost) {
@@ -263,6 +265,7 @@ function toggleFullscreen() {
     } else {
         openFullscreen();
     }
+    resizeCanvasContent();
     fullscreenIsActive = !fullscreenIsActive;
 }
 
@@ -278,8 +281,7 @@ function openFullscreen() {
         elem.msRequestFullscreen();
     }
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    document.getElementById('fullscreen-btn-icon').src = 'assets/img/fullscreen_exit.png';
 }
 
 
@@ -293,8 +295,7 @@ function closeFullscreen() {
         document.msExitFullscreen();
     }
 
-    canvas.width = 720;
-    canvas.height = 480;
+    document.getElementById('fullscreen-btn-icon').src = 'assets/img/fullscreen.png';
 }
 
 
@@ -499,12 +500,16 @@ function resizeTouchKeys() {
 
 
 function getCanvasWidth() {
-    return Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
+    let width = fullscreenIsActive ? window.innerWidth :
+        Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
+    return width;
 }
 
 
 function getCanvasHeight() {
-    return Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);
+    let height = fullscreenIsActive ? window.innerHeight :
+        Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);
+    return height;
 }
 
 

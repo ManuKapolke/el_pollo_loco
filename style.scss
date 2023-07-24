@@ -101,9 +101,10 @@ canvas {
 }
 
 #start-screen {
-    background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1big.png');
-    background-size: cover;
-    background-position-y: 40%;
+    background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
 }
 
 #play-btn-screen {
@@ -271,7 +272,7 @@ canvas {
         width: calc(0.5 * $canvas-height);
         height: calc(0.5 * $canvas-height);
         border-radius: 50%;
-        box-shadow: 0px 0px 0px 400px rgba(0, 0, 0, 0.9);
+        box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.9);
     }
 }
 
@@ -312,9 +313,10 @@ canvas {
     align-items: center;
     justify-content: space-between;
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     padding: calc(0.015 * $canvas-width) calc(0.045 * $canvas-width);
     width: 100%;
+    opacity: 0.2;
     // z-index: 2;
 
     div {
@@ -469,6 +471,26 @@ canvas {
 
 
 /*--------------------------------------------------
+Fullscreen
+---------------------------------------------------*/
+#main-screen-container:fullscreen {
+    border-radius: unset;
+
+    canvas {
+        height: 100vh;
+        border-radius: unset;
+    }
+
+    .overlay-screen {
+        border-radius: unset;
+    }
+
+    #touch-keys {
+        bottom: 0;
+    }
+}
+
+/*--------------------------------------------------
 Media Query
 ---------------------------------------------------*/
 @media only screen and (max-width: $canvas-width) {
@@ -476,20 +498,21 @@ Media Query
         font-size: 32px;
     }
 
-    #main-screen-container {
-        width: 100%;
-    }
-
     canvas,
     .overlay-screen {
         border-radius: unset;
+    }
+}
+
+@media only screen and (max-width: $canvas-width) and (min-height: calc($canvas-height)) {
+    #main-screen-container {
+        width: 100%;
     }
 
     #permanent-key-info-container {
         gap: 20px;
         font-size: 18px;
         width: 80%;
-        // left: 10%;
     }
 
     #permanent-key-info {
@@ -504,20 +527,21 @@ Media Query
 }
 
 @media only screen and (max-height: calc($canvas-height + 132px)) {
-
     body {
-        height: unset;
+        gap: unset;
     }
 
     h1,
     #permanent-key-info-container {
         display: none;
     }
+}
 
-    /* #main-screen-container {
-        height: 100vh;
-        border-radius: unset;
-    } */
+@media only screen and (max-height: calc($canvas-height)) and (min-width: $canvas-width) {
+    body {
+        height: unset;
+        gap: unset;
+    }
 
     canvas {
         height: 100vh;
@@ -531,7 +555,7 @@ Media Query
 
 
 /*--------------------------------------------------
-CHECK IF ON MOBILE DEVICE
+Mobile/Touch Device
 ---------------------------------------------------*/
 
 @media (pointer: coarse) {
@@ -560,23 +584,40 @@ CHECK IF ON MOBILE DEVICE
     .desktop-only {
         display: none !important;
     }
+
+    @media (orientation:landscape) {
+        body {
+            background: black !important;
+            gap: unset;
+        }
+
+        h1 {
+            display: none;
+        }
+
+        #main-screen-container {
+            background: black !important;
+            border-radius: unset;
+        }
+
+        canvas {
+            height: 100vh !important;
+            width: 100% !important;
+            border-radius: unset;
+            box-shadow: unset !important;
+        }
+
+        .overlay-screen {
+            border-radius: unset;
+        }
+
+        #touch-keys {
+            bottom: 0;
+        }
+    }
 }
 
-// @media (pointer: coarse) and (orientation:landscape) {
-//     canvas {
-//         height: 100vh !important;
-//         width: 100% !important;
-//         border-radius: 0;
-//     }
 
-//     .game-wrapper {
-//         width: 100%;
-//     }
-
-//     .headline {
-//         display: noned;
-//     }
-// }
 
 
 
