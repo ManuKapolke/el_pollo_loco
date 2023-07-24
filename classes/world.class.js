@@ -195,7 +195,7 @@ class World {
                 this.level.endboss.speedY = 0;
             }
             setTimeout(() => {
-                if (gameIsLost) return;
+                if (this.character.isDead()) return;
                 this.gameWon();
             }, 1000);
         }
