@@ -46,13 +46,18 @@ class Endboss extends MovableObject {
         bottom: 0.1 * this.height,
         left: 0.05 * this.width
     };
-    energyLossPerHit = 20;
+    energyLossPerHit = 10;
     animationCount = 0;
-    walking_sound = new Audio('assets/audio/chicken2.mp3');
-    alert_sound = new Audio('assets/audio/endboss_alert.mp3');
-    attack_sound = new Audio('assets/audio/endboss_attack.mp3');
-    hurt_sound = new Audio('assets/audio/endboss_hurt.mp3');
-    death_sound = new Audio('assets/audio/endboss_dead.mp3');
+    // walking_sound = new Audio('assets/audio/endboss_walk.mp3');
+    // alert_sound = new Audio('assets/audio/endboss_alert.mp3');
+    // attack_sound = new Audio('assets/audio/endboss_attack.mp3');
+    // hurt_sound = new Audio('assets/audio/endboss_hurt.mp3');
+    // death_sound = new Audio('assets/audio/endboss_dead.mp3');
+    walking_sound = audioElements['assets/audio/endboss_walk.mp3'];
+    alert_sound = audioElements['assets/audio/endboss_alert.mp3'];
+    attack_sound = audioElements['assets/audio/endboss_attack.mp3'];
+    hurt_sound = audioElements['assets/audio/endboss_hurt.mp3'];
+    death_sound = audioElements['assets/audio/endboss_dead.mp3'];
     alertSoundHasBeenPlayed = false;
     attackSoundHasBeenPlayed = false;
 

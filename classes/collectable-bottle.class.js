@@ -13,7 +13,8 @@ class CollectableBottle extends CollectableObject {
         bottom: 0.1 * this.height,
         left: 0.3 * this.width
     };
-    collect_sound = new Audio('assets/audio/bottle_collect.mp3');
+    // collect_sound = new Audio('assets/audio/bottle_collect.mp3');
+    collect_sound = audioElements['assets/audio/bottle_collect.mp3'];
 
     constructor() {
         let randomIndex = Math.round(Math.random());

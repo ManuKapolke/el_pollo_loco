@@ -85,17 +85,23 @@ class Character extends MovableObject {
         bottom: 0.05 * this.height,
         left: 0.2 * this.width
     };
-    energyLossPerHit = 10;
+    energyLossPerHit = 5;
     energyGainPerCoin = 2;
     numberOfCoins = 0;
     numberOfBottles = 0;
     lastThrow = 0;
-    walking_sound = new Audio('assets/audio/running.mp3');
-    jump_sound = new Audio('assets/audio/jump_voice.mp3');
-    nothingToThrow_sound = new Audio('assets/audio/jump.mp3');
-    hurt_sound = new Audio('assets/audio/hurt.mp3');
-    death_sound = new Audio('assets/audio/dead.mp3');
-    sleeping_sound = new Audio('assets/audio/sleep.mp3');
+    // walking_sound = new Audio('assets/audio/running.mp3');
+    // jump_sound = new Audio('assets/audio/jump_voice.mp3');
+    // nothingToThrow_sound = new Audio('assets/audio/nothrow.mp3');
+    // hurt_sound = new Audio('assets/audio/hurt.mp3');
+    // death_sound = new Audio('assets/audio/dead.mp3');
+    // sleeping_sound = new Audio('assets/audio/sleep.mp3');
+    walking_sound = audioElements['assets/audio/running.mp3'];
+    jump_sound = audioElements['assets/audio/jump_voice.mp3'];
+    nothingToThrow_sound = audioElements['assets/audio/nothrow.mp3'];
+    hurt_sound = audioElements['assets/audio/hurt.mp3'];
+    death_sound = audioElements['assets/audio/dead.mp3'];
+    sleeping_sound = audioElements['assets/audio/sleep.mp3'];
 
 
     constructor() {

@@ -18,8 +18,10 @@ class BabyChicken extends MovableObject {
         left: 0.02 * this.width
     };
     energyLossPerHit = 100;
-    smash_sound = new Audio('assets/audio/smash.mp3');
-    death_sound = new Audio('assets/audio/baby-chicken_dead.mp3');
+    // smash_sound = new Audio('assets/audio/smash.mp3');
+    // death_sound = new Audio('assets/audio/baby-chicken_dead.mp3');
+    smash_sound = audioElements['assets/audio/smash.mp3'];
+    death_sound = audioElements['assets/audio/baby-chicken_dead.mp3'];
 
     constructor() {
         super().loadImage(this.IMAGES_WALK[0]);

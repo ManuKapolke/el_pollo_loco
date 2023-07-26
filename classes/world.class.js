@@ -10,12 +10,16 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    gameOver_sound = new Audio('assets/audio/game-over.mp3');
-    gameWon_sound = new Audio('assets/audio/win.mp3');
-    gameWon_music = new Audio('assets/audio/music/won.mp3');
-    gameLost_music = new Audio('assets/audio/music/lost.mp3');
-    background_music = new Audio('assets/audio/music/game-bg.mp3');
-    endbossAppears_music = new Audio('assets/audio/music/endboss-appears2.mp3');
+    // gameOver_sound = new Audio('assets/audio/game-over.mp3');
+    // gameWon_music = new Audio('assets/audio/music/won.mp3');
+    // gameLost_music = new Audio('assets/audio/music/lost.mp3');
+    // background_music = new Audio('assets/audio/music/game-bg.mp3');
+    // endbossAppears_music = new Audio('assets/audio/music/endboss-appears.mp3');
+    gameOver_sound = audioElements['assets/audio/game-over.mp3'];
+    gameWon_music = audioElements['assets/audio/music/won.mp3'];
+    gameLost_music = audioElements['assets/audio/music/lost.mp3'];
+    background_music = audioElements['assets/audio/music/game-bg.mp3'];
+    endbossAppears_music = audioElements['assets/audio/music/endboss-appears.mp3'];
     gameOverSoundHasBeenPlayed = false;
     allImagesAreLoaded = false;
 
@@ -93,7 +97,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
-                const energyLossFactor = enemy instanceof Endboss ? 2 : 1;
+                const energyLossFactor = enemy instanceof Endboss ? 3 : 1;
                 this.character.hit(energyLossFactor);
             }
         });

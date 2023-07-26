@@ -19,8 +19,10 @@ class ThrownObject extends MovableObject {
     ];
     numberOfImagesToLoad = this.IMAGES_SPLASH.length + 1;
     hasBeenThrown = false;
-    throw_sound = new Audio('assets/audio/throw.mp3');
-    break_sound = new Audio('assets/audio/bottle_break.mp3');
+    // throw_sound = new Audio('assets/audio/throw.mp3');
+    // break_sound = new Audio('assets/audio/bottle_break.mp3');
+    throw_sound = audioElements['assets/audio/throw.mp3'];
+    break_sound = audioElements['assets/audio/bottle_break.mp3'];
 
     constructor(x, y, world) {
         super().loadImage('assets/img/6_salsa_bottle/salsa_bottle.png');
