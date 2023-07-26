@@ -120,6 +120,7 @@ class World {
     checkThrows() {
         if (this.keyboard.D) {
             if (this.character.numberOfBottles === 0) {
+                this.character.nothingToThrow_sound.currentTime = 0;
                 this.playSoundIfSwitchedOn(this.character.nothingToThrow_sound);
                 return;
             }
@@ -208,6 +209,7 @@ class World {
     gameLost() {
         this.background_music.pause();
         this.endbossAppears_music.pause();
+        this.character.walking_sound.pause();
         if (!this.gameOverSoundHasBeenPlayed) {
             this.playSoundIfSwitchedOn(this.gameOver_sound);
             this.gameOverSoundHasBeenPlayed = true;
@@ -229,6 +231,7 @@ class World {
 
     gameWon() {
         this.endbossAppears_music.pause();
+        this.character.walking_sound.pause();
         clearStoppableIntervals();
         setTimeout(() => {
             if (gameIsRunning) {
@@ -359,7 +362,7 @@ class World {
     }
 
     timePassedSinceLastKeyPress() {
-        return new Date().getTime() - this.keyboard.lastKeyPress; // Difference in milliseconds
+        return aKeyIsPressed() ? 0 : (new Date().getTime() - this.keyboard.lastKeyPress); // Difference in milliseconds
     }
 
     getCurrentBackground() {
@@ -375,7 +378,6 @@ class World {
 
     playSoundIfSwitchedOn(soundObject) {
         if (soundIsOn) {
-            soundObject.currentTime = 0;
             soundObject.play();
         } else {
             soundObject.pause();

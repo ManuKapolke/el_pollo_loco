@@ -44,6 +44,7 @@ class ThrownObject extends MovableObject {
         let fly = setInterval(() => {
             this.x += sgn * 10;
         }, 25);
+        this.throw_sound.currentTime = 0;
         this.world.playSoundIfSwitchedOn(this.throw_sound);
         let checkHitInterval = setInterval(() => {
 
@@ -54,6 +55,7 @@ class ThrownObject extends MovableObject {
                     if (this.hasBeenThrown) return;
 
                     this.throw_sound.pause();
+                    this.break_sound.currentTime = 0;
                     this.world.playSoundIfSwitchedOn(this.break_sound);
                     this.stopGravity();
                     clearInterval(fly);

@@ -43,6 +43,7 @@ class Chicken extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEATH);
                 if (this.deathSoundHasBeenPlayed) return;
+                this.death_sound.currentTime = 0;
                 this.world.playSoundIfSwitchedOn(this.death_sound);
                 this.deathSoundHasBeenPlayed = true;
             }

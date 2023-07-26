@@ -127,12 +127,14 @@ class Character extends MovableObject {
     collect(obj) {
         if (obj instanceof CollectableBottle) {
             let objIndex = this.world.level.bottles.indexOf(obj);
+            obj.collect_sound.currentTime = 0;
             this.world.playSoundIfSwitchedOn(obj.collect_sound);
             this.numberOfBottles++;
             this.world.level.bottles.splice(objIndex, 1);
         }
         else if (obj instanceof CollectableCoin) {
             let objIndex = this.world.level.coins.indexOf(obj);
+            obj.collect_sound.currentTime = 0;
             this.world.playSoundIfSwitchedOn(obj.collect_sound);
             this.numberOfCoins++;
             this.energy += this.energyGainPerCoin;
@@ -157,6 +159,7 @@ class Character extends MovableObject {
     killByJump(enemy) {
         if (enemy.isDead()) return;
         enemy.die(); //oder: enemy.hit() ?
+        enemy.smash_sound.currentTime = 0;
         this.world.playSoundIfSwitchedOn(enemy.smash_sound);
         setTimeout(() => {
             this.world.deleteDeadEnemy(enemy);
@@ -277,6 +280,7 @@ class Character extends MovableObject {
     playSoundIfCharacterIsHurt() {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
+            this.hurt_sound.currentTime = 0;
             this.world.playSoundIfSwitchedOn(this.hurt_sound);
             this.hurtSoundHasBeenPlayed = true;
         }

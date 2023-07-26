@@ -93,10 +93,18 @@ function restartGame() {
     intervalIds = [];
     world.gameLost_music.pause();
     world.gameWon_music.pause();
+    setAllAudioElementsToBeginning();
     removeEndScreen();
     startGame();
     gameIsLost = false;
     gameIsWon = false;
+}
+
+
+function setAllAudioElementsToBeginning() {
+    audioFiles.forEach(path => {
+        audioElements[path].currentTime = 0;
+    });
 }
 
 
@@ -184,6 +192,11 @@ window.addEventListener('keyup', (e) => {
 
     keyboard.lastKeyPress = new Date().getTime();
 });
+
+
+function aKeyIsPressed() {
+    return keyboard.LEFT || keyboard.RIGHT || keyboard.UP || keyboard.DOWN || keyboard.SPACE || keyboard.D;
+}
 
 
 function provideTouchKeysForMobileDevices() {
