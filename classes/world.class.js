@@ -375,6 +375,7 @@ class World {
 
     playSoundIfSwitchedOn(soundObject) {
         if (soundIsOn) {
+            soundObject.currentTime = 0;
             soundObject.play();
         } else {
             soundObject.pause();

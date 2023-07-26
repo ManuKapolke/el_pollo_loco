@@ -26,7 +26,7 @@ async function initLevel() {
     level1.endboss = level1.enemies.at(-1);
 
     level1.numberOfBottles = 20;
-    level1.numberOfCoins = 10;
+    level1.numberOfCoins = 20;
     level1.numberOfClouds = Math.floor(NUMBER_OF_BG / 2);
 
     level1.clouds = Array(level1.numberOfClouds).fill().map(() => new Cloud());

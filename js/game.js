@@ -32,18 +32,9 @@ const audioFiles = [
     'assets/audio/running.mp3',
     'assets/audio/sleep.mp3',
     'assets/audio/smash.mp3',
-    'assets/audio/throw.mp3',
-    'assets/audio/walking.mp3'
+    'assets/audio/throw.mp3'
 ];
 const audioElements = {};
-
-
-async function init() {
-    await loadSoundSettingFromLocalStorage();
-    setSoundIcon();
-    resizeCanvasContent();
-    preloadAudioElements();
-}
 
 
 function preloadAudioElements() {
@@ -54,6 +45,14 @@ function preloadAudioElements() {
         audioElements[path] = audio;
     });
 }
+
+async function init() {
+    await loadSoundSettingFromLocalStorage();
+    setSoundIcon();
+    resizeCanvasContent();
+    preloadAudioElements();
+}
+
 
 
 async function startGame() {
