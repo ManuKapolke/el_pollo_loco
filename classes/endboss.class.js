@@ -83,29 +83,37 @@ class Endboss extends MovableObject {
 
     moveEndboss() {
         if (this.isWalking()) {
-            if (this.characterIsRight()) {
-                setTimeout(() => {
-                    if (this.characterIsRight()) {
-                        this.moveRight();
-                    }
-                }, 500);
-            }
-            if (this.characterIsLeft()) {
-                setTimeout(() => {
-                    if (this.characterIsLeft()) {
-                        this.moveLeft();
-                    }
-                }, 500);
-            }
+            setTimeout(() => {
+                this.moveTowardsCharacter();
+            }, 300);
         }
 
         if (this.shallJump()) {
+            this.turnTowardsCharacter();
             this.jump();
         }
 
         if (this.isAboveGround()) {
             let sgn = this.otherDirection ? 1 : -1;
             this.x = this.x + sgn * 3 * this.speed;
+        }
+    }
+
+    turnTowardsCharacter() {
+        if (this.characterIsRight()) {
+            this.otherDirection = true;
+        }
+        else if (this.characterIsLeft()) {
+            this.otherDirection = false;
+        }
+    }
+
+    moveTowardsCharacter() {
+        if (this.characterIsRight()) {
+            this.moveRight();
+        }
+        else if (this.characterIsLeft()) {
+            this.moveLeft();
         }
     }
 
@@ -136,10 +144,6 @@ class Endboss extends MovableObject {
             this.animationCount = 0;
             return;
         }
-        // if (this.animationCount < 5) {
-        //     this.animationCount++;
-        //     return;
-        // }
 
         if (this.isDead()) {
             if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
