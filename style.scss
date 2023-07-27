@@ -8,8 +8,6 @@ $loco-gradient-reversed: linear-gradient(to bottom, $loco-orange, $loco-yellow);
 $canvas-width: 720px;
 $canvas-height: 480px;
 
-
-
 @mixin flex-centered {
     display: flex;
     justify-content: center;
@@ -57,19 +55,10 @@ body {
     width: 4px;
 }
 
-// ::-webkit-scrollbar-track {
-//     // background: #f1f1f1;
-//     border-radius: 50%;
-// }
-
 ::-webkit-scrollbar-thumb {
     background: $loco-orange;
     border-radius: 2px;
 }
-
-// ::-webkit-scrollbar-thumb:hover {
-//     background: $loco-yellow;
-// }
 
 h1 {
     letter-spacing: 8px;
@@ -77,6 +66,9 @@ h1 {
     text-shadow: 4px 4px 2px rgba($loco-red, 0.3);
 }
 
+/*--------------------------------------------------
+Gamescreen (Canvas)
+---------------------------------------------------*/
 #main-screen-container {
     position: relative;
 }
@@ -100,6 +92,9 @@ canvas {
     transition: all 500ms ease-in-out;
 }
 
+/*--------------------------------------------------
+Startscreen
+---------------------------------------------------*/
 #start-screen {
     background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png');
     background-size: contain;
@@ -126,7 +121,6 @@ canvas {
 
     img {
         width: calc(0.4 * $canvas-width);
-        // height: 300px;
         opacity: 0;
         transition: all 250ms ease-in-out;
     }
@@ -137,6 +131,9 @@ canvas {
     }
 }
 
+/*--------------------------------------------------
+Menubar
+---------------------------------------------------*/
 #menu-bar {
     @include flex-centered;
     gap: calc(0.045 * $canvas-width);
@@ -170,9 +167,11 @@ canvas {
     width: calc(0.04 * $canvas-width);
 }
 
+/*--------------------------------------------------
+Infoscreen
+---------------------------------------------------*/
 #info-screen {
     @include flex-centered;
-    // padding: 72px 40px 48px 40px;
     padding: 10% 5% 6% 5%;
     background-color: $transparent-black;
 }
@@ -250,6 +249,9 @@ canvas {
     }
 }
 
+/*--------------------------------------------------
+Endscreen
+---------------------------------------------------*/
 #end-screen-lost {
     background-image: url('assets/img/9_intro_outro_screens/game_over/game-over.png');
     background-size: cover;
@@ -308,6 +310,9 @@ canvas {
     }
 }
 
+/*--------------------------------------------------
+Touch Keys
+---------------------------------------------------*/
 #touch-keys {
     display: flex;
     align-items: center;
@@ -317,7 +322,6 @@ canvas {
     padding: calc(0.015 * $canvas-width) calc(0.045 * $canvas-width);
     width: 100%;
     opacity: 0.2;
-    // z-index: 2;
 
     div {
         @include flex-centered;
@@ -334,17 +338,13 @@ canvas {
     z-index: -1;
     opacity: 0;
     cursor: pointer;
-    // transition: all 250ms ease-in-out;
-
 
     &:hover {
         background: $loco-gradient;
-        // transition: all 250ms ease-in-out;
     }
 
     &:active {
         background: rgba($loco-red, 0.5);
-        // transition: all 250ms ease-in-out;
     }
 }
 
@@ -354,15 +354,14 @@ canvas {
     rotate: -30deg;
 }
 
+/*--------------------------------------------------
+Permanent Key Info
+---------------------------------------------------*/
 #permanent-key-info-container {
     @include flex-centered;
     flex-wrap: wrap;
     gap: 32px;
     width: calc(0.95 * $canvas-width);
-    // position: absolute;
-    // // bottom: -80px;
-    // left: 2.5%;
-    // margin-top: 24px;
     font-size: 24px;
     background-color: rgba($loco-yellow, 0.4);
     padding: 10px;
@@ -401,10 +400,11 @@ canvas {
     font-size: 24px;
 }
 
+/*--------------------------------------------------
+Loading Spinner
+---------------------------------------------------*/
 .loader-container {
     @include flex-centered;
-    // background-color: rgba($loco-beige, 0.7);
-    // background-color: $transparent-black;
     background-image: url('assets/img/5_background/layers/air.png');
     background-size: cover;
     background-position: center;
@@ -450,25 +450,7 @@ canvas {
         border-left-width: calc(0.02 * $canvas-width);
         border-right-width: calc(0.02 * $canvas-width);
     }
-
-    // 100% {
-    //     width: 0;
-    //     height: 0;
-    //     border-left-width: 0;
-    //     border-right-width: 0;
-    // }
 }
-
-
-
-.mobile-only {
-    display: none !important;
-}
-
-.desktop-only {
-    display: flex !important;
-}
-
 
 /*--------------------------------------------------
 Fullscreen
@@ -553,10 +535,16 @@ Media Query
     }
 }
 
-
 /*--------------------------------------------------
 Mobile/Touch Device
 ---------------------------------------------------*/
+.mobile-only {
+    display: none !important;
+}
+
+.desktop-only {
+    display: flex !important;
+}
 
 @media (pointer: coarse) {
     #play-btn img {
@@ -617,12 +605,9 @@ Mobile/Touch Device
     }
 }
 
-
-
-
-
-
-
+/*--------------------------------------------------
+Show/Hide
+---------------------------------------------------*/
 .d-none {
     display: none !important;
 }
