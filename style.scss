@@ -1,3 +1,4 @@
+/* Variables */
 $loco-red: #a0220a;
 $loco-yellow: #ffc521;
 $loco-orange: #ef8b10;
@@ -8,6 +9,7 @@ $loco-gradient-reversed: linear-gradient(to bottom, $loco-orange, $loco-yellow);
 $canvas-width: 720px;
 $canvas-height: 480px;
 
+/* Mixins */
 @mixin flex-centered {
     display: flex;
     justify-content: center;
@@ -20,6 +22,7 @@ $canvas-height: 480px;
     -webkit-text-fill-color: transparent;
 }
 
+/* Font Faces */
 @font-face {
     font-family: 'zabars';
     src: url('assets/fonts/zabars.ttf') format('truetype');
@@ -32,6 +35,9 @@ $canvas-height: 480px;
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
+/*--------------------------------------------------
+General Styles
+---------------------------------------------------*/
 * {
     margin: 0;
     box-sizing: border-box;
@@ -51,6 +57,7 @@ body {
     color: $loco-red;
 }
 
+/* Scrollbar Styles */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -60,6 +67,7 @@ body {
     border-radius: 2px;
 }
 
+/* Heading Styles */
 h1 {
     letter-spacing: 8px;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
