@@ -1,12 +1,12 @@
 @charset "UTF-8";
 @font-face {
   font-family: "zabars";
-  src: url("assets/fonts/zabars.ttf") format("truetype");
+  src: url("../../assets/fonts/zabars.ttf") format("truetype");
   /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 @font-face {
   font-family: "boogaloo";
-  src: url("assets/fonts/boogaloo-regular.ttf") format("truetype");
+  src: url("../../assets/fonts/boogaloo-regular.ttf") format("truetype");
   /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 * {
@@ -21,11 +21,17 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  background-image: url("assets/img/desert-bg3.png");
+  background-image: url("../../assets/img/desert-bg3.png");
   background-size: cover;
   font-family: "boogaloo", Arial, Helvetica, sans-serif;
   font-size: 46px;
   color: #a0220a;
+}
+
+h1 {
+  letter-spacing: 8px;
+  font-family: "zabars", Arial, Helvetica, sans-serif;
+  text-shadow: 4px 4px 2px rgba(160, 34, 10, 0.3);
 }
 
 ::-webkit-scrollbar {
@@ -35,12 +41,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #ef8b10;
   border-radius: 2px;
-}
-
-h1 {
-  letter-spacing: 8px;
-  font-family: "zabars", Arial, Helvetica, sans-serif;
-  text-shadow: 4px 4px 2px rgba(160, 34, 10, 0.3);
 }
 
 #main-screen-container {
@@ -67,7 +67,7 @@ canvas {
 }
 
 #start-screen {
-  background-image: url("assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png");
+  background-image: url("../../assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -174,7 +174,7 @@ canvas {
   padding-left: 7.992px;
 }
 
-.key, .permanent-key, .touch-key {
+.key {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -186,11 +186,11 @@ canvas {
   border: solid 2px;
   font-size: 32.4px;
 }
-.key img:not(.key-space), .permanent-key img:not(.key-space), .touch-key img:not(.key-space) {
+.key img:not(.key-space) {
   width: 33.33%;
   height: 33.33%;
 }
-.key .key-space, .permanent-key .key-space, .touch-key .key-space {
+.key .key-space {
   width: 75%;
   height: 75%;
 }
@@ -222,7 +222,7 @@ canvas {
 }
 
 #end-screen-lost {
-  background-image: url("assets/img/9_intro_outro_screens/game_over/game-over.png");
+  background-image: url("../../assets/img/9_intro_outro_screens/game_over/game-over.png");
   background-size: cover;
   background-repeat: round;
 }
@@ -299,10 +299,16 @@ canvas {
 }
 
 .touch-key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 76.8px;
   height: 76.8px;
   border-radius: 50%;
+  color: #a0220a;
   background: linear-gradient(to bottom, #ef8b10, #ffc521);
+  border: solid 2px;
+  font-size: 32.4px;
   z-index: -1;
   opacity: 0;
   cursor: pointer;
@@ -340,8 +346,15 @@ canvas {
 }
 
 .permanent-key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 32px;
   height: 32px;
+  border-radius: 10px;
+  color: #a0220a;
+  background: linear-gradient(to bottom, #ffc521, #ef8b10);
+  border: solid 2px;
   font-size: 22px;
 }
 .permanent-key img:not(.key-space) {
@@ -369,7 +382,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("assets/img/5_background/layers/air.png");
+  background-image: url("../../assets/img/5_background/layers/air.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -381,7 +394,7 @@ canvas {
   border-left: 14.4px dashed #a0220a;
   border-right: 14.4px dashed #ef8b10;
   border-radius: 50%;
-  background-image: url("assets/img/6_salsa_bottle/salsa_bottle.png");
+  background-image: url("../../assets/img/6_salsa_bottle/salsa_bottle.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -412,17 +425,6 @@ canvas {
     border-right-width: 14.4px;
   }
 }
-.mobile-only {
-  display: none !important;
-}
-
-.desktop-only {
-  display: flex !important;
-}
-
-/*--------------------------------------------------
-Fullscreen
----------------------------------------------------*/
 #main-screen-container:-webkit-full-screen {
   border-radius: unset;
 }
@@ -450,9 +452,6 @@ Fullscreen
   bottom: 0;
 }
 
-/*--------------------------------------------------
-Media Query
----------------------------------------------------*/
 @media only screen and (max-width: 720px) {
   body {
     font-size: 32px;
@@ -502,14 +501,19 @@ Media Query
     border-radius: unset;
   }
 }
-/*--------------------------------------------------
-Mobile/Touch Device
----------------------------------------------------*/
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: flex !important;
+}
+
 @media (pointer: coarse) {
   #play-btn img {
     opacity: 0.7 !important;
   }
-  .key, .touch-key, .permanent-key {
+  .key {
     border-radius: 50%;
     background: linear-gradient(to bottom, #ef8b10, #ffc521);
   }
