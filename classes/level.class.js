@@ -1,22 +1,17 @@
 class Level {
-    enemies;
-    endboss;
-    clouds;
     backgroundObjects;
-    // collectableObjects;
+    clouds;
+    numberOfClouds;
+    enemies;
+    numberOfChickens;
+    numberOfBabyChickens;
+    endboss;
     bottles;
     coins;
     numberOfBottles;
     numberOfCoins;
-    numberOfClouds;
     level_start_x = WORLD_START;
     level_end_x = WORLD_END;
-
-    // constructor(enemies, clouds, backgroundObjects) {
-    //     this.enemies = enemies;
-    //     this.clouds = clouds;
-    //     this.backgroundObjects = backgroundObjects;
-    // }
 
     replaceOverlappingCollectableObjects() {
         let objects = this.getCollectableObjects();
@@ -29,9 +24,6 @@ class Level {
     }
 
     getCollectableObjects() {
-        // return this.bottles.concat(this.coins);
         return [...this.bottles, ...this.coins];
     }
-
-
 }

@@ -30,6 +30,11 @@
     opacity: 0;
     cursor: pointer;
 
+    img:not(.key-bottle) {
+        width: 33.33%;
+        height: 33.33%;
+    }
+
     &:hover {
         background: variables.$loco-gradient;
     }
