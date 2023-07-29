@@ -3,7 +3,7 @@
 
 .loader-container {
     @include mixins.flex-centered;
-    background-image: url('../../assets/img/5_background/layers/air.png');
+    background-image: url('../assets/img/5_background/layers/air.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -15,7 +15,7 @@
     border-left: calc(0.02 * variables.$canvas-width) dashed variables.$loco-red;
     border-right: calc(0.02 * variables.$canvas-width) dashed variables.$loco-orange;
     border-radius: 50%;
-    background-image: url('../../assets/img/6_salsa_bottle/salsa_bottle.png');
+    background-image: url('../assets/img/6_salsa_bottle/salsa_bottle.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

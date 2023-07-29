@@ -1,12 +1,12 @@
 @charset "UTF-8";
 @font-face {
   font-family: "zabars";
-  src: url("../../assets/fonts/zabars.ttf") format("truetype");
+  src: url("../assets/fonts/zabars.ttf") format("truetype");
   /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 @font-face {
   font-family: "boogaloo";
-  src: url("../../assets/fonts/boogaloo-regular.ttf") format("truetype");
+  src: url("../assets/fonts/boogaloo-regular.ttf") format("truetype");
   /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 * {
@@ -21,7 +21,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  background-image: url("../../assets/img/desert-bg3.png");
+  background-image: url("../assets/img/desert-bg3.png");
   background-size: cover;
   font-family: "boogaloo", Arial, Helvetica, sans-serif;
   font-size: 46px;
@@ -67,7 +67,7 @@ canvas {
 }
 
 #start-screen {
-  background-image: url("../../assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png");
+  background-image: url("../assets/img/9_intro_outro_screens/start/startscreen_1big3to2.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -222,7 +222,7 @@ canvas {
 }
 
 #end-screen-lost {
-  background-image: url("../../assets/img/9_intro_outro_screens/game_over/game-over.png");
+  background-image: url("../assets/img/9_intro_outro_screens/game_over/game-over.png");
   background-size: cover;
   background-repeat: round;
 }
@@ -386,7 +386,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../assets/img/5_background/layers/air.png");
+  background-image: url("../assets/img/5_background/layers/air.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -398,7 +398,7 @@ canvas {
   border-left: 14.4px dashed #a0220a;
   border-right: 14.4px dashed #ef8b10;
   border-radius: 50%;
-  background-image: url("../../assets/img/6_salsa_bottle/salsa_bottle.png");
+  background-image: url("../assets/img/6_salsa_bottle/salsa_bottle.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
