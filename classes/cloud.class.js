@@ -4,13 +4,10 @@ class Cloud extends MovableObject {
     height = 1080 / 3;
     numberOfImagesToLoad = 1;
 
-    constructor(x) {
+    constructor() {
         super().loadImage('assets/img/5_background/layers/4_clouds/1.png');
-
-        // this.x = x + Math.random() * 500;
         this.animate();
     }
-
 
     animate() {
         setStoppableInterval(() => {

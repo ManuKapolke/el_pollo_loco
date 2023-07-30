@@ -10,11 +10,6 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    // gameOver_sound = new Audio('assets/audio/game-over.mp3');
-    // gameWon_music = new Audio('assets/audio/music/won.mp3');
-    // gameLost_music = new Audio('assets/audio/music/lost.mp3');
-    // background_music = new Audio('assets/audio/music/game-bg.mp3');
-    // endbossAppears_music = new Audio('assets/audio/music/endboss-appears.mp3');
     gameOver_sound = audioElements['assets/audio/game-over.mp3'];
     gameWon_music = audioElements['assets/audio/music/won.mp3'];
     gameLost_music = audioElements['assets/audio/music/lost.mp3'];
@@ -326,7 +321,7 @@ class World {
 
         try {
             object.draw(this.ctx);
-            // object.drawFrame(this.ctx);
+            // object.drawFrames(this.ctx);
         } catch (error) {
             console.warn(error);
             console.log(object);

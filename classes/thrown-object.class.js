@@ -3,12 +3,6 @@ class ThrownObject extends MovableObject {
     height = 400 / 5;
     speedY = 0;
     acceleration = 2.5;
-    // IMAGES_ROTATION = [
-    //     'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-    //     'assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-    //     'assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-    //     'assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    // ];
     IMAGES_SPLASH = [
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
@@ -19,53 +13,68 @@ class ThrownObject extends MovableObject {
     ];
     numberOfImagesToLoad = this.IMAGES_SPLASH.length + 1;
     hasBeenThrown = false;
-    // throw_sound = new Audio('assets/audio/throw.mp3');
-    // break_sound = new Audio('assets/audio/bottle_break.mp3');
+    flyInterval;
+    checkHitInterval;
     throw_sound = audioElements['assets/audio/throw.mp3'];
     break_sound = audioElements['assets/audio/bottle_break.mp3'];
 
     constructor(x, y, world) {
         super().loadImage('assets/img/6_salsa_bottle/salsa_bottle.png');
-        // this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_SPLASH);
 
         this.x = x;
         this.y = y;
-
         this.world = world;
-
-        // this.animate();
     }
 
     throw(otherDirection = false) {
+        this.fly(otherDirection);
+        this.playSoundEffect();
+        this.checkHit();
+    }
+
+    fly(otherDirection) {
         let sgn = otherDirection ? -1 : 1;
         this.speedY = 20;
         this.applyGravity();
-        let fly = setInterval(() => {
+
+        this.flyInterval = setInterval(() => {
             this.x += sgn * 10;
         }, 25);
+    }
+
+    playSoundEffect() {
         this.throw_sound.currentTime = 0;
         this.world.playSoundIfSwitchedOn(this.throw_sound);
-        let checkHitInterval = setInterval(() => {
+    }
 
-            this.world.level.enemies.forEach(enemy => {
-                if (this.isColliding(enemy)) {
-                    this.playAnimation(this.IMAGES_SPLASH);
-
-                    if (this.hasBeenThrown) return;
-
-                    this.throw_sound.pause();
-                    this.break_sound.currentTime = 0;
-                    this.world.playSoundIfSwitchedOn(this.break_sound);
-                    this.stopGravity();
-                    clearInterval(fly);
-                    this.hasBeenThrown = true;
-                }
-            });
+    checkHit() {
+        this.checkHitInterval = setInterval(() => {
+            this.world.level.enemies.forEach(enemy => this.splashWhenHitting(enemy));
         }, 50);
+
         setTimeout(() => {
             this.hasBeenThrown = true;
-            clearInterval(checkHitInterval);
+            clearInterval(this.checkHitInterval);
         }, 3000);
     }
+
+    splashWhenHitting(enemy) {
+        if (this.isColliding(enemy)) {
+            this.playAnimation(this.IMAGES_SPLASH);
+            if (this.hasBeenThrown) return;
+
+            this.playSplashSound();
+            this.stopGravity();
+            clearInterval(this.flyInterval);
+            this.hasBeenThrown = true;
+        }
+    }
+
+    playSplashSound() {
+        this.throw_sound.pause();
+        this.break_sound.currentTime = 0;
+        this.world.playSoundIfSwitchedOn(this.break_sound);
+    }
+
 }

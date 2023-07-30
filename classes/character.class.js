@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     x = 100;
-    y = 135;
+    y = GROUND_Y;
     width = 610 / 4;
     height = 1200 / 4;
     speed = 10;
@@ -90,12 +90,6 @@ class Character extends MovableObject {
     numberOfCoins = 0;
     numberOfBottles = 0;
     lastThrow = 0;
-    // walking_sound = new Audio('assets/audio/running.mp3');
-    // jump_sound = new Audio('assets/audio/jump_voice.mp3');
-    // nothingToThrow_sound = new Audio('assets/audio/nothrow.mp3');
-    // hurt_sound = new Audio('assets/audio/hurt.mp3');
-    // death_sound = new Audio('assets/audio/dead.mp3');
-    // sleeping_sound = new Audio('assets/audio/sleep.mp3');
     walking_sound = audioElements['assets/audio/running.mp3'];
     jump_sound = audioElements['assets/audio/jump_voice.mp3'];
     nothingToThrow_sound = audioElements['assets/audio/nothrow.mp3'];
@@ -149,16 +143,12 @@ class Character extends MovableObject {
     }
 
     isJumpingOn(obj) {
-        // return this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
-        //     this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
-        //     this.y + this.height - this.offset.bottom <= obj.y + obj.offset.top && this.y + this.height > obj.y - 20 &&
-        //     this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom;
         return this.isColliding(obj) && this.isAboveGround();
     }
 
     killByJump(enemy) {
         if (enemy.isDead()) return;
-        enemy.die(); //oder: enemy.hit() ?
+        enemy.hit();
         enemy.smash_sound.currentTime = 0;
         this.world.playSoundIfSwitchedOn(enemy.smash_sound);
         setTimeout(() => {
@@ -170,7 +160,7 @@ class Character extends MovableObject {
 
     killByThrow(bottle, enemy) {
         if (enemy.isDead()) return;
-        enemy.die(); //oder: enemy.hit() ?
+        enemy.hit();
         this.world.deleteThrownBottle(bottle);
         this.world.deleteDeadEnemy(enemy);
     }
@@ -192,11 +182,11 @@ class Character extends MovableObject {
     }
 
     shallMoveRight() {
-        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.level_end_x - 10;
+        return this.world.keyboard.RIGHT && this.x + this.width < WORLD_END - 10;
     }
 
     shallMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x + 10;
+        return this.world.keyboard.LEFT && this.x > WORLD_START + 10;
     }
 
     shallJump() {

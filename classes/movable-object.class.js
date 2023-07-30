@@ -14,6 +14,13 @@ class MovableObject extends DrawableObject {
     hasBeenInFinalZone = false;
     hasDied = false;
 
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
     applyGravity() {
         this.gravityInterval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0 || this.isDead()) {
@@ -21,26 +28,13 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
             else {
-                this.y = 135;
+                this.y = GROUND_Y;
             }
         }, 1000 / 25);
     }
 
     stopGravity() {
         clearInterval(this.gravityInterval);
-    }
-
-    isColliding(obj) {
-        return this.isOverlapping(obj);
-    }
-
-    isAboveGround() {
-        if (this instanceof ThrownObject) {
-            return true;
-        }
-        else {
-            return this.y < 135;
-        }
     }
 
     moveRight() {
@@ -51,15 +45,17 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    jump() {
-        this.speedY = 30;
+    moveTowardsCenter() {
+        if (this.isInLeftHalfOfCanvas()) {
+            this.moveRight();
+        }
+        else if (this.isInRightHalfOfCanvas()) {
+            this.moveLeft();
+        }
     }
 
-    playAnimation(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+    jump() {
+        this.speedY = 30;
     }
 
     hit(energyLossFactor = 1) {
@@ -68,8 +64,17 @@ class MovableObject extends DrawableObject {
         this.lastHit = new Date().getTime();
     }
 
-    die() {
-        this.energy = 0;
+    isAboveGround() {
+        if (this instanceof ThrownObject) {
+            return true;
+        }
+        else {
+            return this.y < GROUND_Y;
+        }
+    }
+
+    isColliding(obj) {
+        return this.isOverlapping(obj);
     }
 
     isHurt() {
@@ -90,14 +95,5 @@ class MovableObject extends DrawableObject {
 
     isInFinalZone() {
         return this.x > MOST_RIGHT_BG * CANVAS_WIDTH - 140;
-    }
-
-    moveTowardsCenter() {
-        if (this.isInLeftHalfOfCanvas()) {
-            this.moveRight();
-        }
-        else if (this.isInRightHalfOfCanvas()) {
-            this.moveLeft();
-        }
     }
 }

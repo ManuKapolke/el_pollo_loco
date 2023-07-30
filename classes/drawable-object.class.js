@@ -19,9 +19,6 @@ class DrawableObject {
         this.img.src = path;
         this.img.onload = () => {
             this.numberOfLoadedImages++;
-            // if (this.allImagesAreLoaded()) {
-            //     console.log('all images are loaded', this);
-            // }
         };
     }
 
@@ -32,9 +29,6 @@ class DrawableObject {
             this.imageCache[path] = img;
             img.onload = () => {
                 this.numberOfLoadedImages++;
-                // if (this.allImagesAreLoaded()) {
-                //     console.log('all images are loaded', this);
-                // }
             };
         });
     }
@@ -52,20 +46,22 @@ class DrawableObject {
         }
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof CollectableObject) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
+    drawFrames(ctx) {
+        if ((this instanceof MovableObject && !(this instanceof Cloud)) || this instanceof CollectableObject) {
+            const outerRectArgs = [this.x, this.y, this.width, this.height];
+            const innerRectArgs = [this.x + this.offset.left, this.y + this.offset.top, this.width - (this.offset.left + this.offset.right), this.height - (this.offset.top + this.offset.bottom)];
 
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - (this.offset.left + this.offset.right), this.height - (this.offset.top + this.offset.bottom));
-            ctx.stroke();
+            this.drawFrame(ctx, 'blue', ...outerRectArgs);
+            this.drawFrame(ctx, 'red', ...innerRectArgs);
         }
+    }
+
+    drawFrame(ctx, color, x, y, width, height) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = color;
+        ctx.rect(x, y, width, height);
+        ctx.stroke();
     }
 
     overlapsWithOtherObjects(objects) {

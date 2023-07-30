@@ -18,8 +18,6 @@ class Chicken extends MovableObject {
         left: 0.02 * this.width
     };
     energyLossPerHit = 100;
-    // smash_sound = new Audio('assets/audio/smash.mp3');
-    // death_sound = new Audio('assets/audio/chicken_dead.mp3');
     smash_sound = audioElements['assets/audio/smash.mp3'];
     death_sound = audioElements['assets/audio/chicken_dead.mp3'];
 
@@ -30,25 +28,37 @@ class Chicken extends MovableObject {
 
         this.x = 2 * CANVAS_WIDTH + Math.random() * (MOST_RIGHT_BG - 2) * CANVAS_WIDTH;
         this.speed = 0.15 + Math.random() * 0.5;
+
         this.animate();
+        this.playSoundEffects();
     }
 
     animate() {
-        setStoppableInterval(() => {
-            if (this.isDead()) return;
-            this.moveLeft();
-        }, 1000 / 60);
+        setStoppableInterval(() => this.moveChicken(), 1000 / 60);
+        setStoppableInterval(() => this.playChickenAnimations(), 200);
+    }
 
+    moveChicken() {
+        if (this.isDead()) return;
+        this.moveLeft();
+    }
+
+    playChickenAnimations() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEATH);
+        }
+        else {
+            this.playAnimation(this.IMAGES_WALK);
+        }
+    }
+
+    playSoundEffects() {
         setStoppableInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEATH);
                 if (this.deathSoundHasBeenPlayed) return;
                 this.death_sound.currentTime = 0;
                 this.world.playSoundIfSwitchedOn(this.death_sound);
                 this.deathSoundHasBeenPlayed = true;
-            }
-            else {
-                this.playAnimation(this.IMAGES_WALK);
             }
         }, 200);
     }

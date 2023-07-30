@@ -10,8 +10,6 @@ class Level {
     coins;
     numberOfBottles;
     numberOfCoins;
-    level_start_x = WORLD_START;
-    level_end_x = WORLD_END;
 
     replaceOverlappingCollectableObjects() {
         let objects = this.getCollectableObjects();

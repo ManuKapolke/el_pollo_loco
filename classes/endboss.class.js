@@ -1,5 +1,5 @@
 class Endboss extends MovableObject {
-    y = 135;
+    y = GROUND_Y;
     width = 1045 / 4;
     height = 1217 / 4;
     speed = 1;
@@ -48,11 +48,6 @@ class Endboss extends MovableObject {
     };
     energyLossPerHit = 10;
     animationCount = 0;
-    // walking_sound = new Audio('assets/audio/endboss_walk.mp3');
-    // alert_sound = new Audio('assets/audio/endboss_alert.mp3');
-    // attack_sound = new Audio('assets/audio/endboss_attack.mp3');
-    // hurt_sound = new Audio('assets/audio/endboss_hurt.mp3');
-    // death_sound = new Audio('assets/audio/endboss_dead.mp3');
     walking_sound = audioElements['assets/audio/endboss_walk.mp3'];
     alert_sound = audioElements['assets/audio/endboss_alert.mp3'];
     attack_sound = audioElements['assets/audio/endboss_attack.mp3'];
