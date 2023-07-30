@@ -41,3 +41,15 @@ function setAllAudioElementsToBeginning() {
         audioElements[path].currentTime = 0;
     });
 }
+
+
+function saveSoundSettingToLocalStorage() {
+    localStorage.setItem('musicIsOn', JSON.stringify(musicIsOn));
+    localStorage.setItem('soundIsOn', JSON.stringify(soundIsOn));
+}
+
+
+async function loadSoundSettingFromLocalStorage() {
+    musicIsOn = JSON.parse(localStorage.getItem('musicIsOn') || true);
+    soundIsOn = JSON.parse(localStorage.getItem('soundIsOn') || true);
+}
