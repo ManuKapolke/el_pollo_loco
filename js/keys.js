@@ -62,7 +62,6 @@ Touchkeys
 ---------------------------------------------------*/
 function provideTouchKeysForMobileDevices() {
     if (!isTouchDevice()) return;
-    // if(!isMobileDevice()) return;
 
     showElement('touch-keys');
     handleTouchKeys();
@@ -79,11 +78,21 @@ function handleTouchKeys() {
 
 function synchronizeTouchKeyWithKeyboardKey(touchKeyId, keyName) {
     const touchKey = document.getElementById(touchKeyId);
+    synchronizeTouchstartWithKeydown(touchKey, keyName);
+    synchronizeTouchendWithKeyup(touchKey, keyName);
+}
+
+
+function synchronizeTouchstartWithKeydown(touchKey, keyName) {
     touchKey.addEventListener('touchstart', (e) => {
         e.preventDefault();
         touchKey.style.background = '#a0220a80';
         keyboard[keyName] = true;
     });
+}
+
+
+function synchronizeTouchendWithKeyup(touchKey, keyName) {
     touchKey.addEventListener('touchend', (e) => {
         e.preventDefault();
         touchKey.style.background = 'linear-gradient(to bottom, #ef8b10, #ffc521)';

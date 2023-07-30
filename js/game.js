@@ -120,7 +120,7 @@ function clearStoppableIntervals() {
 }
 
 
-/* Alternative (quick and dirty), um alle Intervalle zu beenden. */
 function clearAllIntervals() {
-    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    for (let i = 1; i < 9999; i++)
+        window.clearInterval(i);
 }

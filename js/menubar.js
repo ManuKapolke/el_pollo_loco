@@ -36,9 +36,7 @@ Info
 ---------------------------------------------------*/
 function toggleGameInfo() {
     document.getElementById('info-screen').classList.toggle('full-opacity');
-
     document.getElementById('touch-keys').classList.toggle('full-opacity');
-
     if (gameIsRunning) return;
 
     if (gameIsLost) {
@@ -75,13 +73,14 @@ function toggleFullscreen() {
 
 
 function openFullscreen() {
-    let elem = document.getElementById('main-screen-container');
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+    let element = document.getElementById('main-screen-container');
+
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) { /* Safari */
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { /* IE11 */
+        element.msRequestFullscreen();
     }
 
     document.getElementById('fullscreen-btn-icon').src = 'assets/img/fullscreen_exit.png';
