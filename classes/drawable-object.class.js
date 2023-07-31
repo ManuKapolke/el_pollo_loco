@@ -40,9 +40,9 @@ class DrawableObject {
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        } catch (e) {
-            console.warn('Error drawing image', e);
-            console.log('Unable to draw image ', this.img.src);
+        } catch (error) {
+            console.warn('Error drawing image', error);
+            console.log('Unable to draw image', this.img.src);
         }
     }
 

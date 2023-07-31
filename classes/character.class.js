@@ -58,7 +58,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/5_dead/D-53.png',
         'assets/img/2_character_pepe/5_dead/D-54.png',
         'assets/img/2_character_pepe/5_dead/D-55.png',
-        'assets/img/2_character_pepe/5_dead/D-56.png'//, 'assets/img/2_character_pepe/5_dead/D-57.png'
+        'assets/img/2_character_pepe/5_dead/D-56.png'
     ];
     IMAGES_DANCE = [
         'assets/img/pepe_dance/J-35.png',
@@ -107,8 +107,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEATH);
         this.loadImages(this.IMAGES_DANCE);
-        this.applyGravity();
 
+        this.applyGravity();
         this.animate();
         this.playSoundEffects();
     }
@@ -118,67 +118,14 @@ class Character extends MovableObject {
         setStoppableInterval(() => this.playCharacterAnimations(), 100);
     }
 
-    collect(obj) {
-        if (obj instanceof CollectableBottle) {
-            let objIndex = this.world.level.bottles.indexOf(obj);
-            obj.collect_sound.currentTime = 0;
-            this.world.playSoundIfSwitchedOn(obj.collect_sound);
-            this.numberOfBottles++;
-            this.world.level.bottles.splice(objIndex, 1);
-        }
-        else if (obj instanceof CollectableCoin) {
-            let objIndex = this.world.level.coins.indexOf(obj);
-            obj.collect_sound.currentTime = 0;
-            this.world.playSoundIfSwitchedOn(obj.collect_sound);
-            this.numberOfCoins++;
-            this.energy += this.energyGainPerCoin;
-            this.world.level.coins.splice(objIndex, 1);
-        }
-    }
-
-    throwBottle(bottle) {
-        bottle.throw(this.otherDirection);
-        this.numberOfBottles--;
-        this.lastThrow = new Date().getTime();
-    }
-
-    isJumpingOn(obj) {
-        return this.isColliding(obj) && this.isAboveGround();
-    }
-
-    killByJump(enemy) {
-        if (enemy.isDead()) return;
-        enemy.hit();
-        enemy.smash_sound.currentTime = 0;
-        this.world.playSoundIfSwitchedOn(enemy.smash_sound);
-        setTimeout(() => {
-            this.world.deleteDeadEnemy(enemy);
-        }, 500);
-
-        this.jump();
-    }
-
-    killByThrow(bottle, enemy) {
-        if (enemy.isDead()) return;
-        enemy.hit();
-        this.world.deleteThrownBottle(bottle);
-        this.world.deleteDeadEnemy(enemy);
-    }
-
+    /*--------------------------------------------------
+    Move
+    ---------------------------------------------------*/
     moveCharacter() {
-        if (this.shallMoveRight()) {
-            this.moveRight();
-        }
-        if (this.shallMoveLeft()) {
-            this.moveLeft();
-        }
-        if (this.x - 100 < MOST_RIGHT_BG * CANVAS_WIDTH && this.x - 100 > WORLD_START) {
-            this.world.camera_x = -this.x + 100;
-        }
-
-        if (this.shallJump()) {
-            this.jump();
-        }
+        if (this.shallMoveRight()) this.moveRight();
+        if (this.shallMoveLeft()) this.moveLeft();
+        if (this.shallJump()) this.jump();
+        this.world.adjustCameraPosition();
     }
 
     shallMoveRight() {
@@ -203,6 +150,92 @@ class Character extends MovableObject {
         this.otherDirection = true;
     }
 
+    dance() {
+        this.speed = 25;
+        this.moveTowardsCenter();
+        this.playDanceAnimation();
+    }
+
+    /*--------------------------------------------------
+    Collect
+    ---------------------------------------------------*/
+    collect(obj) {
+        obj.collect_sound.currentTime = 0;
+        this.world.playSoundIfSwitchedOn(obj.collect_sound);
+        if (obj instanceof CollectableBottle) {
+            this.collectBottle(obj);
+        }
+        else if (obj instanceof CollectableCoin) {
+            this.collectCoin(obj);
+        }
+    }
+
+    collectBottle(obj) {
+        let objIndex = this.world.level.bottles.indexOf(obj);
+        this.world.level.bottles.splice(objIndex, 1);
+        this.numberOfBottles++;
+    }
+
+    collectCoin(obj) {
+        let objIndex = this.world.level.coins.indexOf(obj);
+        this.world.level.coins.splice(objIndex, 1);
+        this.numberOfCoins++;
+        this.energy += this.energyGainPerCoin;
+    }
+
+    /*--------------------------------------------------
+    Fight
+    ---------------------------------------------------*/
+    throwBottle(bottle) {
+        bottle.throw(this.otherDirection);
+        this.numberOfBottles--;
+        this.lastThrow = new Date().getTime();
+    }
+
+    isJumpingOn(obj) {
+        return this.isColliding(obj) && this.isAboveGround();
+    }
+
+    killByThrow(bottle, enemy) {
+        if (enemy.isDead()) return;
+        enemy.hit();
+        this.world.deleteThrownBottle(bottle);
+        this.world.deleteDeadEnemy(enemy);
+    }
+
+    killByJump(enemy) {
+        if (enemy.isDead()) return;
+        enemy.hit();
+        enemy.smash_sound.currentTime = 0;
+        this.world.playSoundIfSwitchedOn(enemy.smash_sound);
+        this.world.deleteDeadEnemy(enemy);
+        this.jump();
+    }
+
+    timePassedSinceLastThrow() {
+        return new Date().getTime() - this.lastThrow; // difference in milliseconds
+    }
+
+    /*--------------------------------------------------
+    Animations
+    ---------------------------------------------------*/
+    playCharacterAnimations() {
+        if (this.isDead()) {
+            if (!this.lastImageIsShown(this.IMAGES_DEATH)) this.playAnimation(this.IMAGES_DEATH);
+        }
+        else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMP);
+        else if (this.isWalking()) this.playAnimation(this.IMAGES_WALK);
+        else {
+            if (!this.isSleeping()) this.playAnimation(this.IMAGES_IDLE);
+            else this.playAnimation(this.IMAGES_LONGIDLE);
+        }
+    }
+
+    playDanceAnimation() {
+        this.playAnimation(this.IMAGES_DANCE);
+    }
+
     isWalking() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
@@ -211,34 +244,9 @@ class Character extends MovableObject {
         return this.world.timePassedSinceLastKeyPress() > 10000 && this.timePassedSinceLastHit() > 5000;
     }
 
-    playCharacterAnimations() {
-        if (this.isDead()) {
-            if (!this.lastImageIsShown(this.IMAGES_DEATH)) {
-                this.playAnimation(this.IMAGES_DEATH);
-            }
-        }
-        else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-        }
-        else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMP);
-        }
-        else if (this.isWalking()) {
-            this.playAnimation(this.IMAGES_WALK);
-        }
-        else {
-            if (!this.isSleeping()) {
-                this.playAnimation(this.IMAGES_IDLE);
-            } else {
-                this.playAnimation(this.IMAGES_LONGIDLE);
-            }
-        }
-    }
-
-    playDanceAnimation() {
-        this.playAnimation(this.IMAGES_DANCE);
-    }
-
+    /*--------------------------------------------------
+    SoundEffects
+    ---------------------------------------------------*/
     playSoundEffects() {
         setStoppableInterval(() => {
             if (this.isDead()) {
@@ -294,9 +302,5 @@ class Character extends MovableObject {
         else {
             this.sleeping_sound.pause();
         }
-    }
-
-    timePassedSinceLastThrow() {
-        return new Date().getTime() - this.lastThrow; // Difference in milliseconds
     }
 }

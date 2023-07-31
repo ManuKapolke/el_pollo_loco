@@ -60,8 +60,8 @@ async function initWorld() {
 
 function removeLoaderWhenAllImagesAreLoaded() {
     let checkLoading = setInterval(() => {
-        world.checkIfAllImagesAreLoaded();
-        if (world.allImagesAreLoaded) {
+        world.checkIfStartImagesAreLoaded();
+        if (world.startImagesAreLoaded) {
             clearInterval(checkLoading);
             removeElement('loader');
         }
