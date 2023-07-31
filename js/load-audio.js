@@ -26,6 +26,10 @@ const audioFiles = [
 const audioElements = {};
 
 
+/**
+ * Preloads audio elements by creating HTMLAudioElement objects for each audio file,
+ * setting their preload attribute to 'auto', and storing them in the 'audioElements' object.
+ */
 function preloadAudioElements() {
     audioFiles.forEach(path => {
         let audio = new Audio(path);
@@ -36,6 +40,9 @@ function preloadAudioElements() {
 }
 
 
+/**
+ * Sets the currentTime property of all audio elements to the beginning (0 seconds).
+ */
 function setAllAudioElementsToBeginning() {
     audioFiles.forEach(path => {
         audioElements[path].currentTime = 0;
@@ -43,12 +50,20 @@ function setAllAudioElementsToBeginning() {
 }
 
 
+/**
+ * Saves the current sound settings (musicIsOn and soundIsOn) to the local storage.
+ */
 function saveSoundSettingToLocalStorage() {
     localStorage.setItem('musicIsOn', JSON.stringify(musicIsOn));
     localStorage.setItem('soundIsOn', JSON.stringify(soundIsOn));
 }
 
 
+/**
+ * Loads sound settings (musicIsOn and soundIsOn) from local storage and updates the corresponding variables.
+ * If no setting is found in local storage, the variables are set to true by default.
+ * @returns {Promise<void>} A Promise that resolves after the sound settings are loaded and updated.
+ */
 async function loadSoundSettingFromLocalStorage() {
     musicIsOn = JSON.parse(localStorage.getItem('musicIsOn') || true);
     soundIsOn = JSON.parse(localStorage.getItem('soundIsOn') || true);

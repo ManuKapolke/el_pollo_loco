@@ -1,6 +1,13 @@
 /*--------------------------------------------------
 Sound
 ---------------------------------------------------*/
+/**
+ * Toggles sound and music settings between 'on' and 'off'.
+ * If both music and sound are on, music will be turned off.
+ * If only sound is on, it will be turned off.
+ * If both is off, it will be turned on. 
+ * The updated settings are saved to local storage.
+ */
 function toggleSoundAndMusic() {
     if (musicIsOn) {
         musicIsOn = false;
@@ -17,6 +24,9 @@ function toggleSoundAndMusic() {
 }
 
 
+/**
+ * Sets the sound icon image based on the current sound and music settings.
+ */
 function setSoundIcon() {
     const soundIcon = document.getElementById('sound-btn-icon');
     if (musicIsOn) {
@@ -34,6 +44,10 @@ function setSoundIcon() {
 /*--------------------------------------------------
 Info
 ---------------------------------------------------*/
+/**
+ * Toggles the game info screen along with other elements (touch keys, end screen, play button) 
+ * that have to hide when info screen is displayed.
+ */
 function toggleGameInfo() {
     document.getElementById('info-screen').classList.toggle('full-opacity');
     document.getElementById('touch-keys').classList.toggle('full-opacity');
@@ -51,6 +65,11 @@ function toggleGameInfo() {
 }
 
 
+/**
+ * Toggles the visibility of an end screen (either 'game lost' or 'game won' screen)
+ * and the replay button screen. It also manages the zIndex of the replay button screen.
+ * @param {string} screenId - The ID of the end screen to be toggled.
+ */
 function toggleEndScreen(screenId) {
     document.getElementById(screenId).classList.toggle('full-opacity');
     document.getElementById('replay-btn-screen').classList.toggle('full-opacity');
@@ -61,6 +80,10 @@ function toggleEndScreen(screenId) {
 /*--------------------------------------------------
 Fullscreen
 ---------------------------------------------------*/
+/**
+ * Toggles fullscreen mode by either entering or exiting fullscreen.
+ * After toggling, it resizes the canvas content to fit the new screen size.
+ */
 function toggleFullscreen() {
     if (fullscreenIsActive) {
         closeFullscreen();
@@ -72,6 +95,10 @@ function toggleFullscreen() {
 }
 
 
+/**
+ * Requests the browser to enter fullscreen mode for the 'main-screen-container' element.
+ * It also updates the fullscreen button icon accordingly.
+ */
 function openFullscreen() {
     let element = document.getElementById('main-screen-container');
 
@@ -87,6 +114,10 @@ function openFullscreen() {
 }
 
 
+/**
+ * Exits fullscreen mode if the page is currently in fullscreen.
+ * It also updates the fullscreen button icon accordingly.
+ */
 function closeFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
