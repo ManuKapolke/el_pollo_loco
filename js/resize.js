@@ -1,6 +1,13 @@
+/**
+ * Event listener for the 'resize' event on the window object.
+ * Calls 'resizeCanvasContent()' whenever the window is resized.
+ */
 window.addEventListener('resize', resizeCanvasContent);
 
 
+/**
+ * Resizes various elements of the canvas content based on the current canvas dimensions.
+ */
 function resizeCanvasContent() {
     resizeMenuBar();
     resizePlayButton();
@@ -11,6 +18,9 @@ function resizeCanvasContent() {
 }
 
 
+/**
+ * Resizes the menu bar, including the sound icon, info icon, and fullscreen icon.
+ */
 function resizeMenuBar() {
     const menuBar = document.getElementById('menu-bar');
     menuBar.style.gap = `${0.045 * getCanvasWidth()}px`;
@@ -23,6 +33,9 @@ function resizeMenuBar() {
 }
 
 
+/**
+ * Resizes the sound icon.
+ */
 function resizeSoundIcon() {
     const soundIcon = document.getElementById('sound-btn-icon');
     if (musicIsOn) {
@@ -34,30 +47,45 @@ function resizeSoundIcon() {
 }
 
 
+/**
+ * Resizes the info icon.
+ */
 function resizeInfoIcon() {
     const infoIcon = document.getElementById('info-btn-icon');
     infoIcon.style.width = `${0.045 * getCanvasWidth()}px`;
 }
 
 
+/**
+ * Resizes the fullscreen icon.
+ */
 function resizeFullscreenIcon() {
     const fullscreenIcon = document.getElementById('fullscreen-btn-icon');
     fullscreenIcon.style.width = `${0.04 * getCanvasWidth()}px`;
 }
 
 
+/**
+ * Resizes the play button.
+ */
 function resizePlayButton() {
     const playBtn = document.getElementById('play-btn-img');
     playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
 }
 
 
+/**
+ * Resizes the replay button.
+ */
 function resizeReplayButton() {
     const replayBtn = document.getElementById('replay-btn');
     replayBtn.style.fontSize = `${0.056 * getCanvasWidth()}px`;
 }
 
 
+/**
+  * Resizes the end screen elements.
+  */
 function resizeEndScreen() {
     const endScreenWon = document.getElementById('end-screen-won');
     const endScreenCircle = document.getElementById('end-screen-circle');
@@ -67,6 +95,9 @@ function resizeEndScreen() {
 }
 
 
+/**
+ * Resizes the info screen content.
+ */
 function resizeInfoScreen() {
     const infoContent = document.getElementById('info-content');
     infoContent.style.fontSize = `${0.06 * getCanvasHeight()}px`;
@@ -75,6 +106,9 @@ function resizeInfoScreen() {
 }
 
 
+/**
+ * Resizes the icons and keys displayed on the info screen.
+ */
 function resizeInfoScreenIcons() {
     const iconCell = document.getElementsByClassName('icon-td');
     Array.from(iconCell).forEach((cell) => {
@@ -88,6 +122,9 @@ function resizeInfoScreenIcons() {
 }
 
 
+/**
+ * Resizes the keys displayed on the info screen.
+ */
 function resizeInfoScreenKeys() {
     const keys = document.getElementsByClassName('key');
     const keySeparator = document.getElementById('key-separator');
@@ -104,6 +141,9 @@ function resizeInfoScreenKeys() {
 }
 
 
+/**
+ * Resizes the sound options displayed on the info screen.
+ */
 function resizeInfoScreenSoundOptions() {
     const soundOptions = document.getElementsByClassName('sound-option');
     const soundDescription = document.getElementById('sound-description-text');
@@ -117,6 +157,9 @@ function resizeInfoScreenSoundOptions() {
 }
 
 
+/**
+ * Resizes the touch keys container and the touch keys themselves.
+ */
 function resizeTouchKeys() {
     const touchKeyContainer = document.getElementById('touch-keys');
     const touchKeyContainerLeft = document.getElementById('touch-keys-lefthand');
@@ -134,6 +177,10 @@ function resizeTouchKeys() {
 }
 
 
+/**
+ * Calculates the canvas width based on the current fullscreen status and available space.
+ * @returns {number} The calculated canvas width.
+ */
 function getCanvasWidth() {
     let width = fullscreenIsActive ? window.innerWidth :
         Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
@@ -141,6 +188,10 @@ function getCanvasWidth() {
 }
 
 
+/**
+ * Calculates the canvas height based on the current fullscreen status and available space.
+ * @returns {number} The calculated canvas height.
+ */
 function getCanvasHeight() {
     let height = fullscreenIsActive ? window.innerHeight :
         Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);

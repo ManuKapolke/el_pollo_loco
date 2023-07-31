@@ -26,11 +26,19 @@ function removeElement(id) {
 }
 
 
+/**
+ * Function to hide an element with a given ID by removing the 'full-opacity' class.
+ * @param {string} id - The ID of the element to remove.
+ */
 function removeOpacity(id) {
     document.getElementById(id).classList.remove('full-opacity');
 }
 
 
+/**
+ * Function to show an element with a given ID by adding the 'full-opacity' class.
+ * @param {string} id - The ID of the element to show.
+ */
 function addOpacity(id) {
     document.getElementById(id).classList.add('full-opacity');
 }

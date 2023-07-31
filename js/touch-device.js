@@ -1,3 +1,7 @@
+/**
+ * Checks if the current device is a touch-enabled device.
+ * @returns {boolean} `true` if the device supports touch input, `false` otherwise.
+ */
 function isTouchDevice() {
     return (('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
@@ -5,6 +9,10 @@ function isTouchDevice() {
 }
 
 
+/**
+ * Checks if the current device is a mobile device via experimental 'userAgentData'.
+ * @returns {boolean} `true` if the device is a mobile device, `false` otherwise.
+ */
 function isMobileDevice() {
     let isMobile = navigator.userAgentData?.mobile;
     if (isMobile === undefined) {
@@ -14,6 +22,10 @@ function isMobileDevice() {
 }
 
 
+/**
+ * Checks if the current device is a mobile or tablet device via regular expressions.
+ * @returns {boolean} `true` if the device is a mobile or tablet device, `false` otherwise.
+ */
 window.mobileAndTabletCheck = function () {
     let check = false;
     (function (a) {
