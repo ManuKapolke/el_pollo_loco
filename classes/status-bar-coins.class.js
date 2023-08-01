@@ -1,3 +1,7 @@
+/** 
+ * Class representing the character's statusbar regarding the collected coins. 
+ * @extends StatusBar
+ * */
 class StatusBarCoins extends StatusBar {
     x = 20;
     y = 45;
@@ -5,6 +9,7 @@ class StatusBarCoins extends StatusBar {
     color = 'blue';
     percentage = 0;
 
+    /** Constructs an instance of StatusBarCoins. */
     constructor() {
         super();
         this.pushImages(this.dirName, this.color);

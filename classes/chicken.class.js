@@ -1,3 +1,7 @@
+/** 
+ * Class representing a Chicken
+ * @extends MovableObject
+ */
 class Chicken extends MovableObject {
     y = 350;
     width = 248 / 3;
@@ -22,7 +26,7 @@ class Chicken extends MovableObject {
     death_sound = audioElements['assets/audio/chicken_dead.mp3'];
 
     /**
-     * Constructs a new instance of Chicken.
+     * Constructs an instance of Chicken.
      * Loads the images for walk and death animations, sets initial position and speed,
      * starts animation and sound effects.
      */

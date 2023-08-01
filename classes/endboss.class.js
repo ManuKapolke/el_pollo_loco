@@ -1,3 +1,7 @@
+/** 
+ * Class representing the Endboss chicken.
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
     y = GROUND_Y;
     width = 1045 / 4;
@@ -56,7 +60,10 @@ class Endboss extends MovableObject {
     alertSoundHasBeenPlayed = false;
     attackSoundHasBeenPlayed = false;
 
-
+    /**
+     * Constructs an Endboss instance.
+     * Loads all required images and sets initial position and animations.
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALK);
@@ -71,6 +78,7 @@ class Endboss extends MovableObject {
         this.playSoundEffects();
     }
 
+    /** Controls the movement of the endboss and plays the corresponding animations. */
     animate() {
         setStoppableInterval(() => this.moveEndboss(), 1000 / 60);
         setStoppableInterval(() => this.playEndbossAnimations(), 200);
@@ -79,6 +87,7 @@ class Endboss extends MovableObject {
     /*--------------------------------------------------
     Move
     ---------------------------------------------------*/
+    /** Moves the endboss based on its state and the position of the character. */
     moveEndboss() {
         if (this.isWalking()) {
             setTimeout(() => this.moveTowardsCharacter(), 300);
@@ -92,6 +101,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Turns the endboss towards the character based on their relative positions. */
     turnTowardsCharacter() {
         if (this.characterIsRight()) {
             this.otherDirection = true;
@@ -101,6 +111,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Moves the endboss towards the character. */
     moveTowardsCharacter() {
         if (this.characterIsRight()) {
             this.moveRight();
@@ -110,29 +121,47 @@ class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the character is to the right of the endboss.
+     * @returns {boolean} True if the character is to the right, false otherwise.
+     */
     characterIsRight() {
         return this.x + 0.5 * this.width < this.world.character.x + 0.5 * this.world.character.width;
     }
 
+    /**
+     * Checks if the character is to the left of the endboss.
+     * @returns {boolean} True if the character is to the left, false otherwise.
+     */
     characterIsLeft() {
         return !this.characterIsRight();
     }
 
+    /** Moves the endboss to the right and sets the otherDirection flag. */
     moveRight() {
         super.moveRight();
         this.otherDirection = true;
     }
 
+    /** Moves the endboss to the left and clears the otherDirection flag. */
     moveLeft() {
         super.moveLeft();
         this.otherDirection = false;
     }
 
+    /**
+     * Moves the endboss with increased speed (applied on jumping).
+     * @param {number} speedFactor - The factor to increase the speed.
+     */
     moveFast(speedFactor) {
         let sgn = this.otherDirection ? 1 : -1;
         this.x = this.x + sgn * speedFactor * this.speed;
     }
 
+    /**
+     * Checks if the endboss shall jump based on its state and position.
+     * @returns {boolean} True if the endboss shall jump, false otherwise.
+     */
     shallJump() {
         return this.isAttacking() && !this.isAboveGround();
     }
@@ -140,6 +169,7 @@ class Endboss extends MovableObject {
     /*--------------------------------------------------
     Animations
     ---------------------------------------------------*/
+    /** Plays the appropriate endboss animation based on its state and the character's position. */
     playEndbossAnimations() {
         if (!this.world.character.hasBeenInFinalZone) {
             this.animationCount = 0;
@@ -155,6 +185,10 @@ class Endboss extends MovableObject {
         this.animationCount++;
     }
 
+    /**
+     * Checks if the endboss is in alert state.
+     * @returns {boolean} True if the endboss is in alert state, false otherwise.
+     */
     isAlert() {
         let alertAtFirstContact = (this.animationCount < 8);
         let alertAfterHit = (this.timePassedSinceLastHit() > 500 && this.timePassedSinceLastHit() <= 800);
@@ -162,10 +196,18 @@ class Endboss extends MovableObject {
         return alertAtFirstContact || alertAfterHit || alertAfterAttack;
     }
 
+    /**
+     * Checks if the endboss is in attacking state.
+     * @returns {boolean} True if the endboss is in attacking state, false otherwise.
+     */
     isAttacking() {
         return this.timePassedSinceLastHit() > 800 && this.timePassedSinceLastHit() <= 1600;
     }
 
+    /**
+     * Checks if the endboss is in walking state.
+     * @returns {boolean} True if the endboss is in walking state, false otherwise.
+     */
     isWalking() {
         return this.world.character.hasBeenInFinalZone && !(this.isAlert() || this.isAttacking() || this.isHurt() || this.isDead());
     }
@@ -173,6 +215,7 @@ class Endboss extends MovableObject {
     /*--------------------------------------------------
     SoundEffects
     ---------------------------------------------------*/
+    /** Plays sound effects based on the endboss's state. */
     playSoundEffects() {
         setStoppableInterval(() => {
             if (!this.world.character.hasBeenInFinalZone) return;
@@ -187,6 +230,7 @@ class Endboss extends MovableObject {
         }, 100);
     }
 
+    /** Plays the walking sound effect if the endboss is walking. */
     playSoundIfEndbossIsWalking() {
         if (this.isWalking() && !this.world.character.isDead()) {
             this.world.playSoundIfSwitchedOn(this.walking_sound);
@@ -196,6 +240,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Plays the alert sound effect if the endboss is in alert state. */
     playSoundIfEndbossIsAlert() {
         if (this.isAlert()) {
             if (this.alertSoundHasBeenPlayed) return;
@@ -209,6 +254,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Plays the attack sound effect if the endboss is in attacking state. */
     playSoundIfEndbossIsAttacking() {
         if (this.isAttacking()) {
             if (this.attackSoundHasBeenPlayed) return;
@@ -220,6 +266,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Plays the hurt sound effect if the endboss is hurt. */
     playSoundIfEndbossIsHurt() {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
@@ -231,6 +278,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    /** Plays the death sound effect if the endboss is dead. */
     playSoundIfEndbossIsDead() {
         if (this.isDead()) {
             if (this.deathSoundHasBeenPlayed) return;

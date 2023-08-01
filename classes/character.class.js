@@ -1,3 +1,7 @@
+/**
+ * Class representing the main character in the game.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
     x = 100;
     y = GROUND_Y;
@@ -97,7 +101,7 @@ class Character extends MovableObject {
     death_sound = audioElements['assets/audio/dead.mp3'];
     sleeping_sound = audioElements['assets/audio/sleep.mp3'];
 
-
+    /** Creates a Character instance. */
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -113,6 +117,7 @@ class Character extends MovableObject {
         this.playSoundEffects();
     }
 
+    /** Controls the movement of the character and plays the animations. */
     animate() {
         setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
         setStoppableInterval(() => this.playCharacterAnimations(), 100);
@@ -121,6 +126,7 @@ class Character extends MovableObject {
     /*--------------------------------------------------
     Move
     ---------------------------------------------------*/
+    /** Moves the character according to user input and updates the camera position. */
     moveCharacter() {
         if (this.shallMoveRight()) this.moveRight();
         if (this.shallMoveLeft()) this.moveLeft();
@@ -128,28 +134,43 @@ class Character extends MovableObject {
         this.world.adjustCameraPosition();
     }
 
+    /**
+     * Determines if the character should move right based on user input and its position.
+     * @returns {boolean} True if the character should move right, otherwise false.
+     */
     shallMoveRight() {
         return this.world.keyboard.RIGHT && this.x + this.width < WORLD_END - 10;
     }
 
+    /**
+     * Determines if the character should move left based on user input and its position.
+     * @returns {boolean} True if the character should move left, otherwise false.
+     */
     shallMoveLeft() {
         return this.world.keyboard.LEFT && this.x > WORLD_START + 10;
     }
 
+    /**
+     * Determines if the character should jump based on user input and its position.
+     * @returns {boolean} True if the character should jump, otherwise false.
+     */
     shallJump() {
         return (this.world.keyboard.UP || this.world.keyboard.SPACE) && !this.isAboveGround();
     }
 
+    /** Moves the character to the right and clears the otherDirection flag. */
     moveRight() {
         super.moveRight();
         this.otherDirection = false;
     }
 
+    /** Moves the character to the left and sets the otherDirection flag. */
     moveLeft() {
         super.moveLeft();
         this.otherDirection = true;
     }
 
+    /** Lets the character move to the center of the canvas and dance (applied when game is won). */
     dance() {
         this.speed = 25;
         this.moveTowardsCenter();
@@ -159,6 +180,10 @@ class Character extends MovableObject {
     /*--------------------------------------------------
     Collect
     ---------------------------------------------------*/
+    /**
+     * Collects a collectable object (coin or bottle).
+     * @param {CollectableObject} obj - The collectable object to be collected.
+     */
     collect(obj) {
         obj.collect_sound.currentTime = 0;
         this.world.playSoundIfSwitchedOn(obj.collect_sound);
@@ -170,12 +195,20 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Collects a bottle.
+     * @param {CollectableBottle} obj - The bottle to be collected.
+     */
     collectBottle(obj) {
         let objIndex = this.world.level.bottles.indexOf(obj);
         this.world.level.bottles.splice(objIndex, 1);
         this.numberOfBottles++;
     }
 
+    /**
+     * Collects a coin.
+     * @param {CollectableCoin} obj - The coin to be collected.
+     */
     collectCoin(obj) {
         let objIndex = this.world.level.coins.indexOf(obj);
         this.world.level.coins.splice(objIndex, 1);
@@ -186,16 +219,29 @@ class Character extends MovableObject {
     /*--------------------------------------------------
     Fight
     ---------------------------------------------------*/
+    /**
+     * Throws a bottle.
+     * @param {ThrownObject} bottle - The bottle object to be thrown.
+     */
     throwBottle(bottle) {
         bottle.throw(this.otherDirection);
         this.numberOfBottles--;
         this.lastThrow = new Date().getTime();
     }
 
+    /**
+     * Checks if the character is jumping on a Chicken or BabyChicken.
+     * @param {MovableObject} obj - True if the character is walking, otherwise false.
+     */
     isJumpingOn(obj) {
         return this.isColliding(obj) && this.isAboveGround();
     }
 
+    /**
+     * Kills an enemy (Chicken or BabyChicken) by hitting it with a thrown bottle.
+     * @param {ThrownObject} bottle - The thrown bottle.
+     * @param {MovableObject} enemy - The enemy to kill.
+     */
     killByThrow(bottle, enemy) {
         if (enemy.isDead()) return;
         enemy.hit();
@@ -203,6 +249,10 @@ class Character extends MovableObject {
         this.world.deleteDeadEnemy(enemy);
     }
 
+    /**
+     * Kills an enemy (Chicken or BabyChicken) by jumping on it.
+     * @param {MovableObject} enemy - The enemy to kill.
+     */
     killByJump(enemy) {
         if (enemy.isDead()) return;
         enemy.hit();
@@ -212,6 +262,10 @@ class Character extends MovableObject {
         this.jump();
     }
 
+    /**
+     * Calculates the time passed since the last throw of a bottle.
+     * @returns {number} The time passed in milliseconds.
+     */
     timePassedSinceLastThrow() {
         return new Date().getTime() - this.lastThrow; // difference in milliseconds
     }
@@ -219,6 +273,7 @@ class Character extends MovableObject {
     /*--------------------------------------------------
     Animations
     ---------------------------------------------------*/
+    /** Plays the appropriate character animation based on its state. */
     playCharacterAnimations() {
         if (this.isDead()) {
             if (!this.lastImageIsShown(this.IMAGES_DEATH)) this.playAnimation(this.IMAGES_DEATH);
@@ -232,14 +287,23 @@ class Character extends MovableObject {
         }
     }
 
+    /** Plays the dance animation. */
     playDanceAnimation() {
         this.playAnimation(this.IMAGES_DANCE);
     }
 
+    /**
+     * Checks if the character is walking.
+     * @returns {boolean} True if the character is walking, otherwise false.
+     */
     isWalking() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }
 
+    /**
+     * Checks if the character is sleeping (idle for a long time).
+     * @returns {boolean} True if the character is sleeping, otherwise false.
+     */
     isSleeping() {
         return this.world.timePassedSinceLastKeyPress() > 10000 && this.timePassedSinceLastHit() > 5000;
     }
@@ -247,6 +311,7 @@ class Character extends MovableObject {
     /*--------------------------------------------------
     SoundEffects
     ---------------------------------------------------*/
+    /** Plays sound effects based on the character's actions and state. */
     playSoundEffects() {
         setStoppableInterval(() => {
             if (this.isDead()) {
@@ -260,6 +325,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /** Plays the walking sound effect if the character is walking. */
     playSoundIfCharacterIsWalking() {
         if (this.isWalking()) {
             this.world.playSoundIfSwitchedOn(this.walking_sound);
@@ -269,12 +335,14 @@ class Character extends MovableObject {
         }
     }
 
+    /** Plays the jumping sound effect if the character is jumping. */
     playSoundIfCharacterIsJumping() {
         if (this.shallJump()) {
             this.world.playSoundIfSwitchedOn(this.jump_sound);
         }
     }
 
+    /** Plays the hurt sound effect if the character is hurt. */
     playSoundIfCharacterIsHurt() {
         if (this.isHurt()) {
             if (this.hurtSoundHasBeenPlayed) return;
@@ -287,6 +355,7 @@ class Character extends MovableObject {
         }
     }
 
+    /** Plays the death sound effect if the character is dead. */
     playSoundIfCharacterIsDead() {
         if (this.isDead()) {
             if (this.deathSoundHasBeenPlayed) return;
@@ -295,6 +364,7 @@ class Character extends MovableObject {
         }
     }
 
+    /** Plays the sleeping sound effect if the character is sleeping. */
     playSoundIfCharacterIsSleeping() {
         if (this.isSleeping()) {
             this.world.playSoundIfSwitchedOn(this.sleeping_sound);

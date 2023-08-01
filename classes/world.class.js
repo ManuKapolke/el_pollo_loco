@@ -1,3 +1,4 @@
+/** Class representing the game world that contains the main character, enemies, collectable objects and more. */
 class World {
     character = new Character();
     statusBarHealth = new StatusBarHealth();
@@ -18,6 +19,11 @@ class World {
     gameOverSoundHasBeenPlayed = false;
     startImagesAreLoaded = false;
 
+    /**
+     * Creates a World instance and initializes the game.
+     * @param {HTMLCanvasElement} canvas - The canvas element for rendering.
+     * @param {Keyboard} keyboard - The keyboard input handler.
+     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // defines functions/settings for insertion of images
         this.ctx.font = '20px "boogaloo", Arial, Helvetica, sans-serif';
@@ -34,6 +40,7 @@ class World {
     /*--------------------------------------------------
     Prepare and Run Game
     ---------------------------------------------------*/
+    /** Checks if the start images are loaded and sets the flag accordingly. */
     checkIfStartImagesAreLoaded() {
         if (this.startImagesAreLoaded) return;
 
@@ -49,6 +56,7 @@ class World {
         }
     }
 
+    /** Sets the world references for character and enemies. */
     setWorld() {
         this.character.world = this;
         this.level.enemies.forEach((enemy) => {
@@ -56,6 +64,7 @@ class World {
         });
     }
 
+    /** Plays the background music and handles endboss appearance music. */
     playBackgroundMusic() {
         setStoppableInterval(() => {
             this.playMusicIfSwitchedOn(this.background_music);
@@ -67,6 +76,7 @@ class World {
         }, 100);
     }
 
+    /** Runs the main game loop for various game events and checks. */
     runGame() {
         setStoppableInterval(() => {
             this.checkCollisions();
@@ -80,13 +90,21 @@ class World {
         }, 300);
     }
 
+    /**
+     * Calculates the time passed since the last key press.
+     * @returns {number} The time passed in milliseconds.
+     */
     timePassedSinceLastKeyPress() {
-        return aKeyIsPressed() ? 0 : (new Date().getTime() - this.keyboard.lastKeyPress); // difference in milliseconds
+        return aKeyIsPressed() ? 0 : (new Date().getTime() - this.keyboard.lastKeyPress);
     }
 
     /*--------------------------------------------------
     Collisions
     ---------------------------------------------------*/
+    /** 
+     * Checks for collisions between the character and enemies, as well as collectable objects. 
+     * Updates the statusbars accordingly.
+     */
     checkCollisions() {
         this.checkCollisionWithEnemies();
         this.checkCollisionWithCollectableObjects(this.level.bottles);
@@ -94,6 +112,7 @@ class World {
         this.updateStatusBars();
     }
 
+    /** Checks for collisions between the character and enemies. */
     checkCollisionWithEnemies() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
@@ -103,6 +122,10 @@ class World {
         });
     }
 
+    /**
+     * Checks for collisions between the character and collectable objects.
+     * @param {Array<CollectableObject>} collectableObjects - An array of collectable objects to check collisions with.
+     */
     checkCollisionWithCollectableObjects(collectableObjects) {
         collectableObjects.forEach(obj => {
             if (this.character.isColliding(obj)) {
@@ -111,6 +134,7 @@ class World {
         });
     }
 
+    /** Updates the status bars based on the character's state and collected items. */
     updateStatusBars() {
         const coinsPercentage = (100 / this.level.numberOfCoins) * this.character.numberOfCoins;
         const bottlesPercentage = (100 / this.level.numberOfBottles) * this.character.numberOfBottles;
@@ -124,6 +148,7 @@ class World {
     /*--------------------------------------------------
     Throws
     ---------------------------------------------------*/
+    /** Checks for the throw action and creates a thrown object if possible. */
     checkThrows() {
         if (!this.keyboard.D) return;
         if (this.character.timePassedSinceLastThrow() < 500) return;
@@ -136,6 +161,7 @@ class World {
         this.createAndThrowObject();
     }
 
+    /** Creates and throws a bottle from the character's position. */
     createAndThrowObject() {
         const bottle_x = this.character.x + 0.6 * this.character.width;
         const bottle_y = this.character.y + 0.4 * this.character.height;
@@ -148,6 +174,7 @@ class World {
     /*--------------------------------------------------
     Kills
     ---------------------------------------------------*/
+    /** Checks for chicken (enemy) kills using jumping or thrown bottles. */
     checkChickenKills() {
         this.level.enemies.forEach(chicken => {
             if (chicken instanceof Endboss) return;
@@ -156,12 +183,20 @@ class World {
         });
     }
 
+    /**
+     * Checks if the character killed a chicken by jumping on it.
+     * @param {MovableObject} chicken - The chicken enemy to check.
+     */
     checkKillByJump(chicken) {
         if (this.character.isJumpingOn(chicken)) {
             this.character.killByJump(chicken);
         }
     }
 
+    /**
+     * Checks if the character killed a chicken by throwing a bottle at it.
+     * @param {MovableObject} chicken - The chicken enemy to check.
+     */
     checkKillByThrow(chicken) {
         this.thrownObjects.forEach(bottle => {
             if (bottle.isColliding(chicken)) {
@@ -170,6 +205,10 @@ class World {
         });
     }
 
+    /**
+     * Deletes a thrown bottle from the world after a delay.
+     * @param {ThrownObject} bottle - The thrown bottle to delete.
+     */
     deleteThrownBottle(bottle) {
         setTimeout(() => {
             let bottleIndex = this.thrownObjects.indexOf(bottle);
@@ -177,12 +216,17 @@ class World {
         }, 300);
     }
 
+    /** Deletes dead enemies from the world. */
     deleteDeadEnemies() {
         this.level.enemies.forEach(enemy => {
             if (enemy.isDead()) deleteDeadEnemy(enemy);
         });
     }
 
+    /**
+     * Deletes a dead enemy from the world after a delay.
+     * @param {MovableObject} enemy - The dead enemy to delete.
+     */
     deleteDeadEnemy(enemy) {
         setTimeout(() => {
             let enemyIndex = this.level.enemies.indexOf(enemy);
@@ -190,6 +234,7 @@ class World {
         }, 500);
     }
 
+    /** Deletes all enemies from the world (applied if game is won). */
     deleteAllEnemies() {
         this.level.enemies = [];
     }
@@ -197,6 +242,7 @@ class World {
     /*--------------------------------------------------
     Final Zone
     ---------------------------------------------------*/
+    /** Checks if the character has entered the final zone. */
     checkEnteringFinalZone() {
         if (this.character.hasBeenInFinalZone) return;
         if (this.character.isInFinalZone()) this.character.hasBeenInFinalZone = true;
@@ -205,6 +251,7 @@ class World {
     /*--------------------------------------------------
     Endboss
     ---------------------------------------------------*/
+    /** Checks for hits on the endboss by the thrown bottles. */
     checkEndbossHits() {
         this.thrownObjects.forEach(bottle => {
             if (bottle.isColliding(this.level.endboss)) {
@@ -219,6 +266,7 @@ class World {
     /*--------------------------------------------------
     Game Over
     ---------------------------------------------------*/
+    /** Checks if the game is over (character is dead or endboss is dead). */
     checkGameOver() {
         if (this.character.isDead()) {
             setTimeout(() => this.onLostGame(), 800);
@@ -235,6 +283,7 @@ class World {
         }
     }
 
+    /** Handles the game over state when the character loses. */
     onLostGame() {
         this.stopBackgroundSounds();
         this.playGameOverSound();
@@ -242,6 +291,7 @@ class World {
         setTimeout(() => this.endGameOnLoss(), 2000);
     }
 
+    /** Handles the game over state when the character wins. */
     onWonGame() {
         this.stopBackgroundSounds();
         clearStoppableIntervals();
@@ -249,12 +299,14 @@ class World {
         setTimeout(() => this.character.dance(), 2800);
     }
 
+    /** Stops the background sounds when the game ends. */
     stopBackgroundSounds() {
         this.background_music.pause();
         this.endbossAppears_music.pause();
         this.character.walking_sound.pause();
     }
 
+    /** Plays the game over sound if it hasn't been played yet. */
     playGameOverSound() {
         if (!this.gameOverSoundHasBeenPlayed) {
             this.playSoundIfSwitchedOn(this.gameOver_sound);
@@ -262,6 +314,7 @@ class World {
         }
     }
 
+    /** Ends the game when the character loses. */
     endGameOnLoss() {
         if (gameIsRunning) {
             gameIsRunning = false;
@@ -271,6 +324,7 @@ class World {
         this.playMusicIfSwitchedOn(this.gameLost_music);
     }
 
+    /** Ends the game when the character wins. */
     endGameOnWin() {
         if (gameIsRunning) {
             gameIsRunning = false;
@@ -281,6 +335,10 @@ class World {
         this.playMusicIfSwitchedOn(this.gameWon_music);
     }
 
+    /**
+     * Sets up the end screen based on game result.
+     * @param {string} screenId - The ID of the end screen to set up.
+     */
     setupEndScreen(screenId) {
         removeElement('touch-keys');
         showEndScreen(screenId);
@@ -292,12 +350,14 @@ class World {
     /*--------------------------------------------------
     Draw
     ---------------------------------------------------*/
+    /** Adjusts the camera position to follow the character. */
     adjustCameraPosition() {
         const desiredLeftEdge = this.character.x - 100;
         if (desiredLeftEdge < MOST_RIGHT_BG * CANVAS_WIDTH && desiredLeftEdge > WORLD_START)
             this.camera_x = -desiredLeftEdge;
     }
 
+    /** Draws all elements in the game world on the canvas. */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0); // objects depend on camera
@@ -313,25 +373,30 @@ class World {
         this.callDrawFunctionRepeatedly();
     }
 
+    /** Draws the background elements (background objects and clouds). */
     drawBackground() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
     }
 
+    /** Draws the collectable objects (bottles and coins). */
     drawCollectableObjects() {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
     }
 
+    /** Draws the thrown objects (bottles). */
     drawThrownObjects() {
         this.addObjectsToMap(this.thrownObjects);
     }
 
+    /** Draws the status bars for character and endboss. */
     drawStatusBars() {
         this.drawStatusBarsOfCharacter();
         this.drawStatusBarOfEndboss();
     }
 
+    /** Draws the status bars of the character (health, coins, bottles). */
     drawStatusBarsOfCharacter() {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
@@ -341,6 +406,7 @@ class World {
         this.ctx.fillText(this.character.numberOfBottles, ...this.getStatusBarCoordinates(this.statusBarBottles));
     }
 
+    /** Draws the status bar of the endboss (health). */
     drawStatusBarOfEndboss() {
         if (this.character.hasBeenInFinalZone) {
             this.addToMap(this.statusBarEndboss);
@@ -350,23 +416,34 @@ class World {
         }
     }
 
+    /** Draws the character on the canvas. */
     drawCharacter() {
         this.addToMap(this.character);
     }
 
+    /** Draws the enemies (chickens) on the canvas. */
     drawEnemies() {
         this.addObjectsToMap(this.level.enemies);
     }
 
+    /** Calls the draw function repeatedly for smooth animation. */
     callDrawFunctionRepeatedly() {
         let self = this;
         requestAnimationFrame(() => self.draw());
     }
 
+    /**
+     * Adds multiple objects to the map (canvas) for drawing.
+     * @param {Array<DrawableObject>} objects - An array of objects to be added to the map.
+     */
     addObjectsToMap(objects) {
         objects.forEach(obj => this.addToMap(obj));
     }
 
+    /**
+     * Adds a single object to the map (canvas) for drawing.
+     * @param {DrawableObject} object - The object to be added to the map.
+     */
     addToMap(object) {
         this.flipImageIfNecessary(object);
 
@@ -381,16 +458,28 @@ class World {
         this.flipImageBackIfNecessary(object);
     }
 
+    /**
+     * Flips an image horizontally if required for mirroring effect.
+     * @param {MovableObject} object - The object whose image needs flipping.
+     */
     flipImageIfNecessary(object) {
         if (object instanceof MovableObject && object.otherDirection)
             this.flipImage(object);
     }
 
+    /**
+     * Flips back the image horizontally if it was previously flipped.
+     * @param {MovableObject} object - The object whose image needs flipping back.
+     */
     flipImageBackIfNecessary(object) {
         if (object instanceof MovableObject && object.otherDirection)
             this.flipImageBack(object);
     }
 
+    /**
+     * Flips the image horizontally to create a mirrored effect.
+     * @param {MovableObject} object - The object whose image needs flipping.
+     */
     flipImage(object) {
         this.ctx.save(); // saves current ctx settings for later recovery
         this.ctx.translate(object.width, 0); // future inserted images will be shifted to the right by object.width (x-axis)
@@ -398,11 +487,20 @@ class World {
         object.x *= -1;
     }
 
+    /**
+     * Flips back the image to revert the mirrored effect.
+     * @param {MovableObject} object - The object whose image needs flipping back.
+     */
     flipImageBack(object) {
         object.x *= -1;
         this.ctx.restore(); // recovers saved ctx settings
     }
 
+    /**
+     * Retrieves the coordinates for drawing a text on a status bar.
+     * @param {StatusBar} statusBar - The status bar to position the text.
+     * @returns {Array<number>} The x and y coordinates for drawing the text.
+     */
     getStatusBarCoordinates(statusBar) {
         let x = statusBar.x + statusBar.width + 18;
         let y = statusBar.y + 0.8 * statusBar.height;
@@ -414,6 +512,10 @@ class World {
         return [x, y];
     }
 
+    /**
+     * Gets the current background number based on the character's position.
+     * @returns {number} The current background number.
+     */
     getCurrentBackground() {
         let currentBackground;
         this.level.backgroundObjects.forEach((bg) => {
@@ -428,6 +530,10 @@ class World {
     /*--------------------------------------------------
     Soundsettings
     ---------------------------------------------------*/
+    /**
+     * Plays the sound if sound is enabled, or pauses it otherwise.
+     * @param {HTMLAudioElement} soundObject - The audio element to play or pause.
+     */
     playSoundIfSwitchedOn(soundObject) {
         if (soundIsOn) {
             try {
@@ -441,6 +547,10 @@ class World {
         }
     }
 
+    /**
+     * Plays the music if music is enabled, or pauses it otherwise.
+     * @param {HTMLAudioElement} musicObject - The audio element to play or pause.
+     */
     playMusicIfSwitchedOn(musicObject) {
         if (musicIsOn) {
             try {

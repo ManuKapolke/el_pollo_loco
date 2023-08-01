@@ -1,3 +1,7 @@
+/** 
+ * Class representing a collectable coin.
+ * @extends CollectableObject
+ */
 class CollectableCoin extends CollectableObject {
     y = 350;
     width = 300 / 3;
@@ -15,11 +19,13 @@ class CollectableCoin extends CollectableObject {
     };
     collect_sound = audioElements['assets/audio/coin.mp3'];
 
+    /** Constructs an instance of CollectableCoin. */
     constructor() {
         super().loadImage(this.IMAGES[1]);
         this.place();
     }
 
+    /** Randomly places the object in the world (x and y axis), leaving out the start canvas. */
     place() {
         super.place();
         this.y = 100 + Math.random() * 250;

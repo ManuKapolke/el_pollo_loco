@@ -1,3 +1,4 @@
+/** Class representing a level of the game. */
 class Level {
     backgroundObjects;
     clouds;
@@ -11,6 +12,7 @@ class Level {
     numberOfBottles;
     numberOfCoins;
 
+    /** Avoids overlapping collectable objects by replacing them if necessary. */
     replaceOverlappingCollectableObjects() {
         let objects = this.getCollectableObjects();
 
@@ -21,6 +23,10 @@ class Level {
         });
     }
 
+    /** 
+     * Gets all collectable objects meaning bottles and coins. 
+     * @returns {Array<CollectableObject>} - array of all collectable objects.
+     * */
     getCollectableObjects() {
         return [...this.bottles, ...this.coins];
     }
