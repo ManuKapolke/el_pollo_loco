@@ -50,7 +50,7 @@ class Endboss extends MovableObject {
         bottom: 0.1 * this.height,
         left: 0.05 * this.width
     };
-    energyLossPerHit = 10;
+    energyLossPerHit = 100;
     animationCount = 0;
     walking_sound = audioElements['assets/audio/endboss_walk.mp3'];
     alert_sound = audioElements['assets/audio/endboss_alert.mp3'];

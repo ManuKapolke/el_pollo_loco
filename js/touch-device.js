@@ -10,6 +10,15 @@ function isTouchDevice() {
 
 
 /**
+ * Checks if the current device is a touch-enabled device in landscape mode.
+ * @returns {boolean} `true` if the device supports touch input and the screen width is greater than the height, `false` otherwise.
+ */
+function isTouchDeviceInLandscapeMode() {
+    return isTouchDevice() && window.innerHeight < window.innerWidth;
+}
+
+
+/**
  * Checks if the current device is a mobile device via experimental 'userAgentData'.
  * @returns {boolean} `true` if the device is a mobile device, `false` otherwise.
  */

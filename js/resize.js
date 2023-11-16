@@ -70,7 +70,8 @@ function resizeFullscreenIcon() {
  */
 function resizePlayButton() {
     const playBtn = document.getElementById('play-btn-img');
-    playBtn.style.width = `${0.4 * getCanvasWidth()}px`;
+    const width = 0.5 * Math.min(getCanvasWidth(), getCanvasHeight());
+    playBtn.style.width = `${width}px`;
 }
 
 
@@ -89,9 +90,10 @@ function resizeReplayButton() {
 function resizeEndScreen() {
     const endScreenWon = document.getElementById('end-screen-won');
     const endScreenCircle = document.getElementById('end-screen-circle');
-    endScreenWon.style.fontSize = `${0.29 * getCanvasHeight()}px`;
-    endScreenCircle.style.width = `${0.5 * getCanvasHeight()}px`;
-    endScreenCircle.style.height = `${0.5 * getCanvasHeight()}px`;
+    endScreenWon.style.fontSize = `${0.2 * getCanvasHeight()}px`;
+    endScreenCircle.style.width = `${0.6 * getCanvasHeight()}px`;
+    endScreenCircle.style.height = `${0.6 * getCanvasHeight()}px`;
+    endScreenCircle.style.marginBottom = `${0.05 * getCanvasHeight()}px`;
 }
 
 
@@ -182,9 +184,9 @@ function resizeTouchKeys() {
  * @returns {number} The calculated canvas width.
  */
 function getCanvasWidth() {
-    let width = fullscreenIsActive ? window.innerWidth :
+    let width = (fullscreenIsActive || isTouchDeviceInLandscapeMode()) ? window.innerWidth :
         Math.min(CANVAS_WIDTH, window.innerWidth, window.innerHeight * 3 / 2);
-    return width;
+    return Math.min(width, window.innerHeight * 3 / 2);
 }
 
 
@@ -193,7 +195,7 @@ function getCanvasWidth() {
  * @returns {number} The calculated canvas height.
  */
 function getCanvasHeight() {
-    let height = fullscreenIsActive ? window.innerHeight :
+    let height = (fullscreenIsActive || isTouchDeviceInLandscapeMode()) ? window.innerHeight :
         Math.min(CANVAS_HEIGHT, window.innerHeight, window.innerWidth * 2 / 3);
-    return height;
+    return Math.min(height, window.innerWidth * 2 / 3);
 }

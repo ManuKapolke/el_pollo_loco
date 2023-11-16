@@ -229,11 +229,11 @@ canvas {
 
 #end-screen-won {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   overflow: hidden;
-  font-size: 139.2px;
+  font-size: 96px;
 }
 #end-screen-won span {
   background: linear-gradient(to bottom, #ffc521, #ef8b10);
@@ -243,10 +243,11 @@ canvas {
   z-index: 1;
 }
 #end-screen-won #end-screen-circle {
-  width: 240px;
-  height: 240px;
+  width: 288px;
+  height: 288px;
   border-radius: 50%;
-  box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 0px max(100vw, 100vh) rgba(0, 0, 0, 0.9);
+  margin-bottom: 24px;
 }
 
 #replay-btn-screen {

@@ -9,10 +9,12 @@
 }
 
 #end-screen-won {
-    @include mixins.flex-centered;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
     overflow: hidden;
-    font-size: calc(0.29 * variables.$canvas-height);
+    font-size: calc(0.2 * variables.$canvas-height);
 
     span {
         @include mixins.textcolor-gradient();
@@ -21,10 +23,11 @@
     }
 
     #end-screen-circle {
-        width: calc(0.5 * variables.$canvas-height);
-        height: calc(0.5 * variables.$canvas-height);
+        width: calc(0.6 * variables.$canvas-height);
+        height: calc(0.6 * variables.$canvas-height);
         border-radius: 50%;
-        box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.9);
+        box-shadow: 0px 0px 0px max(100vw, 100vh) rgba(0, 0, 0, 0.9);
+        margin-bottom: calc(0.05 * variables.$canvas-height);
     }
 }
 
